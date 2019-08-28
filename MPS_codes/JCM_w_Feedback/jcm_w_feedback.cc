@@ -83,7 +83,7 @@ double bath_population(ITensor A, int Nbin)
     ITensor bdgb = ITensor(s,prime(s));
     for(int phot=1;phot<Nbin;phot++) 
     bdgb.set(s(phot+1),prime(s(phot+1)),1.*phot);
-    return eltC(dag(prime(A,s))*bdgb*A).real();
+    return eltC(dag( A )*noPrime(bdgb*A)).real();
 }
 // #####################################################
 
@@ -105,17 +105,22 @@ Complex bath_coherence(ITensor A, int Nbin)
 void SETUP_MPO(ITensor& U_evo,
                std::vector<Index>& bin,
                int Nfb, int tls,int cav, int Ncav,
-               Complex coup_Ecav,Complex coup_gcav,Complex coup_bath,Complex coup_fb)
+               Complex coup_Ecav,Complex coup_gcav,Complex coup_bath,Complex coup_fb,Complex coup_tls)
 {
 double sqrt_phot;
-auto H_sys  = ITensor(bin[cav],prime(bin[cav]));
+
+auto H_cav  = ITensor(bin[cav],prime(bin[cav]));
 for(int phot=1;phot<Ncav;phot++)
 {    
  sqrt_phot=sqrt(1.*phot);   
- H_sys.set(bin[cav](phot  ),prime(bin[cav](phot+1)),coup_Ecav*sqrt_phot);
- H_sys.set(bin[cav](phot+1),prime(bin[cav](phot  )),coup_Ecav*sqrt_phot);
+ H_cav.set(bin[cav](phot  ),prime(bin[cav](phot+1)),coup_Ecav*sqrt_phot);
+ H_cav.set(bin[cav](phot+1),prime(bin[cav](phot  )),coup_Ecav*sqrt_phot);
 }
-        
+
+auto H_tls  = ITensor(bin[tls],prime(bin[tls]));
+ H_tls.set(bin[tls](1),prime(bin[tls](2)),coup_tls);
+ H_tls.set(bin[tls](2),prime(bin[tls](1)),coup_tls);
+
 auto H_jcm  = ITensor(bin[tls],prime(bin[tls]),bin[cav],prime(bin[cav]));
 for(int phot=1;phot<Ncav;phot++)
 {    
@@ -125,8 +130,7 @@ for(int phot=1;phot<Ncav;phot++)
 } 
         
 auto H_dis = ITensor(bin[cav],prime(bin[cav]),bin[Nfb+1],prime(bin[Nfb+1]));
-// ATTENTION ... here I assume that the process of more photons in the bin as in the cavity is not 
-// possible this is for sure correct, if no feedback is assumed
+// ATTENTION .. bin[Nfb+1] is in vacuum (1), so 2 cavity photons can maximally create two bath photons
 for(int phot=1;phot<Ncav;phot++)
 {    
  for(int bphot=1;bphot<Ncav;bphot++)
@@ -146,25 +150,28 @@ for(int phot=1;phot<Ncav;phot++)
  {    
   sqrt_phot=sqrt(1.*phot*bphot);      
   H_fb.set(bin[cav](phot+1),prime(bin[cav](phot  )),bin[1](bphot  ),prime(bin[1](bphot+1)),-1.*coup_fb*sqrt_phot);
-  H_fb.set(bin[cav](phot  ),prime(bin[cav](phot+1)),bin[1](bphot+1),prime(bin[1](bphot  )), 1.*coup_fb*sqrt_phot);
+  H_fb.set(bin[cav](phot  ),prime(bin[cav](phot+1)),bin[1](bphot+1),prime(bin[1](bphot  )), 1.*conj(coup_fb)*sqrt_phot);
  }
 }
 
 // four indices fb-bin, bath-bin, tls bin, cavity-bin 
 // Hsys[cav], H_jcm[tls,cav], H_dis[cav,bathbin],H_fb[cav,feedback]
-    H_sys = delta(bin[tls],prime(bin[tls])) * H_sys * delta(bin[Nfb+1],prime(bin[Nfb+1])) ;
+    H_cav = delta(bin[tls],prime(bin[tls])) * H_cav * delta(bin[Nfb+1],prime(bin[Nfb+1])) ;
+    H_tls = delta(bin[cav],prime(bin[cav])) * H_tls  * delta(bin[Nfb+1],prime(bin[Nfb+1])) ;
     H_jcm = H_jcm * delta(bin[Nfb+1],prime(bin[Nfb+1])) ;
-    H_dis = H_dis * delta(bin[tls],prime(bin[tls]))       ;
-    H_fb  = H_fb  * delta(bin[tls],prime(bin[tls]))  ;      
+    H_dis = H_dis * delta(bin[tls],prime(bin[tls]))     ;
+    H_fb  = H_fb  * delta(bin[tls],prime(bin[tls]))     ;
 
 if (Nfb>0) {
-            H_sys = H_sys * delta(bin[1]    ,prime(bin[1])) ;
+            H_cav = H_cav * delta(bin[1]    ,prime(bin[1])) ;
+            H_tls = H_tls * delta(bin[1]    ,prime(bin[1])) ;
             H_jcm = H_jcm * delta(bin[1]    ,prime(bin[1])    ) ;
             H_dis = H_dis * delta(bin[1]    ,prime(bin[+1]))        ;
             H_fb  = H_fb  * delta(bin[Nfb+1],prime(bin[Nfb+1])) ;
            }      
 
-auto H_int    =   H_sys 
+auto H_int    =   H_cav
+                + H_tls
                 + H_jcm 
                 + H_dis 
                 + H_fb
@@ -221,7 +228,7 @@ void SWAP_BACKWARD(MPS& psi,const std::vector<Index>& bin, int from, int to, dou
     ITensor SWAP,U,S,V;
     Index iFB;
      for(int k=from;k>to;k--)
-     {      
+     {     
             SWAP = psi.A(k)*psi.A(k-1);
             iFB = findIndex(psi.A(k),"bath"); 
             if ( order(psi(k-1)) == 2 )  U=ITensor(iFB); // order(psi(k-1))==2, no commonIndex
@@ -256,7 +263,8 @@ int t_end = input.getInt("time_end");
 int Nfb   = input.getInt("feedback_at");
 Real fb_phase = input.getReal("fb_phase");
 //coherent pumping strengths
-Real E_cav = input.getReal("E_cav",0.); // if Omega_TLS is not given it return 0.
+Real E_cav = input.getReal("E_cav"); 
+Real E_tls = input.getReal("E_tls"); 
 //TLS decay rate
 Real Gamma = input.getReal("Gamma");
 Real gcav  = input.getReal("gcav");
@@ -324,10 +332,11 @@ SETUP_MPS(psi,bin,binlink,ttotal,Nfb,tls,cav,Ncav,init_EE,init_GG,init_pn);
 Complex coup_Ecav = -Cplx_i*dt*E_cav;
 Complex coup_gcav = -Cplx_i*dt*gcav;
 Complex coup_bath =  sqrt(dt)*Gamma;
-Complex coup_fb   =  sqrt(dt)*Gamma*exp(Cplx_i*fb_phase);
+Complex coup_fb   =  sqrt(dt)*Gamma*exp(Cplx_i*3.14159265359*fb_phase);
+Complex coup_tls  = -Cplx_i*dt*E_tls;
 
 ITensor U_evo; 
-SETUP_MPO(U_evo,bin,Nfb,tls,cav,Ncav,coup_Ecav,coup_gcav,coup_bath,coup_fb);    
+SETUP_MPO(U_evo,bin,Nfb,tls,cav,Ncav,coup_Ecav,coup_gcav,coup_bath,coup_fb,coup_tls);    
 //Print(U_evo);
 // ###################################################################################
 // ###################################################################################
@@ -449,7 +458,7 @@ fclose(f_dat);
 if (IFSPECTRUM == 1)
 {    
     
-snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_Bath_Dynamics_wo_Feedback_Steps%i_Ncav_%i_dt_%.4f.dat",year,month+1,day,hour,minute,second,t_end,Ncav,dt);
+snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_Bath_Dynamics_w_Feedback_at_%i_Steps%i_Ncav_%i_dt_%.4f.dat",year,month+1,day,hour,minute,second,Nfb,t_end,Ncav,dt);
 f_dat = fopen(FILE_NAME,"w");
 // now we have a steady state and can calculate the spectrum <b^\dg(t)b(t-\tau)>
 // setup the bath correlation array
@@ -535,7 +544,7 @@ fclose(f_dat);
 // #######################################################################################################
 // #######################################################################################################
 
-snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_Spectrum_g2_wo_Feedback_Steps%i_Ncav_%i_dt_%.4f.dat",year,month+1,day,hour,minute,second,t_end,Ncav,dt);
+snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_Spectrum_g2_w_Feedback_at_%i_Steps%i_Ncav_%i_dt_%.4f.dat",year,month+1,day,hour,minute,second,Nfb,t_end,Ncav,dt);
 f_dat = fopen(FILE_NAME,"w");
 
 auto spectrum = std::vector<Complex>(SpectrumSteps+1);
