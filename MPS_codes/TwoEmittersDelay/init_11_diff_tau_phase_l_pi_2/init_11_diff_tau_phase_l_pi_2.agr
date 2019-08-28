@@ -1,0 +1,4187 @@
+# Grace project file
+#
+@version 50125
+@page size 792, 612
+@page scroll 5%
+@page inout 5%
+@link page off
+@map font 8 to "Courier", "Courier"
+@map font 10 to "Courier-Bold", "Courier-Bold"
+@map font 11 to "Courier-BoldOblique", "Courier-BoldOblique"
+@map font 9 to "Courier-Oblique", "Courier-Oblique"
+@map font 4 to "Helvetica", "Helvetica"
+@map font 6 to "Helvetica-Bold", "Helvetica-Bold"
+@map font 7 to "Helvetica-BoldOblique", "Helvetica-BoldOblique"
+@map font 5 to "Helvetica-Oblique", "Helvetica-Oblique"
+@map font 14 to "NimbusMonoL-BoldOblique", "NimbusMonoL-BoldOblique"
+@map font 15 to "NimbusMonoL-Regular", "NimbusMonoL-Regular"
+@map font 16 to "NimbusMonoL-RegularOblique", "NimbusMonoL-RegularOblique"
+@map font 17 to "NimbusRomanNo9L-Medium", "NimbusRomanNo9L-Medium"
+@map font 18 to "NimbusRomanNo9L-MediumItalic", "NimbusRomanNo9L-MediumItalic"
+@map font 19 to "NimbusRomanNo9L-Regular", "NimbusRomanNo9L-Regular"
+@map font 20 to "NimbusRomanNo9L-RegularItalic", "NimbusRomanNo9L-RegularItalic"
+@map font 21 to "NimbusSansL-Bold", "NimbusSansL-Bold"
+@map font 22 to "NimbusSansL-BoldCondensed", "NimbusSansL-BoldCondensed"
+@map font 23 to "NimbusSansL-BoldCondensedItalic", "NimbusSansL-BoldCondensedItalic"
+@map font 24 to "NimbusSansL-BoldItalic", "NimbusSansL-BoldItalic"
+@map font 25 to "NimbusSansL-Regular", "NimbusSansL-Regular"
+@map font 26 to "NimbusSansL-RegularCondensed", "NimbusSansL-RegularCondensed"
+@map font 27 to "NimbusSansL-RegularCondensedItalic", "NimbusSansL-RegularCondensedItalic"
+@map font 28 to "NimbusSansL-RegularItalic", "NimbusSansL-RegularItalic"
+@map font 29 to "StandardSymbolsL-Regular", "StandardSymbolsL-Regular"
+@map font 12 to "Symbol", "Symbol"
+@map font 2 to "Times-Bold", "Times-Bold"
+@map font 3 to "Times-BoldItalic", "Times-BoldItalic"
+@map font 1 to "Times-Italic", "Times-Italic"
+@map font 0 to "Times-Roman", "Times-Roman"
+@map font 35 to "URWBookmanL-DemiBold", "URWBookmanL-DemiBold"
+@map font 36 to "URWBookmanL-DemiBoldItalic", "URWBookmanL-DemiBoldItalic"
+@map font 37 to "URWBookmanL-Light", "URWBookmanL-Light"
+@map font 38 to "URWBookmanL-LightItalic", "URWBookmanL-LightItalic"
+@map font 39 to "URWChanceryL-MediumItalic", "URWChanceryL-MediumItalic"
+@map font 40 to "URWGothicL-Book", "URWGothicL-Book"
+@map font 41 to "URWGothicL-BookOblique", "URWGothicL-BookOblique"
+@map font 42 to "URWGothicL-Demi", "URWGothicL-Demi"
+@map font 43 to "URWGothicL-DemiOblique", "URWGothicL-DemiOblique"
+@map font 44 to "URWPalladioL-Bold", "URWPalladioL-Bold"
+@map font 45 to "URWPalladioL-BoldItalic", "URWPalladioL-BoldItalic"
+@map font 46 to "URWPalladioL-Italic", "URWPalladioL-Italic"
+@map font 47 to "URWPalladioL-Roman", "URWPalladioL-Roman"
+@map font 13 to "ZapfDingbats", "ZapfDingbats"
+@map color 0 to (255, 255, 255), "white"
+@map color 1 to (0, 0, 0), "black"
+@map color 2 to (255, 0, 0), "red"
+@map color 3 to (0, 255, 0), "green"
+@map color 4 to (0, 0, 255), "blue"
+@map color 5 to (255, 255, 0), "yellow"
+@map color 6 to (188, 143, 143), "brown"
+@map color 7 to (220, 220, 220), "grey"
+@map color 8 to (148, 0, 211), "violet"
+@map color 9 to (0, 255, 255), "cyan"
+@map color 10 to (255, 0, 255), "magenta"
+@map color 11 to (255, 165, 0), "orange"
+@map color 12 to (114, 33, 188), "indigo"
+@map color 13 to (103, 7, 72), "maroon"
+@map color 14 to (64, 224, 208), "turquoise"
+@map color 15 to (0, 139, 0), "green4"
+@reference date 0
+@date wrap off
+@date wrap year 1950
+@default linewidth 1.0
+@default linestyle 1
+@default color 1
+@default pattern 1
+@default font 0
+@default char size 1.000000
+@default symbol size 1.000000
+@default sformat "%.8g"
+@background color 0
+@page background fill off
+@timestamp off
+@timestamp 0.03, 0.03
+@timestamp color 1
+@timestamp rot 0
+@timestamp font 0
+@timestamp char size 1.000000
+@timestamp def "Tue Aug 27 14:08:58 2019"
+@r0 off
+@link r0 to g0
+@r0 type above
+@r0 linestyle 1
+@r0 linewidth 1.0
+@r0 color 1
+@r0 line 0, 0, 0, 0
+@r1 off
+@link r1 to g0
+@r1 type above
+@r1 linestyle 1
+@r1 linewidth 1.0
+@r1 color 1
+@r1 line 0, 0, 0, 0
+@r2 off
+@link r2 to g0
+@r2 type above
+@r2 linestyle 1
+@r2 linewidth 1.0
+@r2 color 1
+@r2 line 0, 0, 0, 0
+@r3 off
+@link r3 to g0
+@r3 type above
+@r3 linestyle 1
+@r3 linewidth 1.0
+@r3 color 1
+@r3 line 0, 0, 0, 0
+@r4 off
+@link r4 to g0
+@r4 type above
+@r4 linestyle 1
+@r4 linewidth 1.0
+@r4 color 1
+@r4 line 0, 0, 0, 0
+@g0 on
+@g0 hidden false
+@g0 type XY
+@g0 stacked false
+@g0 bar hgap 0.000000
+@g0 fixedpoint off
+@g0 fixedpoint type 0
+@g0 fixedpoint xy 0.000000, 0.000000
+@g0 fixedpoint format general general
+@g0 fixedpoint prec 6, 6
+@with g0
+@    world 0, 0, 300, 0.2
+@    stack world 0, 0, 0, 0
+@    znorm 1
+@    view 0.150000, 0.150000, 1.150000, 0.850000
+@    title "Init |\f{Symbol}Y(0)>=|11>"
+@    title font 0
+@    title size 1.500000
+@    title color 1
+@    subtitle "gam_r=gam_l=0.5, phase_l=pi/2, phase_r=0"
+@    subtitle font 0
+@    subtitle size 1.000000
+@    subtitle color 1
+@    xaxes scale Normal
+@    yaxes scale Normal
+@    xaxes invert off
+@    yaxes invert off
+@    xaxis  on
+@    xaxis  type zero false
+@    xaxis  offset 0.000000 , 0.000000
+@    xaxis  bar on
+@    xaxis  bar color 1
+@    xaxis  bar linestyle 1
+@    xaxis  bar linewidth 1.0
+@    xaxis  label "time"
+@    xaxis  label layout para
+@    xaxis  label place auto
+@    xaxis  label char size 1.500000
+@    xaxis  label font 0
+@    xaxis  label color 1
+@    xaxis  label place normal
+@    xaxis  tick on
+@    xaxis  tick major 50
+@    xaxis  tick minor ticks 1
+@    xaxis  tick default 6
+@    xaxis  tick place rounded true
+@    xaxis  tick in
+@    xaxis  tick major size 1.000000
+@    xaxis  tick major color 1
+@    xaxis  tick major linewidth 1.0
+@    xaxis  tick major linestyle 1
+@    xaxis  tick major grid off
+@    xaxis  tick minor color 1
+@    xaxis  tick minor linewidth 1.0
+@    xaxis  tick minor linestyle 1
+@    xaxis  tick minor grid off
+@    xaxis  tick minor size 0.500000
+@    xaxis  ticklabel on
+@    xaxis  ticklabel format general
+@    xaxis  ticklabel prec 5
+@    xaxis  ticklabel formula ""
+@    xaxis  ticklabel append ""
+@    xaxis  ticklabel prepend ""
+@    xaxis  ticklabel angle 0
+@    xaxis  ticklabel skip 0
+@    xaxis  ticklabel stagger 0
+@    xaxis  ticklabel place normal
+@    xaxis  ticklabel offset auto
+@    xaxis  ticklabel offset 0.000000 , 0.010000
+@    xaxis  ticklabel start type auto
+@    xaxis  ticklabel start 0.000000
+@    xaxis  ticklabel stop type auto
+@    xaxis  ticklabel stop 0.000000
+@    xaxis  ticklabel char size 1.000000
+@    xaxis  ticklabel font 0
+@    xaxis  ticklabel color 1
+@    xaxis  tick place both
+@    xaxis  tick spec type none
+@    yaxis  on
+@    yaxis  type zero false
+@    yaxis  offset 0.000000 , 0.000000
+@    yaxis  bar on
+@    yaxis  bar color 1
+@    yaxis  bar linestyle 1
+@    yaxis  bar linewidth 1.0
+@    yaxis  label "Population (left/right)"
+@    yaxis  label layout para
+@    yaxis  label place auto
+@    yaxis  label char size 1.500000
+@    yaxis  label font 0
+@    yaxis  label color 1
+@    yaxis  label place normal
+@    yaxis  tick on
+@    yaxis  tick major 0.2
+@    yaxis  tick minor ticks 1
+@    yaxis  tick default 6
+@    yaxis  tick place rounded true
+@    yaxis  tick in
+@    yaxis  tick major size 1.000000
+@    yaxis  tick major color 1
+@    yaxis  tick major linewidth 1.0
+@    yaxis  tick major linestyle 1
+@    yaxis  tick major grid off
+@    yaxis  tick minor color 1
+@    yaxis  tick minor linewidth 1.0
+@    yaxis  tick minor linestyle 1
+@    yaxis  tick minor grid off
+@    yaxis  tick minor size 0.500000
+@    yaxis  ticklabel on
+@    yaxis  ticklabel format general
+@    yaxis  ticklabel prec 5
+@    yaxis  ticklabel formula ""
+@    yaxis  ticklabel append ""
+@    yaxis  ticklabel prepend ""
+@    yaxis  ticklabel angle 0
+@    yaxis  ticklabel skip 0
+@    yaxis  ticklabel stagger 0
+@    yaxis  ticklabel place normal
+@    yaxis  ticklabel offset auto
+@    yaxis  ticklabel offset 0.000000 , 0.010000
+@    yaxis  ticklabel start type auto
+@    yaxis  ticklabel start 0.000000
+@    yaxis  ticklabel stop type auto
+@    yaxis  ticklabel stop 0.000000
+@    yaxis  ticklabel char size 1.000000
+@    yaxis  ticklabel font 0
+@    yaxis  ticklabel color 1
+@    yaxis  tick place both
+@    yaxis  tick spec type none
+@    altxaxis  off
+@    altyaxis  off
+@    legend on
+@    legend loctype view
+@    legend 0.85, 0.8
+@    legend box color 1
+@    legend box pattern 1
+@    legend box linewidth 1.0
+@    legend box linestyle 1
+@    legend box fill color 0
+@    legend box fill pattern 1
+@    legend font 0
+@    legend char size 1.000000
+@    legend color 1
+@    legend length 4
+@    legend vgap 1
+@    legend hgap 1
+@    legend invert false
+@    frame type 0
+@    frame linestyle 1
+@    frame linewidth 1.0
+@    frame color 1
+@    frame pattern 1
+@    frame background color 0
+@    frame background pattern 0
+@    s0 hidden false
+@    s0 type xy
+@    s0 symbol 0
+@    s0 symbol size 1.000000
+@    s0 symbol color 1
+@    s0 symbol pattern 1
+@    s0 symbol fill color 1
+@    s0 symbol fill pattern 0
+@    s0 symbol linewidth 1.0
+@    s0 symbol linestyle 1
+@    s0 symbol char 65
+@    s0 symbol char font 0
+@    s0 symbol skip 0
+@    s0 line type 1
+@    s0 line linestyle 1
+@    s0 line linewidth 2.5
+@    s0 line color 1
+@    s0 line pattern 1
+@    s0 baseline type 0
+@    s0 baseline off
+@    s0 dropline off
+@    s0 fill type 0
+@    s0 fill rule 0
+@    s0 fill color 1
+@    s0 fill pattern 1
+@    s0 avalue off
+@    s0 avalue type 2
+@    s0 avalue char size 1.000000
+@    s0 avalue font 0
+@    s0 avalue color 1
+@    s0 avalue rot 0
+@    s0 avalue format general
+@    s0 avalue prec 3
+@    s0 avalue prepend ""
+@    s0 avalue append ""
+@    s0 avalue offset 0.000000 , 0.000000
+@    s0 errorbar on
+@    s0 errorbar place both
+@    s0 errorbar color 1
+@    s0 errorbar pattern 1
+@    s0 errorbar size 1.000000
+@    s0 errorbar linewidth 1.0
+@    s0 errorbar linestyle 1
+@    s0 errorbar riser linewidth 1.0
+@    s0 errorbar riser linestyle 1
+@    s0 errorbar riser clip off
+@    s0 errorbar riser clip length 0.100000
+@    s0 comment "/home/alex/MPS_codes/TwoEmittersDelay/2019_08_27_14_07_31_N=2_FB_at_Step=5_of600_phi_l_1.57_phi_r_0.00_dt_0.5000_CutOff_1.0000.dat"
+@    s0 legend  "Delay after 5 steps"
+@    s1 hidden false
+@    s1 type xy
+@    s1 symbol 0
+@    s1 symbol size 1.000000
+@    s1 symbol color 2
+@    s1 symbol pattern 1
+@    s1 symbol fill color 2
+@    s1 symbol fill pattern 0
+@    s1 symbol linewidth 1.0
+@    s1 symbol linestyle 1
+@    s1 symbol char 65
+@    s1 symbol char font 0
+@    s1 symbol skip 0
+@    s1 line type 1
+@    s1 line linestyle 1
+@    s1 line linewidth 2.5
+@    s1 line color 2
+@    s1 line pattern 1
+@    s1 baseline type 0
+@    s1 baseline off
+@    s1 dropline off
+@    s1 fill type 0
+@    s1 fill rule 0
+@    s1 fill color 1
+@    s1 fill pattern 1
+@    s1 avalue off
+@    s1 avalue type 2
+@    s1 avalue char size 1.000000
+@    s1 avalue font 0
+@    s1 avalue color 1
+@    s1 avalue rot 0
+@    s1 avalue format general
+@    s1 avalue prec 3
+@    s1 avalue prepend ""
+@    s1 avalue append ""
+@    s1 avalue offset 0.000000 , 0.000000
+@    s1 errorbar on
+@    s1 errorbar place both
+@    s1 errorbar color 2
+@    s1 errorbar pattern 1
+@    s1 errorbar size 1.000000
+@    s1 errorbar linewidth 1.0
+@    s1 errorbar linestyle 1
+@    s1 errorbar riser linewidth 1.0
+@    s1 errorbar riser linestyle 1
+@    s1 errorbar riser clip off
+@    s1 errorbar riser clip length 0.100000
+@    s1 comment "/home/alex/MPS_codes/TwoEmittersDelay/2019_08_27_14_07_07_N=2_FB_at_Step=10_of600_phi_l_1.57_phi_r_0.00_dt_0.5000_CutOff_1.0000.dat"
+@    s1 legend  "Delay after 10 steps"
+@    s2 hidden false
+@    s2 type xy
+@    s2 symbol 0
+@    s2 symbol size 1.000000
+@    s2 symbol color 3
+@    s2 symbol pattern 1
+@    s2 symbol fill color 3
+@    s2 symbol fill pattern 0
+@    s2 symbol linewidth 1.0
+@    s2 symbol linestyle 1
+@    s2 symbol char 65
+@    s2 symbol char font 0
+@    s2 symbol skip 0
+@    s2 line type 1
+@    s2 line linestyle 1
+@    s2 line linewidth 2.5
+@    s2 line color 3
+@    s2 line pattern 1
+@    s2 baseline type 0
+@    s2 baseline off
+@    s2 dropline off
+@    s2 fill type 0
+@    s2 fill rule 0
+@    s2 fill color 1
+@    s2 fill pattern 1
+@    s2 avalue off
+@    s2 avalue type 2
+@    s2 avalue char size 1.000000
+@    s2 avalue font 0
+@    s2 avalue color 1
+@    s2 avalue rot 0
+@    s2 avalue format general
+@    s2 avalue prec 3
+@    s2 avalue prepend ""
+@    s2 avalue append ""
+@    s2 avalue offset 0.000000 , 0.000000
+@    s2 errorbar on
+@    s2 errorbar place both
+@    s2 errorbar color 3
+@    s2 errorbar pattern 1
+@    s2 errorbar size 1.000000
+@    s2 errorbar linewidth 1.0
+@    s2 errorbar linestyle 1
+@    s2 errorbar riser linewidth 1.0
+@    s2 errorbar riser linestyle 1
+@    s2 errorbar riser clip off
+@    s2 errorbar riser clip length 0.100000
+@    s2 comment "/home/alex/MPS_codes/TwoEmittersDelay/2019_08_27_14_06_37_N=2_FB_at_Step=15_of600_phi_l_1.57_phi_r_0.00_dt_0.5000_CutOff_1.0000.dat"
+@    s2 legend  "Delay after 15 steps"
+@    s3 hidden false
+@    s3 type xy
+@    s3 symbol 0
+@    s3 symbol size 1.000000
+@    s3 symbol color 4
+@    s3 symbol pattern 1
+@    s3 symbol fill color 4
+@    s3 symbol fill pattern 0
+@    s3 symbol linewidth 1.0
+@    s3 symbol linestyle 1
+@    s3 symbol char 65
+@    s3 symbol char font 0
+@    s3 symbol skip 0
+@    s3 line type 1
+@    s3 line linestyle 1
+@    s3 line linewidth 2.5
+@    s3 line color 4
+@    s3 line pattern 1
+@    s3 baseline type 0
+@    s3 baseline off
+@    s3 dropline off
+@    s3 fill type 0
+@    s3 fill rule 0
+@    s3 fill color 1
+@    s3 fill pattern 1
+@    s3 avalue off
+@    s3 avalue type 2
+@    s3 avalue char size 1.000000
+@    s3 avalue font 0
+@    s3 avalue color 1
+@    s3 avalue rot 0
+@    s3 avalue format general
+@    s3 avalue prec 3
+@    s3 avalue prepend ""
+@    s3 avalue append ""
+@    s3 avalue offset 0.000000 , 0.000000
+@    s3 errorbar on
+@    s3 errorbar place both
+@    s3 errorbar color 4
+@    s3 errorbar pattern 1
+@    s3 errorbar size 1.000000
+@    s3 errorbar linewidth 1.0
+@    s3 errorbar linestyle 1
+@    s3 errorbar riser linewidth 1.0
+@    s3 errorbar riser linestyle 1
+@    s3 errorbar riser clip off
+@    s3 errorbar riser clip length 0.100000
+@    s3 comment "/home/alex/MPS_codes/TwoEmittersDelay/2019_08_27_14_05_56_N=2_FB_at_Step=20_of600_phi_l_1.57_phi_r_0.00_dt_0.5000_CutOff_1.0000.dat"
+@    s3 legend  "Delay after 20 steps"
+@    s4 hidden false
+@    s4 type xy
+@    s4 symbol 0
+@    s4 symbol size 1.000000
+@    s4 symbol color 11
+@    s4 symbol pattern 1
+@    s4 symbol fill color 11
+@    s4 symbol fill pattern 0
+@    s4 symbol linewidth 1.0
+@    s4 symbol linestyle 1
+@    s4 symbol char 65
+@    s4 symbol char font 0
+@    s4 symbol skip 0
+@    s4 line type 1
+@    s4 line linestyle 1
+@    s4 line linewidth 2.5
+@    s4 line color 11
+@    s4 line pattern 1
+@    s4 baseline type 0
+@    s4 baseline off
+@    s4 dropline off
+@    s4 fill type 0
+@    s4 fill rule 0
+@    s4 fill color 1
+@    s4 fill pattern 1
+@    s4 avalue off
+@    s4 avalue type 2
+@    s4 avalue char size 1.000000
+@    s4 avalue font 0
+@    s4 avalue color 1
+@    s4 avalue rot 0
+@    s4 avalue format general
+@    s4 avalue prec 3
+@    s4 avalue prepend ""
+@    s4 avalue append ""
+@    s4 avalue offset 0.000000 , 0.000000
+@    s4 errorbar on
+@    s4 errorbar place both
+@    s4 errorbar color 11
+@    s4 errorbar pattern 1
+@    s4 errorbar size 1.000000
+@    s4 errorbar linewidth 1.0
+@    s4 errorbar linestyle 1
+@    s4 errorbar riser linewidth 1.0
+@    s4 errorbar riser linestyle 1
+@    s4 errorbar riser clip off
+@    s4 errorbar riser clip length 0.100000
+@    s4 comment "/home/alex/MPS_codes/TwoEmittersDelay/2019_08_27_14_03_23_N=2_FB_at_Step=25_of600_phi_l_1.57_phi_r_0.00_dt_0.5000_CutOff_1.0000.dat"
+@    s4 legend  "Delay after 25 steps"
+@    s5 hidden false
+@    s5 type xy
+@    s5 symbol 0
+@    s5 symbol size 1.000000
+@    s5 symbol color 6
+@    s5 symbol pattern 1
+@    s5 symbol fill color 6
+@    s5 symbol fill pattern 0
+@    s5 symbol linewidth 1.0
+@    s5 symbol linestyle 1
+@    s5 symbol char 65
+@    s5 symbol char font 0
+@    s5 symbol skip 0
+@    s5 line type 1
+@    s5 line linestyle 1
+@    s5 line linewidth 2.5
+@    s5 line color 6
+@    s5 line pattern 1
+@    s5 baseline type 0
+@    s5 baseline off
+@    s5 dropline off
+@    s5 fill type 0
+@    s5 fill rule 0
+@    s5 fill color 1
+@    s5 fill pattern 1
+@    s5 avalue off
+@    s5 avalue type 2
+@    s5 avalue char size 1.000000
+@    s5 avalue font 0
+@    s5 avalue color 1
+@    s5 avalue rot 0
+@    s5 avalue format general
+@    s5 avalue prec 3
+@    s5 avalue prepend ""
+@    s5 avalue append ""
+@    s5 avalue offset 0.000000 , 0.000000
+@    s5 errorbar on
+@    s5 errorbar place both
+@    s5 errorbar color 6
+@    s5 errorbar pattern 1
+@    s5 errorbar size 1.000000
+@    s5 errorbar linewidth 1.0
+@    s5 errorbar linestyle 1
+@    s5 errorbar riser linewidth 1.0
+@    s5 errorbar riser linestyle 1
+@    s5 errorbar riser clip off
+@    s5 errorbar riser clip length 0.100000
+@    s5 comment "/home/alex/MPS_codes/TwoEmittersDelay/2019_08_27_14_02_07_N=2_FB_at_Step=30_of600_phi_l_1.57_phi_r_0.00_dt_0.5000_CutOff_1.0000.dat"
+@    s5 legend  "Delay after 30 steps"
+@target G0.S0
+@type xy
+0 1
+0.5 0.77015116
+1 0.59313281
+1.5 0.45680192
+2 0.35180653
+2.5 0.2709442
+3 0.22187562
+3.5 0.1910441
+4 0.17219322
+4.5 0.16034069
+5 0.1519729
+5.5 0.14490455
+6 0.13785385
+6.5 0.13026817
+7 0.1224008
+7.5 0.11470953
+8 0.10760226
+8.5 0.1014024
+9 0.096198383
+9.5 0.091877547
+10 0.088243013
+10.5 0.085086123
+11 0.082243427
+11.5 0.07961267
+12 0.077150226
+12.5 0.074842849
+13 0.072687231
+13.5 0.070686845
+14 0.068837057
+14.5 0.067123036
+15 0.065521691
+15.5 0.064016927
+16 0.062593327
+16.5 0.061236941
+17 0.059938157
+17.5 0.058690707
+18 0.057493284
+18.5 0.056340695
+19 0.055228
+19.5 0.054151413
+20 0.053108701
+20.5 0.052096904
+21 0.051113915
+21.5 0.050157278
+22 0.049225602
+22.5 0.048316025
+23 0.047427677
+23.5 0.04655877
+24 0.045708493
+24.5 0.044876021
+25 0.044060609
+25.5 0.043261632
+26 0.042478566
+26.5 0.041710905
+27 0.040958168
+27.5 0.040219916
+28 0.039495746
+28.5 0.038785284
+29 0.038088179
+29.5 0.037404102
+30 0.036732743
+30.5 0.036073803
+31 0.035427001
+31.5 0.034792067
+32 0.034168739
+32.5 0.033555907
+33 0.032954472
+33.5 0.032364643
+34 0.031785482
+34.5 0.031216764
+35 0.030658278
+35.5 0.030109831
+36 0.029571227
+36.5 0.029042283
+37 0.028522821
+37.5 0.028012669
+38 0.027511656
+38.5 0.027019619
+39 0.026536393
+39.5 0.026061373
+40 0.025595366
+40.5 0.025137693
+41 0.024688204
+41.5 0.024246752
+42 0.023813206
+42.5 0.023387415
+43 0.022969239
+43.5 0.022558544
+44 0.022155196
+44.5 0.021759061
+45 0.021370012
+45.5 0.020987919
+46 0.020612659
+46.5 0.020244108
+47 0.019882146
+47.5 0.019526654
+48 0.019177518
+48.5 0.018834623
+49 0.018497857
+49.5 0.018167111
+50 0.017842278
+50.5 0.017523252
+51 0.01720993
+51.5 0.01690221
+52 0.016599991
+52.5 0.016303177
+53 0.01601167
+53.5 0.015725375
+54 0.0154442
+54.5 0.015168053
+55 0.014896844
+55.5 0.014630485
+56 0.014368888
+56.5 0.01411197
+57 0.013859645
+57.5 0.013611832
+58 0.01336845
+58.5 0.01312942
+59 0.012894664
+59.5 0.012664105
+60 0.012437668
+60.5 0.01221528
+61 0.011996868
+61.5 0.011782361
+62 0.011571689
+62.5 0.011364785
+63 0.011161579
+63.5 0.010962007
+64 0.010766004
+64.5 0.010573505
+65 0.010384448
+65.5 0.010198771
+66 0.010016415
+66.5 0.0098373186
+67 0.0096614249
+67.5 0.0094886763
+68 0.0093190165
+68.5 0.0091523903
+69 0.0089887435
+69.5 0.0088280226
+70 0.0086701756
+70.5 0.0085151508
+71 0.008362898
+71.5 0.0082133674
+72 0.0080665105
+72.5 0.0079222794
+73 0.0077806272
+73.5 0.0076415077
+74 0.0075048757
+74.5 0.0073706867
+75 0.0072388971
+75.5 0.0071094638
+76 0.0069823449
+76.5 0.0068574989
+77 0.0067348851
+77.5 0.0066144637
+78 0.0064961955
+78.5 0.006380042
+79 0.0062659653
+79.5 0.0061539283
+80 0.0060438946
+80.5 0.0059358284
+81 0.0058296943
+81.5 0.005725458
+82 0.0056230855
+82.5 0.0055225433
+83 0.005423799
+83.5 0.0053268201
+84 0.0052315753
+84.5 0.0051380335
+85 0.0050461642
+85.5 0.0049559376
+86 0.0048673243
+86.5 0.0047802953
+87 0.0046948225
+87.5 0.004610878
+88 0.0045284344
+88.5 0.0044474649
+89 0.0043679431
+89.5 0.0042898433
+90 0.0042131398
+90.5 0.0041378079
+91 0.0040638229
+91.5 0.0039911608
+92 0.0039197979
+92.5 0.0038497109
+93 0.0037808772
+93.5 0.0037132742
+94 0.00364688
+94.5 0.0035816729
+95 0.0035176317
+95.5 0.0034547356
+96 0.0033929641
+96.5 0.0033322971
+97 0.0032727148
+97.5 0.0032141979
+98 0.0031567273
+98.5 0.0031002842
+99 0.0030448504
+99.5 0.0029904078
+100 0.0029369386
+100.5 0.0028844254
+101 0.0028328512
+101.5 0.0027821991
+102 0.0027324527
+102.5 0.0026835958
+103 0.0026356125
+103.5 0.0025884871
+104 0.0025422043
+104.5 0.0024967491
+105 0.0024521066
+105.5 0.0024082624
+106 0.0023652021
+106.5 0.0023229117
+107 0.0022813775
+107.5 0.0022405859
+108 0.0022005237
+108.5 0.0021611778
+109 0.0021225354
+109.5 0.002084584
+110 0.0020473111
+110.5 0.0020107047
+111 0.0019747528
+111.5 0.0019394438
+112 0.0019047661
+112.5 0.0018707084
+113 0.0018372597
+113.5 0.001804409
+114 0.0017721458
+114.5 0.0017404594
+115 0.0017093396
+115.5 0.0016787762
+116 0.0016487592
+116.5 0.001619279
+117 0.0015903259
+117.5 0.0015618905
+118 0.0015339635
+118.5 0.0015065359
+119 0.0014795987
+119.5 0.0014531431
+120 0.0014271606
+120.5 0.0014016426
+121 0.0013765809
+121.5 0.0013519673
+122 0.0013277938
+122.5 0.0013040525
+123 0.0012807357
+123.5 0.0012578359
+124 0.0012353455
+124.5 0.0012132572
+125 0.0011915639
+125.5 0.0011702584
+126 0.0011493339
+126.5 0.0011287836
+127 0.0011086006
+127.5 0.0010887786
+128 0.001069311
+128.5 0.0010501914
+129 0.0010314138
+129.5 0.0010129718
+130 0.0009948597
+130.5 0.0009770713
+131 0.0009596011
+131.5 0.0009424432
+132 0.0009255921
+132.5 0.0009090423
+133 0.0008927884
+133.5 0.0008768251
+134 0.0008611472
+134.5 0.0008457497
+135 0.0008306275
+135.5 0.0008157757
+136 0.0008011894
+136.5 0.000786864
+137 0.0007727947
+137.5 0.0007589769
+138 0.0007454062
+138.5 0.0007320782
+139 0.0007189884
+139.5 0.0007061328
+140 0.0006935069
+140.5 0.0006811069
+141 0.0006689285
+141.5 0.0006569679
+142 0.0006452212
+142.5 0.0006336845
+143 0.000622354
+143.5 0.0006112262
+144 0.0006002973
+144.5 0.0005895639
+145 0.0005790223
+145.5 0.0005686693
+146 0.0005585013
+146.5 0.0005485152
+147 0.0005387076
+147.5 0.0005290754
+148 0.0005196154
+148.5 0.0005103245
+149 0.0005011998
+149.5 0.0004922382
+150 0.0004834369
+150.5 0.0004747929
+151 0.0004663035
+151.5 0.0004579659
+152 0.0004497774
+152.5 0.0004417352
+153 0.0004338369
+153.5 0.0004260798
+154 0.0004184614
+154.5 0.0004109792
+155 0.0004036308
+155.5 0.0003964138
+156 0.0003893258
+156.5 0.0003823646
+157 0.0003755278
+157.5 0.0003688133
+158 0.0003622188
+158.5 0.0003557422
+159 0.0003493815
+159.5 0.0003431345
+160 0.0003369991
+160.5 0.0003309735
+161 0.0003250556
+161.5 0.0003192435
+162 0.0003135354
+162.5 0.0003079293
+163 0.0003024235
+163.5 0.0002970161
+164 0.0002917053
+164.5 0.0002864896
+165 0.0002813671
+165.5 0.0002763362
+166 0.0002713952
+166.5 0.0002665426
+167 0.0002617768
+167.5 0.0002570961
+168 0.0002524992
+168.5 0.0002479844
+169 0.0002435504
+169.5 0.0002391957
+170 0.0002349188
+170.5 0.0002307184
+171 0.0002265931
+171.5 0.0002225416
+172 0.0002185625
+172.5 0.0002146545
+173 0.0002108164
+173.5 0.000207047
+174 0.0002033449
+174.5 0.0001997091
+175 0.0001961382
+175.5 0.0001926312
+176 0.0001891869
+176.5 0.0001858042
+177 0.000182482
+177.5 0.0001792192
+178 0.0001760147
+178.5 0.0001728675
+179 0.0001697766
+179.5 0.000166741
+180 0.0001637596
+180.5 0.0001608315
+181 0.0001579558
+181.5 0.0001551315
+182 0.0001523578
+182.5 0.0001496336
+183 0.0001469581
+183.5 0.0001443304
+184 0.0001417498
+184.5 0.0001392152
+185 0.000136726
+185.5 0.0001342814
+186 0.0001318804
+186.5 0.0001295223
+187 0.0001272064
+187.5 0.0001249319
+188 0.0001226981
+188.5 0.0001205043
+189 0.0001183496
+189.5 0.0001162335
+190 0.0001141552
+190.5 0.0001121141
+191 0.0001101095
+191.5 0.0001081407
+192 0.0001062071
+192.5 0.0001043081
+193 0.000102443
+193.5 0.0001006113
+194 9.88124e-05
+194.5 9.70456e-05
+195 9.53104e-05
+195.5 9.36062e-05
+196 9.19325e-05
+196.5 9.02887e-05
+197 8.86744e-05
+197.5 8.70888e-05
+198 8.55317e-05
+198.5 8.40023e-05
+199 8.25004e-05
+199.5 8.10252e-05
+200 7.95765e-05
+200.5 7.81536e-05
+201 7.67562e-05
+201.5 7.53838e-05
+202 7.40359e-05
+202.5 7.27121e-05
+203 7.1412e-05
+203.5 7.01352e-05
+204 6.88811e-05
+204.5 6.76495e-05
+205 6.64399e-05
+205.5 6.5252e-05
+206 6.40853e-05
+206.5 6.29394e-05
+207 6.1814e-05
+207.5 6.07088e-05
+208 5.96233e-05
+208.5 5.85572e-05
+209 5.75102e-05
+209.5 5.64819e-05
+210 5.5472e-05
+210.5 5.44801e-05
+211 5.3506e-05
+211.5 5.25493e-05
+212 5.16097e-05
+212.5 5.06869e-05
+213 4.97806e-05
+213.5 4.88905e-05
+214 4.80164e-05
+214.5 4.71578e-05
+215 4.63146e-05
+215.5 4.54865e-05
+216 4.46732e-05
+216.5 4.38744e-05
+217 4.309e-05
+217.5 4.23195e-05
+218 4.15628e-05
+218.5 4.08197e-05
+219 4.00898e-05
+219.5 3.9373e-05
+220 3.8669e-05
+220.5 3.79776e-05
+221 3.72985e-05
+221.5 3.66316e-05
+222 3.59766e-05
+222.5 3.53334e-05
+223 3.47016e-05
+223.5 3.40811e-05
+224 3.34717e-05
+224.5 3.28733e-05
+225 3.22855e-05
+225.5 3.17082e-05
+226 3.11413e-05
+226.5 3.05844e-05
+227 3.00376e-05
+227.5 2.95005e-05
+228 2.8973e-05
+228.5 2.8455e-05
+229 2.79462e-05
+229.5 2.74465e-05
+230 2.69558e-05
+230.5 2.64738e-05
+231 2.60004e-05
+231.5 2.55355e-05
+232 2.5079e-05
+232.5 2.46305e-05
+233 2.41901e-05
+233.5 2.37576e-05
+234 2.33328e-05
+234.5 2.29156e-05
+235 2.25059e-05
+235.5 2.21035e-05
+236 2.17083e-05
+236.5 2.13201e-05
+237 2.09389e-05
+237.5 2.05645e-05
+238 2.01968e-05
+238.5 1.98357e-05
+239 1.9481e-05
+239.5 1.91327e-05
+240 1.87906e-05
+240.5 1.84546e-05
+241 1.81246e-05
+241.5 1.78006e-05
+242 1.74823e-05
+242.5 1.71697e-05
+243 1.68627e-05
+243.5 1.65612e-05
+244 1.62651e-05
+244.5 1.59743e-05
+245 1.56886e-05
+245.5 1.54081e-05
+246 1.51326e-05
+246.5 1.4862e-05
+247 1.45963e-05
+247.5 1.43353e-05
+248 1.4079e-05
+248.5 1.38273e-05
+249 1.358e-05
+249.5 1.33372e-05
+250 1.30987e-05
+250.5 1.28645e-05
+251 1.26345e-05
+251.5 1.24086e-05
+252 1.21867e-05
+252.5 1.19688e-05
+253 1.17548e-05
+253.5 1.15447e-05
+254 1.13382e-05
+254.5 1.11355e-05
+255 1.09364e-05
+255.5 1.07408e-05
+256 1.05488e-05
+256.5 1.03602e-05
+257 1.01749e-05
+257.5 9.993e-06
+258 9.8143e-06
+258.5 9.6389e-06
+259 9.4665e-06
+259.5 9.2972e-06
+260 9.131e-06
+260.5 8.9677e-06
+261 8.8074e-06
+261.5 8.6499e-06
+262 8.4953e-06
+262.5 8.3434e-06
+263 8.1942e-06
+263.5 8.0477e-06
+264 7.9038e-06
+264.5 7.7624e-06
+265 7.6237e-06
+265.5 7.4873e-06
+266 7.3535e-06
+266.5 7.222e-06
+267 7.0929e-06
+267.5 6.966e-06
+268 6.8415e-06
+268.5 6.7191e-06
+269 6.599e-06
+269.5 6.481e-06
+270 6.3651e-06
+270.5 6.2513e-06
+271 6.1395e-06
+271.5 6.0298e-06
+272 5.922e-06
+272.5 5.8161e-06
+273 5.7121e-06
+273.5 5.6099e-06
+274 5.5096e-06
+274.5 5.4111e-06
+275 5.3144e-06
+275.5 5.2194e-06
+276 5.126e-06
+276.5 5.0344e-06
+277 4.9444e-06
+277.5 4.856e-06
+278 4.7691e-06
+278.5 4.6839e-06
+279 4.6001e-06
+279.5 4.5179e-06
+280 4.4371e-06
+280.5 4.3577e-06
+281 4.2798e-06
+281.5 4.2033e-06
+282 4.1281e-06
+282.5 4.0543e-06
+283 3.9818e-06
+283.5 3.9106e-06
+284 3.8407e-06
+284.5 3.772e-06
+285 3.7046e-06
+285.5 3.6384e-06
+286 3.5733e-06
+286.5 3.5094e-06
+287 3.4467e-06
+287.5 3.385e-06
+288 3.3245e-06
+288.5 3.2651e-06
+289 3.2067e-06
+289.5 3.1494e-06
+290 3.093e-06
+290.5 3.0377e-06
+291 2.9834e-06
+291.5 2.9301e-06
+292 2.8777e-06
+292.5 2.8262e-06
+293 2.7757e-06
+293.5 2.7261e-06
+294 2.6773e-06
+294.5 2.6295e-06
+295 2.5824e-06
+295.5 2.5363e-06
+296 2.4909e-06
+296.5 2.4464e-06
+297 2.4026e-06
+297.5 2.3597e-06
+298 2.3175e-06
+298.5 2.276e-06
+299 2.2354e-06
+299.5 2.1954e-06
+&
+@target G0.S1
+@type xy
+0 1
+0.5 0.77015116
+1 0.59313281
+1.5 0.45680192
+2 0.35180653
+2.5 0.2709442
+3 0.20866799
+3.5 0.16070589
+4 0.12376783
+4.5 0.095319938
+5 0.07341076
+5.5 0.069745005
+6 0.081425723
+6.5 0.09805674
+7 0.11382047
+7.5 0.12586478
+8 0.13316821
+8.5 0.13577076
+9 0.13426454
+9.5 0.12947478
+10 0.1222682
+10.5 0.11350684
+11 0.10411322
+11.5 0.095043483
+12 0.087233484
+12.5 0.081236619
+13 0.077212891
+13.5 0.074980349
+14 0.074192298
+14.5 0.074363783
+15 0.07504733
+15.5 0.075840299
+16 0.076423103
+16.5 0.076542651
+17 0.076034621
+17.5 0.074870477
+18 0.073130124
+18.5 0.070984317
+19 0.06864613
+19.5 0.066289351
+20 0.064101005
+20.5 0.062173031
+21 0.060594768
+21.5 0.059375923
+22 0.058476139
+22.5 0.057847534
+23 0.057398246
+23.5 0.057033282
+24 0.056675294
+24.5 0.056260149
+25 0.055736818
+25.5 0.055093033
+26 0.054338264
+26.5 0.053496437
+27 0.052600556
+27.5 0.051697287
+28 0.050815741
+28.5 0.049998004
+29 0.04925955
+29.5 0.048609928
+30 0.048053176
+30.5 0.04756619
+31 0.047130451
+31.5 0.046726
+32 0.046336262
+32.5 0.04594002
+33 0.04553133
+33.5 0.045104505
+34 0.044659572
+34.5 0.04419819
+35 0.043730648
+35.5 0.043265723
+36 0.042839257
+36.5 0.04239987
+37 0.041978419
+37.5 0.04158404
+38 0.041201313
+38.5 0.040879196
+39 0.040560927
+39.5 0.040224083
+40 0.039893082
+40.5 0.039567543
+41 0.039240697
+41.5 0.038926308
+42 0.038634669
+42.5 0.038308048
+43 0.037978865
+43.5 0.03765229
+44 0.03733191
+44.5 0.037022534
+45 0.036725865
+45.5 0.036441045
+46 0.036166654
+46.5 0.035900943
+47 0.035642539
+47.5 0.035388045
+48 0.035135947
+48.5 0.034885248
+49 0.034636083
+49.5 0.03438853
+50 0.034143194
+50.5 0.033899482
+51 0.03365765
+51.5 0.033418317
+52 0.03318112
+52.5 0.032946666
+53 0.032715416
+53.5 0.032486918
+54 0.032260901
+54.5 0.032037039
+55 0.031815055
+55.5 0.031594723
+56 0.031375849
+56.5 0.031158378
+57 0.030942349
+57.5 0.03072783
+58 0.03051497
+58.5 0.030303925
+59 0.030094805
+59.5 0.029887709
+60 0.029682714
+60.5 0.029479868
+61 0.02927918
+61.5 0.029080621
+62 0.028884132
+62.5 0.028689625
+63 0.028497002
+63.5 0.028306166
+64 0.028117022
+64.5 0.027929486
+65 0.027743487
+65.5 0.027558965
+66 0.027375871
+66.5 0.027194164
+67 0.02701381
+67.5 0.026834772
+68 0.026657019
+68.5 0.026480517
+69 0.026305233
+69.5 0.026131133
+70 0.025958188
+70.5 0.025786372
+71 0.025615661
+71.5 0.025446041
+72 0.025277503
+72.5 0.025110043
+73 0.024943667
+73.5 0.024778382
+74 0.024614201
+74.5 0.024451136
+75 0.024289202
+75.5 0.024128412
+76 0.023968774
+76.5 0.023810297
+77 0.023652016
+77.5 0.02349439
+78 0.023339471
+78.5 0.023185721
+79 0.023033123
+79.5 0.02288166
+80 0.022731311
+80.5 0.022582056
+81 0.022433875
+81.5 0.022286749
+82 0.022140651
+82.5 0.021995563
+83 0.021851462
+83.5 0.021708333
+84 0.02156616
+84.5 0.021424925
+85 0.021284615
+85.5 0.021145216
+86 0.021006713
+86.5 0.020869096
+87 0.020732353
+87.5 0.020596476
+88 0.020461458
+88.5 0.020327293
+89 0.020193977
+89.5 0.020061509
+90 0.019929886
+90.5 0.019799109
+91 0.019669179
+91.5 0.019540098
+92 0.019411866
+92.5 0.019284484
+93 0.019157953
+93.5 0.019032272
+94 0.01890744
+94.5 0.018783455
+95 0.018660313
+95.5 0.01853801
+96 0.018416541
+96.5 0.018295899
+97 0.018176078
+97.5 0.01805707
+98 0.017938867
+98.5 0.017821461
+99 0.017704841
+99.5 0.017588999
+100 0.017473927
+100.5 0.017359613
+101 0.017246051
+101.5 0.01713323
+102 0.017021143
+102.5 0.016909782
+103 0.01679914
+103.5 0.016689211
+104 0.016579987
+104.5 0.016471465
+105 0.01636364
+105.5 0.016256507
+106 0.016150063
+106.5 0.016044305
+107 0.01593923
+107.5 0.015834836
+108 0.015730625
+108.5 0.015627612
+109 0.015525275
+109.5 0.015423606
+110 0.015322603
+110.5 0.015222264
+111 0.015122586
+111.5 0.015023568
+112 0.014925207
+112.5 0.014827498
+113 0.014730447
+113.5 0.014634039
+114 0.014538271
+114.5 0.014443137
+115 0.014348634
+115.5 0.014254755
+116 0.014161496
+116.5 0.014068852
+117 0.013976817
+117.5 0.013885385
+118 0.013794552
+118.5 0.013704312
+119 0.013614658
+119.5 0.013525588
+120 0.013437095
+120.5 0.013349177
+121 0.013261828
+121.5 0.013175045
+122 0.013088824
+122.5 0.013003161
+123 0.012918054
+123.5 0.012833499
+124 0.012749494
+124.5 0.012666035
+125 0.012583121
+125.5 0.012500747
+126 0.012418912
+126.5 0.012337612
+127 0.012256846
+127.5 0.01217661
+128 0.012096901
+128.5 0.012017717
+129 0.011939054
+129.5 0.011860909
+130 0.011783279
+130.5 0.011706161
+131 0.01162955
+131.5 0.011553444
+132 0.011477839
+132.5 0.011402731
+133 0.011328116
+133.5 0.011253991
+134 0.011180352
+134.5 0.011107195
+135 0.011034517
+135.5 0.010962314
+136 0.010890582
+136.5 0.010819319
+137 0.01074852
+137.5 0.010678183
+138 0.010608304
+138.5 0.010538881
+139 0.01046991
+139.5 0.010401388
+140 0.010333313
+140.5 0.010265682
+141 0.010198492
+141.5 0.010131741
+142 0.010065426
+142.5 0.0099995449
+143 0.0099340944
+143.5 0.0098690723
+144 0.0098044761
+144.5 0.0097403033
+145 0.0096765512
+145.5 0.0096132173
+146 0.009550299
+146.5 0.0094877936
+147 0.0094256985
+147.5 0.0093640108
+148 0.0093027281
+148.5 0.0092418474
+149 0.0091813661
+149.5 0.0091212814
+150 0.0090615905
+150.5 0.0090022907
+151 0.0089433792
+151.5 0.0088848535
+152 0.0088267106
+152.5 0.0087689481
+153 0.0087115632
+153.5 0.0086545535
+154 0.0085979163
+154.5 0.0085416491
+155 0.0084857495
+155.5 0.008430215
+156 0.0083750433
+156.5 0.008320232
+157 0.0082657789
+157.5 0.0082116816
+158 0.0081579379
+158.5 0.0081045456
+159 0.0080515024
+159.5 0.0079988063
+160 0.007946455
+160.5 0.0078944463
+161 0.0078427782
+161.5 0.0077914484
+162 0.0077404548
+162.5 0.0076897952
+163 0.0076394676
+163.5 0.0075894698
+164 0.0075397995
+164.5 0.0074904548
+165 0.0074414333
+165.5 0.007392733
+166 0.0073443518
+166.5 0.0072962874
+167 0.0072485377
+167.5 0.0072011008
+168 0.0071539743
+168.5 0.0071071563
+169 0.0070606447
+169.5 0.0070144374
+170 0.0069685324
+170.5 0.0069229276
+171 0.0068776211
+171.5 0.0068326109
+172 0.006787895
+172.5 0.0067434716
+173 0.0066993386
+173.5 0.0066554943
+174 0.0066119367
+174.5 0.006568664
+175 0.0065256744
+175.5 0.006482966
+176 0.006440537
+176.5 0.0063983856
+177 0.0063565102
+177.5 0.0063149087
+178 0.0062735796
+178.5 0.0062325211
+179 0.0061917313
+179.5 0.0061512087
+180 0.0061109513
+180.5 0.0060709576
+181 0.0060312257
+181.5 0.005991754
+182 0.0059525407
+182.5 0.0059135842
+183 0.0058748827
+183.5 0.0058364346
+184 0.0057982382
+184.5 0.0057602919
+185 0.0057225938
+185.5 0.0056851425
+186 0.0056479363
+186.5 0.0056109736
+187 0.0055742527
+187.5 0.0055377721
+188 0.0055015302
+188.5 0.0054655254
+189 0.0054297561
+189.5 0.0053942209
+190 0.0053589181
+190.5 0.0053238463
+191 0.005289004
+191.5 0.0052543896
+192 0.0052200018
+192.5 0.0051858389
+193 0.0051518996
+193.5 0.0051181824
+194 0.0050846859
+194.5 0.0050514086
+195 0.0050183491
+195.5 0.004985506
+196 0.0049528779
+196.5 0.0049204633
+197 0.0048882609
+197.5 0.0048562693
+198 0.0048244872
+198.5 0.0047929131
+199 0.0047615456
+199.5 0.0047303835
+200 0.0046994254
+200.5 0.0046686698
+201 0.0046381156
+201.5 0.0046077614
+202 0.0045776059
+202.5 0.0045476476
+203 0.0045178855
+203.5 0.0044883181
+204 0.0044589442
+204.5 0.0044297625
+205 0.0044007718
+205.5 0.0043719708
+206 0.0043433583
+206.5 0.004314933
+207 0.0042866936
+207.5 0.0042586391
+208 0.0042307682
+208.5 0.0042030796
+209 0.0041755723
+209.5 0.0041482449
+210 0.0041210964
+210.5 0.0040941256
+211 0.0040673312
+211.5 0.0040407123
+212 0.0040142675
+212.5 0.0039879958
+213 0.0039618961
+213.5 0.0039359672
+214 0.003910208
+214.5 0.0038846174
+215 0.0038591943
+215.5 0.0038339376
+216 0.0038088462
+216.5 0.003783919
+217 0.003759155
+217.5 0.0037345531
+218 0.0037101121
+218.5 0.0036858312
+219 0.0036617091
+219.5 0.0036377449
+220 0.0036139375
+220.5 0.003590286
+221 0.0035667892
+221.5 0.0035434462
+222 0.003520256
+222.5 0.0034972175
+223 0.0034743298
+223.5 0.0034515919
+224 0.0034290027
+224.5 0.0034065614
+225 0.003384267
+225.5 0.0033621184
+226 0.0033401148
+226.5 0.0033182553
+227 0.0032965387
+227.5 0.0032749643
+228 0.0032535311
+228.5 0.0032322381
+229 0.0032110846
+229.5 0.0031900694
+230 0.0031691918
+230.5 0.0031484508
+231 0.0031278456
+231.5 0.0031073753
+232 0.0030870389
+232.5 0.0030668356
+233 0.0030467645
+233.5 0.0030268248
+234 0.0030070156
+234.5 0.002987336
+235 0.0029677853
+235.5 0.0029483625
+236 0.0029290668
+236.5 0.0029098974
+237 0.0028908534
+237.5 0.0028719341
+238 0.0028531386
+238.5 0.002834466
+239 0.0028159157
+239.5 0.0027974868
+240 0.0027791785
+240.5 0.0027609901
+241 0.0027429206
+241.5 0.0027249694
+242 0.0027071357
+242.5 0.0026894187
+243 0.0026718176
+243.5 0.0026543318
+244 0.0026369603
+244.5 0.0026197026
+245 0.0026025578
+245.5 0.0025855252
+246 0.0025686041
+246.5 0.0025517937
+247 0.0025350934
+247.5 0.0025185023
+248 0.0025020198
+248.5 0.0024856452
+249 0.0024693778
+249.5 0.0024532168
+250 0.0024371616
+250.5 0.0024212115
+251 0.0024053657
+251.5 0.0023896237
+252 0.0023739847
+252.5 0.002358448
+253 0.002343013
+253.5 0.002327679
+254 0.0023124454
+254.5 0.0022973115
+255 0.0022822766
+255.5 0.0022673402
+256 0.0022525014
+256.5 0.0022377598
+257 0.0022231147
+257.5 0.0022085654
+258 0.0021941113
+258.5 0.0021797518
+259 0.0021654863
+259.5 0.0021513142
+260 0.0021372348
+260.5 0.0021232475
+261 0.0021093518
+261.5 0.002095547
+262 0.0020818326
+262.5 0.002068208
+263 0.0020546724
+263.5 0.0020412255
+264 0.0020278666
+264.5 0.0020145951
+265 0.0020014105
+265.5 0.0019883122
+266 0.0019752995
+266.5 0.0019623721
+267 0.0019495292
+267.5 0.0019367704
+268 0.0019240951
+268.5 0.0019115028
+269 0.0018989929
+269.5 0.0018865648
+270 0.0018742181
+270.5 0.0018619522
+271 0.0018497665
+271.5 0.0018376606
+272 0.001825634
+272.5 0.001813686
+273 0.0018018162
+273.5 0.0017900242
+274 0.0017783093
+274.5 0.001766671
+275 0.0017551089
+275.5 0.0017436225
+276 0.0017322113
+276.5 0.0017208747
+277 0.0017096124
+277.5 0.0016984237
+278 0.0016873083
+278.5 0.0016762656
+279 0.0016652952
+279.5 0.0016543966
+280 0.0016435693
+280.5 0.0016328129
+281 0.0016221268
+281.5 0.0016115108
+282 0.0016009641
+282.5 0.0015904865
+283 0.0015800775
+283.5 0.0015697366
+284 0.0015594634
+284.5 0.0015492574
+285 0.0015391182
+285.5 0.0015290454
+286 0.0015190384
+286.5 0.001509097
+287 0.0014992206
+287.5 0.0014894089
+288 0.0014796614
+288.5 0.0014699777
+289 0.0014603573
+289.5 0.0014507999
+290 0.0014413051
+290.5 0.0014318724
+291 0.0014225014
+291.5 0.0014131918
+292 0.0014039431
+292.5 0.0013947549
+293 0.0013856269
+293.5 0.0013765585
+294 0.0013675496
+294.5 0.0013585996
+295 0.0013497081
+295.5 0.0013408749
+296 0.0013320995
+296.5 0.0013233815
+297 0.0013147205
+297.5 0.0013061163
+298 0.0012975683
+298.5 0.0012890763
+299 0.0012806399
+299.5 0.0012722587
+&
+@target G0.S2
+@type xy
+0 1
+0.5 0.77015116
+1 0.59313281
+1.5 0.45680192
+2 0.35180653
+2.5 0.2709442
+3 0.20866799
+3.5 0.16070589
+4 0.12376783
+4.5 0.095319938
+5 0.07341076
+5.5 0.056537381
+6 0.04354233
+6.5 0.033534175
+7 0.025826384
+7.5 0.019890219
+8 0.028526099
+8.5 0.051725261
+9 0.0779632
+9.5 0.10120859
+10 0.11878288
+10.5 0.12999585
+11 0.13523579
+11.5 0.13540947
+12 0.13160632
+12.5 0.1249023
+13 0.11625652
+13.5 0.10646682
+14 0.096179387
+14.5 0.085877212
+15 0.075897312
+15.5 0.066541891
+16 0.058374123
+16.5 0.052058387
+17 0.048120032
+17.5 0.046668319
+18 0.047506486
+18.5 0.050153016
+19 0.054000924
+19.5 0.058432662
+20 0.062860014
+20.5 0.066845514
+21 0.070094943
+21.5 0.07239461
+22 0.073629372
+22.5 0.073790171
+23 0.072932001
+23.5 0.071161086
+24 0.068609296
+24.5 0.065454493
+25 0.061954566
+25.5 0.058327482
+26 0.054852313
+26.5 0.051749479
+27 0.049210672
+27.5 0.047323704
+28 0.046147004
+28.5 0.045622803
+29 0.045701183
+29.5 0.046244389
+30 0.047123319
+30.5 0.048195041
+31 0.049315485
+31.5 0.050358559
+32 0.051205396
+32.5 0.051775714
+33 0.052000444
+33.5 0.051851154
+34 0.051328533
+34.5 0.050481908
+35 0.049371134
+35.5 0.048062122
+36 0.046651414
+36.5 0.045234895
+37 0.043907417
+37.5 0.042727367
+38 0.041718314
+38.5 0.040942782
+39 0.040408696
+39.5 0.040095797
+40 0.039982751
+40.5 0.040040641
+41 0.040226347
+41.5 0.040479173
+42 0.040747189
+42.5 0.040983142
+43 0.041145546
+43.5 0.041184642
+44 0.041097939
+44.5 0.040864149
+45 0.040504762
+45.5 0.040038437
+46 0.039472637
+46.5 0.038842805
+47 0.038195195
+47.5 0.037598312
+48 0.037034397
+48.5 0.036512747
+49 0.036058309
+49.5 0.03569376
+50 0.035425893
+50.5 0.035249985
+51 0.035152142
+51.5 0.035108723
+52 0.035094279
+52.5 0.035108744
+53 0.035107527
+53.5 0.035085316
+54 0.035026254
+54.5 0.034918153
+55 0.034756711
+55.5 0.034551891
+56 0.034304928
+56.5 0.034018254
+57 0.03370455
+57.5 0.033379708
+58 0.033052138
+58.5 0.032731164
+59 0.032425587
+59.5 0.032146915
+60 0.031882638
+60.5 0.031647649
+61 0.03145821
+61.5 0.031308562
+62 0.031188528
+62.5 0.031095602
+63 0.031022231
+63.5 0.03095719
+64 0.030893754
+64.5 0.030817286
+65 0.030728842
+65.5 0.030620996
+66 0.030490486
+66.5 0.030327005
+67 0.030147375
+67.5 0.029953707
+68 0.029754417
+68.5 0.029560095
+69 0.029374944
+69.5 0.02919842
+70 0.029033361
+70.5 0.028879288
+71 0.028740222
+71.5 0.028616078
+72 0.028505804
+72.5 0.028409357
+73 0.028319936
+73.5 0.028234059
+74 0.028149458
+74.5 0.028061803
+75 0.027969036
+75.5 0.027875861
+76 0.027775311
+76.5 0.027665898
+77 0.027547524
+77.5 0.027421039
+78 0.027288676
+78.5 0.027153084
+79 0.027015307
+79.5 0.026880112
+80 0.026747655
+80.5 0.026619669
+81 0.026496764
+81.5 0.026380687
+82 0.026271422
+82.5 0.026168153
+83 0.026070561
+83.5 0.025976922
+84 0.025887067
+84.5 0.025799124
+85 0.025711961
+85.5 0.025624571
+86 0.025536077
+86.5 0.025446332
+87 0.025355148
+87.5 0.025262112
+88 0.025167092
+88.5 0.0250703
+89 0.024972187
+89.5 0.024873363
+90 0.024774599
+90.5 0.02467661
+91 0.024580367
+91.5 0.02448674
+92 0.024396115
+92.5 0.024308677
+93 0.02422438
+93.5 0.024142951
+94 0.024063909
+94.5 0.023986632
+95 0.023910448
+95.5 0.023834691
+96 0.023758744
+96.5 0.023682081
+97 0.02360429
+97.5 0.023525095
+98 0.023444391
+98.5 0.02336223
+99 0.023278787
+99.5 0.023194344
+100 0.023109256
+100.5 0.023023925
+101 0.022938769
+101.5 0.022854193
+102 0.022770558
+102.5 0.022688162
+103 0.02260722
+103.5 0.022527854
+104 0.022450087
+104.5 0.02237385
+105 0.022298994
+105.5 0.022225304
+106 0.022152524
+106.5 0.022080381
+107 0.022008618
+107.5 0.02193701
+108 0.021865384
+108.5 0.021793629
+109 0.021721697
+109.5 0.021649609
+110 0.021577439
+110.5 0.021505305
+111 0.021433357
+111.5 0.021361757
+112 0.021290664
+112.5 0.021220219
+113 0.021150531
+113.5 0.021081673
+114 0.021013672
+114.5 0.02094651
+115 0.020880127
+115.5 0.020814423
+116 0.020749269
+116.5 0.020684517
+117 0.020620006
+117.5 0.02055558
+118 0.020491096
+118.5 0.020426434
+119 0.020361502
+119.5 0.020296251
+120 0.020230667
+120.5 0.020164777
+121 0.020098642
+121.5 0.020032352
+122 0.019966021
+122.5 0.019899768
+123 0.01983372
+123.5 0.019767993
+124 0.019702689
+124.5 0.019637892
+125 0.019573657
+125.5 0.019510016
+126 0.019446972
+126.5 0.019384507
+127 0.019322578
+127.5 0.019261131
+128 0.019200097
+128.5 0.019139408
+129 0.019078995
+129.5 0.019018798
+130 0.018958771
+130.5 0.018898882
+131 0.018839118
+131.5 0.01877948
+132 0.018719989
+132.5 0.018660674
+133 0.018601576
+133.5 0.018542737
+134 0.018483233
+134.5 0.018422801
+135 0.018365217
+135.5 0.018308002
+136 0.01825117
+136.5 0.018194714
+137 0.018138612
+137.5 0.018082825
+138 0.018027305
+138.5 0.017971996
+139 0.017916846
+139.5 0.017861806
+140 0.017806839
+140.5 0.017751921
+141 0.017697046
+141.5 0.017642208
+142 0.01758708
+142.5 0.017531433
+143 0.017475476
+143.5 0.017419388
+144 0.017363315
+144.5 0.017307375
+145 0.017251657
+145.5 0.017196228
+146 0.017141133
+146.5 0.017086396
+147 0.017032028
+147.5 0.016978028
+148 0.016924385
+148.5 0.016871081
+149 0.016818097
+149.5 0.016765409
+150 0.016712998
+150.5 0.016660844
+151 0.01660893
+151.5 0.016557246
+152 0.016505782
+152.5 0.016454535
+153 0.016403502
+153.5 0.016352683
+154 0.01630208
+154.5 0.016251693
+155 0.016201521
+155.5 0.016151562
+156 0.016101813
+156.5 0.016052267
+157 0.016002916
+157.5 0.015953746
+158 0.015904737
+158.5 0.015855866
+159 0.01580711
+159.5 0.015758449
+160 0.015709864
+160.5 0.015661341
+161 0.015612874
+161.5 0.015564457
+162 0.015516093
+162.5 0.015467786
+163 0.015419545
+163.5 0.015371379
+164 0.015323303
+164.5 0.015275328
+165 0.015227469
+165.5 0.015179738
+166 0.015132149
+166.5 0.01508471
+167 0.015037433
+167.5 0.014990324
+168 0.014943391
+168.5 0.014896638
+169 0.014850069
+169.5 0.014803687
+170 0.014757493
+170.5 0.014711488
+171 0.014665673
+171.5 0.014620047
+172 0.014574611
+172.5 0.014529364
+173 0.014484305
+173.5 0.014439431
+174 0.014394742
+174.5 0.014350235
+175 0.014305905
+175.5 0.01426175
+176 0.014217762
+176.5 0.014173938
+177 0.01413027
+177.5 0.014086752
+178 0.014043376
+178.5 0.014000135
+179 0.013957022
+179.5 0.013914031
+180 0.013871155
+180.5 0.013828389
+181 0.013785729
+181.5 0.013743171
+182 0.013700711
+182.5 0.01365835
+183 0.013616085
+183.5 0.013573917
+184 0.013531847
+184.5 0.013489877
+185 0.013448009
+185.5 0.013406246
+186 0.013364591
+186.5 0.013323047
+187 0.013281618
+187.5 0.013240307
+188 0.013199118
+188.5 0.013158055
+189 0.013117121
+189.5 0.013076319
+190 0.013035652
+190.5 0.012995122
+191 0.012954733
+191.5 0.012914486
+192 0.012874382
+192.5 0.012834424
+193 0.012794611
+193.5 0.012754945
+194 0.012715426
+194.5 0.012676052
+195 0.012636824
+195.5 0.012597739
+196 0.012558797
+196.5 0.012519995
+197 0.01248133
+197.5 0.0124428
+198 0.012404403
+198.5 0.012366134
+199 0.012327991
+199.5 0.01228997
+200 0.012252069
+200.5 0.012214284
+201 0.012176612
+201.5 0.01213905
+202 0.012101596
+202.5 0.012064247
+203 0.012027002
+203.5 0.011989858
+204 0.011952816
+204.5 0.011915873
+205 0.011879029
+205.5 0.011842283
+206 0.011805637
+206.5 0.01176909
+207 0.011732642
+207.5 0.011696295
+208 0.01166005
+208.5 0.011623908
+209 0.01158787
+209.5 0.011551937
+210 0.011516112
+210.5 0.011480396
+211 0.011444789
+211.5 0.011409295
+212 0.011373913
+212.5 0.011338646
+213 0.011303495
+213.5 0.01126846
+214 0.011233542
+214.5 0.011198742
+215 0.01116406
+215.5 0.011129497
+216 0.011095052
+216.5 0.011060725
+217 0.011026515
+217.5 0.010992422
+218 0.010958444
+218.5 0.010924582
+219 0.010890832
+219.5 0.010857194
+220 0.010823667
+220.5 0.010789757
+221 0.010756458
+221.5 0.010723267
+222 0.010690178
+222.5 0.010657189
+223 0.010624299
+223.5 0.010591506
+224 0.01055881
+224.5 0.010526209
+225 0.010493702
+225.5 0.010461289
+226 0.010428968
+226.5 0.01039674
+227 0.010364604
+227.5 0.010332561
+228 0.010300616
+228.5 0.010268762
+229 0.010236999
+229.5 0.010205327
+230 0.010173746
+230.5 0.010142258
+231 0.010110864
+231.5 0.010079563
+232 0.010048356
+232.5 0.010017245
+233 0.0099862304
+233.5 0.0099553119
+234 0.0099244907
+234.5 0.0098937671
+235 0.0098631415
+235.5 0.0098326143
+236 0.0098021852
+236.5 0.0097718541
+237 0.0097416213
+237.5 0.0097114869
+238 0.0096814508
+238.5 0.0096515128
+239 0.0096216726
+239.5 0.0095919297
+240 0.0095622835
+240.5 0.0095327334
+241 0.0095032785
+241.5 0.0094739181
+242 0.0094446514
+242.5 0.0094154773
+243 0.0093863949
+243.5 0.0093574035
+244 0.0093285021
+244.5 0.0092996898
+245 0.0092709658
+245.5 0.0092423292
+246 0.0092137792
+246.5 0.009185315
+247 0.0091569361
+247.5 0.0091286417
+248 0.0091004313
+248.5 0.0090723046
+249 0.009044261
+249.5 0.0090163004
+250 0.0089884225
+250.5 0.0089606273
+251 0.0089329146
+251.5 0.0089052844
+252 0.0088777369
+252.5 0.008850272
+253 0.00882289
+253.5 0.0087955911
+254 0.0087683753
+254.5 0.0087412429
+255 0.0087141941
+255.5 0.0086872291
+256 0.008660348
+256.5 0.0086335511
+257 0.0086068384
+257.5 0.00858021
+258 0.008553666
+258.5 0.0085272063
+259 0.0085008309
+259.5 0.0084745396
+260 0.0084483323
+260.5 0.0084222087
+261 0.0083961685
+261.5 0.0083702114
+262 0.0083443371
+262.5 0.008318545
+263 0.0082928348
+263.5 0.0082672058
+264 0.0082416576
+264.5 0.0082161896
+265 0.0081908013
+265.5 0.008165492
+266 0.0081402612
+266.5 0.0081151083
+267 0.0080900328
+267.5 0.0080650342
+268 0.0080401118
+268.5 0.0080152653
+269 0.0079904941
+269.5 0.0079657979
+270 0.0079411764
+270.5 0.007916629
+271 0.0078921557
+271.5 0.0078677561
+272 0.0078434299
+272.5 0.0078191772
+273 0.0077949976
+273.5 0.0077708912
+274 0.0077468577
+274.5 0.0077228973
+275 0.0076990099
+275.5 0.0076751954
+276 0.0076514538
+276.5 0.0076277853
+277 0.0076041897
+277.5 0.0075806672
+278 0.0075572176
+278.5 0.0075338411
+279 0.0075105375
+279.5 0.0074873068
+280 0.007464149
+280.5 0.0074410639
+281 0.0074180515
+281.5 0.0073951116
+282 0.007372244
+282.5 0.0073494485
+283 0.0073267248
+283.5 0.0073040728
+284 0.0072814921
+284.5 0.0072589824
+285 0.0072365434
+285.5 0.0072141748
+286 0.0071918761
+286.5 0.007169647
+287 0.0071474871
+287.5 0.0071253961
+288 0.0071033736
+288.5 0.0070814191
+289 0.0070595322
+289.5 0.0070377128
+290 0.0070159603
+290.5 0.0069942744
+291 0.0069726549
+291.5 0.0069511013
+292 0.0069296135
+292.5 0.0069081912
+293 0.0068868341
+293.5 0.0068655421
+294 0.0068443148
+294.5 0.0068231523
+295 0.0068020542
+295.5 0.0067810205
+296 0.006760051
+296.5 0.0067391456
+297 0.0067183043
+297.5 0.006697527
+298 0.0066768135
+298.5 0.0066561639
+299 0.0066355779
+299.5 0.0066150556
+&
+@target G0.S3
+@type xy
+0 1
+0.5 0.77015116
+1 0.59313281
+1.5 0.45680192
+2 0.35180653
+2.5 0.2709442
+3 0.20866799
+3.5 0.16070589
+4 0.12376783
+4.5 0.095319938
+5 0.07341076
+5.5 0.056537381
+6 0.04354233
+6.5 0.033534175
+7 0.025826384
+7.5 0.019890219
+8 0.015318475
+8.5 0.011797541
+9 0.0090858901
+9.5 0.0069975087
+10 0.0053891394
+10.5 0.017358076
+11 0.043680624
+11.5 0.072531245
+12 0.097803878
+12.5 0.11687436
+13 0.12914342
+13.5 0.13509191
+14 0.13571479
+14.5 0.13217616
+15 0.12560579
+15.5 0.117001
+16 0.10720529
+16.5 0.096878349
+17 0.086516364
+17.5 0.076478136
+18 0.06698818
+18.5 0.058220529
+19 0.050252651
+19.5 0.0431091
+20 0.036777076
+20.5 0.031268005
+21 0.026994974
+21.5 0.024612423
+22 0.02455765
+22.5 0.026879284
+23 0.031248203
+23.5 0.037067984
+24 0.043721149
+24.5 0.050572405
+25 0.057067689
+25.5 0.062774373
+26 0.06739367
+26.5 0.07075445
+27 0.072796703
+27.5 0.073549927
+28 0.073110267
+28.5 0.071617813
+29 0.069223234
+29.5 0.066110155
+30 0.062459399
+30.5 0.058439521
+31 0.054203341
+31.5 0.049899227
+32 0.045683843
+32.5 0.041699873
+33 0.038149541
+33.5 0.035214832
+34 0.033046922
+34.5 0.031732401
+35 0.031294236
+35.5 0.03169265
+36 0.032832786
+36.5 0.034570253
+37 0.036722053
+37.5 0.039078798
+38 0.04151772
+38.5 0.04387533
+39 0.046011694
+39.5 0.047814703
+40 0.049198387
+40.5 0.050115206
+41 0.05054019
+41.5 0.050473167
+42 0.049913864
+42.5 0.048922696
+43 0.047552397
+43.5 0.045866763
+44 0.043950193
+44.5 0.041893351
+45 0.039792391
+45.5 0.037762266
+46 0.035869978
+46.5 0.034205427
+47 0.032851798
+47.5 0.031859762
+48 0.031243273
+48.5 0.031006071
+49 0.031118361
+49.5 0.03154194
+50 0.032213998
+50.5 0.033060313
+51 0.034036661
+51.5 0.03506495
+52 0.036083932
+52.5 0.037029521
+53 0.037830555
+53.5 0.038449729
+54 0.038859437
+54.5 0.03903737
+55 0.0389734
+55.5 0.038675504
+56 0.038150718
+56.5 0.037433188
+57 0.036546962
+57.5 0.035542697
+58 0.03447556
+58.5 0.033390887
+59 0.032348767
+59.5 0.031393032
+60 0.030558761
+60.5 0.029861704
+61 0.029333862
+61.5 0.028988624
+62 0.028821791
+62.5 0.028817836
+63 0.028969709
+63.5 0.029236723
+64 0.029578046
+64.5 0.029991772
+65 0.030441766
+65.5 0.030894706
+66 0.03131726
+66.5 0.031681727
+67 0.031961422
+67.5 0.032121049
+68 0.032164837
+68.5 0.032091097
+69 0.031899197
+69.5 0.031595298
+70 0.03117699
+70.5 0.030689091
+71 0.030150598
+71.5 0.029585369
+72 0.029014004
+72.5 0.028467204
+73 0.027959429
+73.5 0.027508747
+74 0.027130856
+74.5 0.026835357
+75 0.026636568
+75.5 0.026488132
+76 0.026429697
+76.5 0.02645248
+77 0.026545352
+77.5 0.026691321
+78 0.026871561
+78.5 0.027064137
+79 0.027256274
+79.5 0.027429602
+80 0.02757161
+80.5 0.027672928
+81 0.02772458
+81.5 0.027702414
+82 0.027624254
+82.5 0.027490353
+83 0.027302307
+83.5 0.027068271
+84 0.026794726
+84.5 0.026496618
+85 0.026167063
+85.5 0.025838372
+86 0.0255233
+86.5 0.025233945
+87 0.024981566
+87.5 0.024770379
+88 0.024603686
+88.5 0.024482608
+89 0.024406199
+89.5 0.024371784
+90 0.024375868
+90.5 0.024413612
+91 0.024480052
+91.5 0.024572167
+92 0.024626181
+92.5 0.024678242
+93 0.02472018
+93.5 0.024743945
+94 0.024743983
+94.5 0.024717823
+95 0.024663657
+95.5 0.024583139
+96 0.024477799
+96.5 0.024350138
+97 0.024212639
+97.5 0.024034289
+98 0.023848459
+98.5 0.023659365
+99 0.023470887
+99.5 0.023289916
+100 0.023121151
+100.5 0.022966465
+101 0.022828449
+101.5 0.022707074
+102 0.022610061
+102.5 0.022539139
+103 0.02249529
+103.5 0.022474933
+104 0.022475134
+104.5 0.022491348
+105 0.022519034
+105.5 0.022550938
+106 0.022578961
+106.5 0.022596045
+107 0.022596683
+107.5 0.022579678
+108 0.022546823
+108.5 0.022496666
+109 0.022430459
+109.5 0.022347708
+110 0.022251733
+110.5 0.022144218
+111 0.022029009
+111.5 0.021909392
+112 0.021788291
+112.5 0.021669793
+113 0.021559396
+113.5 0.021457402
+114 0.021367192
+114.5 0.02128857
+115 0.02122524
+115.5 0.021172155
+116 0.02113053
+116.5 0.021097472
+117 0.021073177
+117.5 0.021056293
+118 0.021044531
+118.5 0.021035516
+119 0.021026684
+119.5 0.021015673
+120 0.020999695
+120.5 0.020976366
+121 0.020944547
+121.5 0.020903514
+122 0.020852949
+122.5 0.020793427
+123 0.020725636
+123.5 0.020650253
+124 0.020568494
+124.5 0.020482085
+125 0.020393299
+125.5 0.020303841
+126 0.020215819
+126.5 0.020131236
+127 0.020051481
+127.5 0.019978059
+128 0.019912047
+128.5 0.019854111
+129 0.019804475
+129.5 0.019762915
+130 0.019728794
+130.5 0.019703007
+131 0.019682207
+131.5 0.019664921
+132 0.019649455
+132.5 0.019634161
+133 0.01961748
+133.5 0.019596435
+134 0.019571842
+134.5 0.019542825
+135 0.019508924
+135.5 0.019469896
+136 0.019425803
+136.5 0.019376985
+137 0.019324027
+137.5 0.019267721
+138 0.01920886
+138.5 0.019148633
+139 0.019088166
+139.5 0.019028778
+140 0.01897132
+140.5 0.018916814
+141 0.018865932
+141.5 0.018818999
+142 0.018776138
+142.5 0.018737281
+143 0.018702178
+143.5 0.018670499
+144 0.01864366
+144.5 0.018619088
+145 0.018596064
+145.5 0.018573678
+146 0.018551069
+146.5 0.0185274
+147 0.018500311
+147.5 0.018471034
+148 0.018438485
+148.5 0.018402044
+149 0.018361864
+149.5 0.018318581
+150 0.018272815
+150.5 0.018224846
+151 0.018175103
+151.5 0.018124135
+152 0.018072579
+152.5 0.018021115
+153 0.01797042
+153.5 0.017921131
+154 0.017873906
+154.5 0.017829194
+155 0.017787181
+155.5 0.017747936
+156 0.017711419
+156.5 0.01767748
+157 0.017645943
+157.5 0.01761663
+158 0.017590931
+158.5 0.017566512
+159 0.017542887
+159.5 0.017519437
+160 0.01749563
+160.5 0.017469425
+161 0.017442213
+161.5 0.017413633
+162 0.017383526
+162.5 0.017351753
+163 0.017318279
+163.5 0.017283172
+164 0.017246588
+164.5 0.017208708
+165 0.017169866
+165.5 0.017130467
+166 0.017090945
+166.5 0.017051844
+167 0.017013442
+167.5 0.016976098
+168 0.01694014
+168.5 0.016905744
+169 0.016872893
+169.5 0.01684151
+170 0.016811472
+170.5 0.016782676
+171 0.016755054
+171.5 0.016730068
+172 0.016705663
+172.5 0.01668155
+173 0.016657318
+173.5 0.016632625
+174 0.016605097
+174.5 0.016575805
+175 0.016544817
+175.5 0.016512342
+176 0.016478538
+176.5 0.016443903
+177 0.016408837
+177.5 0.016373331
+178 0.016337418
+178.5 0.016301187
+179 0.016264823
+179.5 0.016228655
+180 0.016192864
+180.5 0.016157695
+181 0.016123347
+181.5 0.016090056
+182 0.016057928
+182.5 0.016026947
+183 0.01599707
+183.5 0.015968226
+184 0.01594038
+184.5 0.015913536
+185 0.015887616
+185.5 0.015864017
+186 0.015840814
+186.5 0.015817799
+187 0.015794657
+187.5 0.015769723
+188 0.015743965
+188.5 0.015716846
+189 0.015688581
+189.5 0.015659688
+190 0.015630566
+190.5 0.015601151
+191 0.015571417
+191.5 0.015541387
+192 0.015511073
+192.5 0.015480634
+193 0.015450209
+193.5 0.015419962
+194 0.015390031
+194.5 0.015360546
+195 0.015331618
+195.5 0.01530238
+196 0.015270913
+196.5 0.01524414
+197 0.015217902
+197.5 0.015192145
+198 0.015166883
+198.5 0.015142066
+199 0.015117604
+199.5 0.015093372
+200 0.015069226
+200.5 0.015045017
+201 0.015020599
+201.5 0.014995399
+202 0.014969
+202.5 0.014941974
+203 0.014914786
+203.5 0.014887412
+204 0.014859855
+204.5 0.014832148
+205 0.014804358
+205.5 0.014776555
+206 0.014748542
+206.5 0.014720192
+207 0.01469175
+207.5 0.01466342
+208 0.014635359
+208.5 0.014607673
+209 0.01458042
+209.5 0.014553617
+210 0.014527256
+210.5 0.014501312
+211 0.014475743
+211.5 0.014450501
+212 0.014425526
+212.5 0.014400756
+213 0.014376128
+213.5 0.014351579
+214 0.014327054
+214.5 0.014302506
+215 0.0142779
+215.5 0.014253214
+216 0.014228443
+216.5 0.014203597
+217 0.014178699
+217.5 0.014153779
+218 0.01412887
+218.5 0.014104001
+219 0.014079201
+219.5 0.014054498
+220 0.014029918
+220.5 0.014005484
+221 0.013981217
+221.5 0.013957126
+222 0.013933209
+222.5 0.013909453
+223 0.013885833
+223.5 0.013862324
+224 0.013838901
+224.5 0.013815538
+225 0.013792209
+225.5 0.013768887
+226 0.013745548
+226.5 0.013722165
+227 0.013698711
+227.5 0.013675164
+228 0.013651507
+228.5 0.013627728
+229 0.013603826
+229.5 0.013579808
+230 0.013555688
+230.5 0.013531486
+231 0.013507226
+231.5 0.013482937
+232 0.013458646
+232.5 0.013434384
+233 0.013410179
+233.5 0.013386055
+234 0.013362035
+234.5 0.013338135
+235 0.013314368
+235.5 0.013290743
+236 0.01326726
+236.5 0.01324392
+237 0.013220715
+237.5 0.01319764
+238 0.013174683
+238.5 0.013151833
+239 0.013129081
+239.5 0.013106416
+240 0.013083827
+240.5 0.013061305
+241 0.013038844
+241.5 0.013016439
+242 0.012994086
+242.5 0.012971783
+243 0.012949531
+243.5 0.012927331
+244 0.012905185
+244.5 0.012883096
+245 0.012861068
+245.5 0.012839103
+246 0.012817204
+246.5 0.012795372
+247 0.012773606
+247.5 0.012751906
+248 0.012730269
+248.5 0.01270869
+249 0.012687163
+249.5 0.012665681
+250 0.012644233
+250.5 0.012622811
+251 0.012601406
+251.5 0.012580007
+252 0.012558605
+252.5 0.012537193
+253 0.012515764
+253.5 0.012494313
+254 0.012472838
+254.5 0.012451336
+255 0.01242981
+255.5 0.012408261
+256 0.012386695
+256.5 0.012365117
+257 0.012343536
+257.5 0.012321958
+258 0.012300393
+258.5 0.012278849
+259 0.012257336
+259.5 0.012235861
+260 0.012214433
+260.5 0.012193057
+261 0.012171741
+261.5 0.01215049
+262 0.012129306
+262.5 0.012108194
+263 0.012087154
+263.5 0.012066188
+264 0.012045296
+264.5 0.012024477
+265 0.012003729
+265.5 0.011983052
+266 0.011962444
+266.5 0.011941902
+267 0.011921426
+267.5 0.011901013
+268 0.011880661
+268.5 0.011860369
+269 0.011840136
+269.5 0.01181996
+270 0.011799841
+270.5 0.011779777
+271 0.011759767
+271.5 0.011739809
+272 0.011719902
+272.5 0.011700044
+273 0.011680233
+273.5 0.011660465
+274 0.011640739
+274.5 0.01162105
+275 0.011601395
+275.5 0.01158177
+276 0.011562171
+276.5 0.011542595
+277 0.011523037
+277.5 0.011503494
+278 0.011483962
+278.5 0.011464439
+279 0.011444922
+279.5 0.01142541
+280 0.0114059
+280.5 0.011386393
+281 0.011366889
+281.5 0.011347389
+282 0.011327893
+282.5 0.011308403
+283 0.011288923
+283.5 0.011269455
+284 0.011250002
+284.5 0.011230568
+285 0.011211156
+285.5 0.011191769
+286 0.011172412
+286.5 0.011153088
+287 0.0111338
+287.5 0.011114551
+288 0.011095344
+288.5 0.011076182
+289 0.011057067
+289.5 0.011038
+290 0.011018983
+290.5 0.011000017
+291 0.010981104
+291.5 0.010962243
+292 0.010943436
+292.5 0.010924682
+293 0.010905982
+293.5 0.010887335
+294 0.01086874
+294.5 0.010850198
+295 0.010831706
+295.5 0.010813266
+296 0.010794875
+296.5 0.010776532
+297 0.010758237
+297.5 0.010739986
+298 0.01072178
+298.5 0.010703616
+299 0.010685493
+299.5 0.010667408
+&
+@target G0.S4
+@type xy
+0 1
+0.5 0.77015116
+1 0.59313281
+1.5 0.45680192
+2 0.35180653
+2.5 0.2709442
+3 0.20866799
+3.5 0.16070589
+4 0.12376783
+4.5 0.095319938
+5 0.07341076
+5.5 0.056537381
+6 0.04354233
+6.5 0.033534175
+7 0.025826384
+7.5 0.019890219
+8 0.015318475
+8.5 0.011797541
+9 0.0090858901
+9.5 0.0069975087
+10 0.0053891394
+10.5 0.0041504519
+11 0.0031964753
+11.5 0.0024617692
+12 0.0018959344
+12.5 0.001460156
+13 0.014332165
+13.5 0.04149895
+14 0.071054961
+14.5 0.096878326
+15 0.11635797
+15.5 0.12891446
+16 0.1350594
+16.5 0.13581128
+17 0.13234931
+17.5 0.1258151
+18 0.11722841
+18.5 0.10743692
+19 0.097089176
+19.5 0.08670532
+20 0.076646639
+20.5 0.067154973
+21 0.058380755
+21.5 0.050402756
+22 0.043247114
+22.5 0.036902302
+23 0.03133128
+23.5 0.026480932
+24 0.022289176
+24.5 0.018690164
+25 0.015617971
+25.5 0.01305848
+26 0.011436537
+26.5 0.011470141
+27 0.01361693
+27.5 0.017907891
+28 0.024005925
+28.5 0.031353819
+29 0.039307939
+29.5 0.047243996
+30 0.054626005
+30.5 0.061043111
+31 0.066219754
+31.5 0.070008892
+32 0.072373577
+32.5 0.073365118
+33 0.073097625
+33.5 0.071725527
+34 0.069426376
+34.5 0.06638542
+35 0.062759622
+35.5 0.058747471
+36 0.054480522
+36.5 0.050092154
+37 0.045714016
+37.5 0.041432424
+38 0.037312861
+38.5 0.033406883
+39 0.029758177
+39.5 0.026463572
+40 0.023641132
+40.5 0.021437035
+41 0.01997479
+41.5 0.019355984
+42 0.019599783
+42.5 0.020697323
+43 0.022568665
+43.5 0.025086716
+44 0.028089761
+44.5 0.031395659
+45 0.034817864
+45.5 0.038178021
+46 0.041318614
+46.5 0.044111444
+47 0.046453545
+47.5 0.048276222
+48 0.049537935
+48.5 0.050224372
+49 0.050355534
+49.5 0.049959921
+50 0.049087086
+50.5 0.047791204
+51 0.046135787
+51.5 0.044182078
+52 0.041985319
+52.5 0.039629803
+53 0.037169006
+53.5 0.034655311
+54 0.032198309
+54.5 0.029862913
+55 0.027727033
+55.5 0.025866094
+56 0.02434578
+56.5 0.023222368
+57 0.022522763
+57.5 0.022261093
+58 0.022440388
+58.5 0.023034457
+59 0.023991412
+59.5 0.025216204
+60 0.026671319
+60.5 0.028277333
+61 0.029954021
+61.5 0.031623688
+62 0.0332128
+62.5 0.034658507
+63 0.035907134
+63.5 0.036920374
+64 0.037668757
+64.5 0.038134673
+65 0.038312728
+65.5 0.03820541
+66 0.037808322
+66.5 0.037152284
+67 0.03626978
+67.5 0.035187504
+68 0.033930626
+68.5 0.032565501
+69 0.031104136
+69.5 0.029634458
+70 0.028202982
+70.5 0.026854028
+71 0.025628647
+71.5 0.024567821
+72 0.023700831
+72.5 0.023053361
+73 0.022640139
+73.5 0.022460846
+74 0.022521645
+74.5 0.02280594
+75 0.023266022
+75.5 0.023893064
+76 0.024650494
+76.5 0.02549829
+77 0.026395198
+77.5 0.027300556
+78 0.028177315
+78.5 0.028987663
+79 0.02970009
+79.5 0.030288224
+80 0.030730103
+80.5 0.031015338
+81 0.031134633
+81.5 0.031083651
+82 0.030855166
+82.5 0.030471754
+83 0.029953277
+83.5 0.029297182
+84 0.028553569
+84.5 0.027745465
+85 0.026898801
+85.5 0.026041065
+86 0.025199427
+86.5 0.024398011
+87 0.023662825
+87.5 0.023014716
+88 0.022478012
+88.5 0.022059663
+89 0.021781539
+89.5 0.021643843
+90 0.021648222
+90.5 0.021772171
+91 0.022006119
+91.5 0.022338513
+92 0.022746608
+92.5 0.023210069
+93 0.023702127
+93.5 0.024202904
+94 0.024690135
+94.5 0.025143623
+95 0.025545699
+95.5 0.025879674
+96 0.026132266
+96.5 0.026292798
+97 0.026355877
+97.5 0.026323533
+98 0.026192328
+98.5 0.025963588
+99 0.025657658
+99.5 0.025258268
+100 0.024806132
+100.5 0.024315154
+101 0.023799125
+101.5 0.023264047
+102 0.022744377
+102.5 0.022252938
+103 0.021803168
+103.5 0.021408974
+104 0.021075838
+104.5 0.020825691
+105 0.020654915
+105.5 0.020564298
+106 0.020551331
+106.5 0.020610753
+107 0.020734839
+107.5 0.02090399
+108 0.021121462
+108.5 0.021372794
+109 0.021643321
+109.5 0.021919406
+110 0.022188533
+110.5 0.022439284
+111 0.022660773
+111.5 0.02284404
+112 0.022978391
+112.5 0.023047459
+113 0.023065418
+113.5 0.023034556
+114 0.022965817
+114.5 0.022878314
+115 0.022823552
+115.5 0.022525696
+116 0.022203169
+116.5 0.021864405
+117 0.021518442
+117.5 0.021172602
+118 0.02083541
+118.5 0.020515592
+119 0.020221701
+119.5 0.019959493
+120 0.019740372
+120.5 0.019569415
+121 0.01944569
+121.5 0.019371745
+122 0.01934537
+122.5 0.019368187
+123 0.019429217
+123.5 0.019523621
+124 0.019645569
+124.5 0.019787906
+125 0.019942668
+125.5 0.020101046
+126 0.020254144
+126.5 0.020394132
+127 0.020511557
+127.5 0.020605055
+128 0.020676867
+128.5 0.020727053
+129 0.020751134
+129.5 0.02074362
+130 0.020645219
+130.5 0.020519389
+131 0.020365504
+131.5 0.020188208
+132 0.019992486
+132.5 0.019783912
+133 0.019567479
+133.5 0.019350373
+134 0.019139895
+134.5 0.018941381
+135 0.018759921
+135.5 0.018601997
+136 0.018471034
+136.5 0.018370352
+137 0.018301403
+137.5 0.018263733
+138 0.018255814
+138.5 0.01827548
+139 0.018320346
+139.5 0.018386629
+140 0.018469715
+140.5 0.018563952
+141 0.018662048
+141.5 0.018756817
+142 0.018840415
+142.5 0.018913091
+143 0.018975389
+143.5 0.019023122
+144 0.019053186
+144.5 0.01906241
+145 0.019049724
+145.5 0.019014373
+146 0.018957185
+146.5 0.018879185
+147 0.018782178
+147.5 0.01866806
+148 0.018540676
+148.5 0.018402649
+149 0.018258311
+149.5 0.018111253
+150 0.017966306
+150.5 0.017827256
+151 0.017698604
+151.5 0.017582756
+152 0.017482335
+152.5 0.017400104
+153 0.017336752
+153.5 0.017293331
+154 0.017269953
+154.5 0.017265248
+155 0.01727793
+155.5 0.017305761
+156 0.017345826
+156.5 0.017394638
+157 0.017449137
+157.5 0.017506075
+158 0.017561003
+158.5 0.017609834
+159 0.017649867
+159.5 0.017678768
+160 0.017694715
+160.5 0.017696347
+161 0.017682062
+161.5 0.017652527
+162 0.01760819
+162.5 0.017549979
+163 0.017479224
+163.5 0.017397661
+164 0.017307471
+164.5 0.017211126
+165 0.017111003
+165.5 0.017009652
+166 0.016910045
+166.5 0.01681497
+167 0.016726728
+167.5 0.016647333
+168 0.016578413
+168.5 0.016521257
+169 0.016476416
+169.5 0.016444183
+170 0.016425525
+170.5 0.0164187
+171 0.016422694
+171.5 0.016436174
+172 0.016457526
+172.5 0.016484808
+173 0.016515982
+173.5 0.016548289
+174 0.016579065
+174.5 0.016606394
+175 0.016628457
+175.5 0.016643633
+176 0.016650576
+176.5 0.016648249
+177 0.016635189
+177.5 0.016611902
+178 0.016578437
+178.5 0.016535224
+179 0.016483044
+179.5 0.016423063
+180 0.016356685
+180.5 0.016285526
+181 0.016211339
+181.5 0.01613592
+182 0.016061086
+182.5 0.015988846
+183 0.015921044
+183.5 0.015859112
+184 0.015804238
+184.5 0.015757328
+185 0.015718951
+185.5 0.015689257
+186 0.015669295
+186.5 0.015657542
+187 0.015653349
+187.5 0.015655801
+188 0.015663789
+188.5 0.015675949
+189 0.01569088
+189.5 0.015706547
+190 0.015721043
+190.5 0.015733188
+191 0.015741863
+191.5 0.015746077
+192 0.015745006
+192.5 0.015737253
+193 0.015723197
+193.5 0.015702616
+194 0.015675522
+194.5 0.015642151
+195 0.015603031
+195.5 0.015558862
+196 0.015510521
+196.5 0.015459026
+197 0.0154055
+197.5 0.015351117
+198 0.015297044
+198.5 0.015244623
+199 0.015195087
+199.5 0.01514936
+200 0.015108232
+200.5 0.015072323
+201 0.015042049
+201.5 0.015018557
+202 0.01500081
+202.5 0.014988634
+203 0.01498167
+203.5 0.014979362
+204 0.014980935
+204.5 0.014985558
+205 0.014991745
+205.5 0.014998077
+206 0.015003761
+206.5 0.015007993
+207 0.015010002
+207.5 0.015009089
+208 0.015003898
+208.5 0.014994734
+209 0.014981232
+209.5 0.014963179
+210 0.01494052
+210.5 0.014913429
+211 0.014882212
+211.5 0.014847321
+212 0.014809342
+212.5 0.014768965
+213 0.014726963
+213.5 0.014684173
+214 0.014641561
+214.5 0.014600012
+215 0.014560241
+215.5 0.014522908
+216 0.014488585
+216.5 0.014457735
+217 0.014430699
+217.5 0.014408583
+218 0.014390417
+218.5 0.014376149
+219 0.014365595
+219.5 0.01435845
+220 0.014354198
+220.5 0.014351784
+221 0.014350193
+221.5 0.014348966
+222 0.014347593
+222.5 0.014345547
+223 0.014342308
+223.5 0.014337376
+224 0.014329555
+224.5 0.014319262
+225 0.014306192
+225.5 0.014290142
+226 0.014271012
+226.5 0.014248887
+227 0.014223928
+227.5 0.014196402
+228 0.014166676
+228.5 0.014135196
+229 0.014102477
+229.5 0.014069076
+230 0.014035715
+230.5 0.014003054
+231 0.013971566
+231.5 0.013941702
+232 0.013913869
+232.5 0.013888413
+233 0.013865607
+233.5 0.013846523
+234 0.013830232
+234.5 0.013816743
+235 0.013805968
+235.5 0.013797732
+236 0.013791673
+236.5 0.01378692
+237 0.013782657
+237.5 0.013778614
+238 0.013774465
+238.5 0.013769861
+239 0.013764447
+239.5 0.013757142
+240 0.013748406
+240.5 0.013737936
+241 0.013725487
+241.5 0.013710873
+242 0.013694055
+242.5 0.013675031
+243 0.01365388
+243.5 0.013630767
+244 0.013605928
+244.5 0.013579665
+245 0.013552336
+245.5 0.013524333
+246 0.013496223
+246.5 0.013468509
+247 0.013441514
+247.5 0.01341556
+248 0.013390954
+248.5 0.013367974
+249 0.013346851
+249.5 0.013327766
+250 0.013311676
+250.5 0.013297653
+251 0.013285683
+251.5 0.013275677
+252 0.013267
+252.5 0.013258968
+253 0.013251476
+253.5 0.013244349
+254 0.013237372
+254.5 0.013230301
+255 0.013222155
+255.5 0.01321343
+256 0.01320385
+256.5 0.013193162
+257 0.013181146
+257.5 0.013167698
+258 0.01315272
+258.5 0.013136175
+259 0.013118088
+259.5 0.01309855
+260 0.013077707
+260.5 0.013055761
+261 0.013032961
+261.5 0.013009585
+262 0.012985931
+262.5 0.012962476
+263 0.012939632
+263.5 0.012917601
+264 0.012896591
+264.5 0.01287584
+265 0.012853287
+265.5 0.012836151
+266 0.012820581
+266.5 0.012808257
+267 0.012797751
+267.5 0.012786484
+268 0.012775375
+268.5 0.012765995
+269 0.012757476
+269.5 0.012749417
+270 0.012741612
+270.5 0.012733841
+271 0.012725864
+271.5 0.012717446
+272 0.012708366
+272.5 0.012698433
+273 0.012687488
+273.5 0.012675416
+274 0.012662147
+274.5 0.012647665
+275 0.012632002
+275.5 0.012615246
+276 0.012597529
+276.5 0.01257903
+277 0.012559927
+277.5 0.012540449
+278 0.012520834
+278.5 0.012501329
+279 0.012482331
+279.5 0.012464208
+280 0.012446712
+280.5 0.012429622
+281 0.012413139
+281.5 0.012397378
+282 0.012382407
+282.5 0.012368241
+283 0.012354853
+283.5 0.012342178
+284 0.012330121
+284.5 0.012318563
+285 0.012307371
+285.5 0.0122964
+286 0.012285503
+286.5 0.012274536
+287 0.012263366
+287.5 0.012251873
+288 0.012239962
+288.5 0.012227564
+289 0.012214637
+289.5 0.012201168
+290 0.012187164
+290.5 0.012172655
+291 0.012157694
+291.5 0.012142351
+292 0.012126717
+292.5 0.012110892
+293 0.012094982
+293.5 0.012079085
+294 0.012063296
+294.5 0.012047702
+295 0.012032384
+295.5 0.012017413
+296 0.012002849
+296.5 0.011988739
+297 0.011975114
+297.5 0.011961987
+298 0.011949354
+298.5 0.011937193
+299 0.011925464
+299.5 0.011914113
+&
+@target G0.S5
+@type xy
+0 1
+0.5 0.77015116
+1 0.59313281
+1.5 0.45680192
+2 0.35180653
+2.5 0.2709442
+3 0.20866799
+3.5 0.16070589
+4 0.12376783
+4.5 0.095319938
+5 0.07341076
+5.5 0.056537381
+6 0.04354233
+6.5 0.033534175
+7 0.025826384
+7.5 0.019890219
+8 0.015318475
+8.5 0.011797541
+9 0.0090858901
+9.5 0.0069975087
+10 0.0053891394
+10.5 0.0041504519
+11 0.0031964753
+11.5 0.0024617692
+12 0.0018959344
+12.5 0.001460156
+13 0.0011245409
+13.5 0.0008653164
+14 0.0006655526
+14.5 0.00051257
+15 0.0003947528
+15.5 0.01351128
+16 0.040905871
+16.5 0.07065222
+17 0.096624425
+17.5 0.11621403
+18 0.12884229
+18.5 0.13503527
+19 0.13581775
+19.5 0.13237489
+20 0.12585297
+20.5 0.11727129
+21 0.10747722
+21.5 0.097138615
+22 0.08675919
+22.5 0.076700567
+23 0.067207029
+23.5 0.05842961
+24 0.05044778
+24.5 0.043287994
+25 0.036938956
+25.5 0.031363793
+26 0.026509504
+26.5 0.0223097
+27 0.018704679
+27.5 0.015628037
+28 0.01301589
+28.5 0.010808436
+29 0.0089508524
+29.5 0.0073936972
+30 0.0060929752
+30.5 0.0050595635
+31 0.0047562237
+31.5 0.005939866
+32 0.0090885274
+32.5 0.014253386
+33 0.02111394
+33.5 0.029114671
+34 0.037617145
+34.5 0.0460046
+35 0.053751248
+35.5 0.06045739
+36 0.065858464
+36.5 0.069817281
+37 0.072306342
+37.5 0.073384909
+38 0.07317418
+38.5 0.071835847
+39 0.069551039
+39.5 0.066510795
+40 0.062901622
+40.5 0.058882381
+41 0.054621915
+41.5 0.05025172
+42 0.045882181
+42.5 0.041602126
+43 0.037479072
+43.5 0.03356477
+44 0.029894268
+44.5 0.02648887
+45 0.023359374
+45.5 0.020506213
+46 0.017927193
+46.5 0.015638479
+47 0.013695742
+47.5 0.01220075
+48 0.011274849
+48.5 0.011031781
+49 0.01156139
+49.5 0.01288525
+50 0.014977694
+50.5 0.017752431
+51 0.021079055
+51.5 0.024794261
+52 0.028720257
+52.5 0.032675886
+53 0.036490663
+53.5 0.040014453
+54 0.043124011
+54.5 0.045726621
+55 0.04776076
+55.5 0.049194709
+56 0.050023599
+56.5 0.050265419
+57 0.049956587
+57.5 0.049147253
+58 0.047897196
+58.5 0.046271102
+59 0.044335775
+59.5 0.042157804
+60 0.039779027
+60.5 0.037288621
+61 0.034740177
+61.5 0.032163875
+62 0.029613747
+62.5 0.027124311
+63 0.024731888
+63.5 0.022477838
+64 0.020409345
+64.5 0.018589372
+65 0.017073974
+65.5 0.015914897
+66 0.015155556
+66.5 0.0148331
+67 0.014954828
+67.5 0.015518024
+68 0.016493815
+68.5 0.017840551
+69 0.019500909
+69.5 0.021405594
+70 0.02347781
+70.5 0.025635496
+71 0.027798904
+71.5 0.029892388
+72 0.031847454
+72.5 0.033605283
+73 0.035117549
+73.5 0.036350441
+74 0.03727865
+74.5 0.037889638
+75 0.038178854
+75.5 0.038156562
+76 0.037837648
+76.5 0.03724218
+77 0.036396806
+77.5 0.035331288
+78 0.034082329
+78.5 0.032679795
+79 0.031152882
+79.5 0.029516266
+80 0.027820696
+80.5 0.026117681
+81 0.024446921
+81.5 0.022844938
+82 0.021352109
+82.5 0.020006167
+83 0.018847447
+83.5 0.017906124
+84 0.01721428
+84.5 0.016779111
+85 0.016610797
+85.5 0.016711969
+86 0.017066959
+86.5 0.017656811
+87 0.018454883
+87.5 0.019428787
+88 0.020540525
+88.5 0.021749484
+89 0.023012962
+89.5 0.024288231
+90 0.025534417
+90.5 0.026713217
+91 0.027790363
+91.5 0.028736736
+92 0.029528809
+92.5 0.030148642
+93 0.030584137
+93.5 0.030828799
+94 0.030863881
+94.5 0.030714557
+95 0.030386217
+95.5 0.029889855
+96 0.029243062
+96.5 0.028464242
+97 0.027571869
+97.5 0.026588715
+98 0.025502172
+98.5 0.024386389
+99 0.023261588
+99.5 0.022158641
+100 0.021099731
+100.5 0.020117761
+101 0.019241669
+101.5 0.018489324
+102 0.017884769
+102.5 0.017434766
+103 0.017148333
+103.5 0.017032029
+104 0.017079966
+104.5 0.01728573
+105 0.017635265
+105.5 0.018113827
+106 0.018701339
+106.5 0.019375723
+107 0.020112992
+107.5 0.020888338
+108 0.021675967
+108.5 0.022451339
+109 0.023191208
+109.5 0.023873912
+110 0.024480315
+110.5 0.024994435
+111 0.025403494
+111.5 0.02569736
+112 0.025867526
+112.5 0.025914293
+113 0.025839515
+113.5 0.025646868
+114 0.025343299
+114.5 0.02493794
+115 0.024441015
+115.5 0.023865783
+116 0.023194788
+116.5 0.022488624
+117 0.02175929
+117.5 0.021022045
+118 0.020291737
+118.5 0.019597072
+119 0.018953583
+119.5 0.018375792
+120 0.017876242
+120.5 0.017465288
+121 0.017151952
+121.5 0.01694321
+122 0.016843745
+122.5 0.016849645
+123 0.016954383
+123.5 0.017153706
+124 0.017435343
+124.5 0.017787846
+125 0.018197738
+125.5 0.01864935
+126 0.019128363
+126.5 0.019618936
+127 0.020105885
+127.5 0.020574808
+128 0.021011857
+128.5 0.021404594
+129 0.021741613
+129.5 0.022013314
+130 0.022214209
+130.5 0.022337363
+131 0.022379059
+131.5 0.022314126
+132 0.022174416
+132.5 0.021962763
+133 0.021684359
+133.5 0.021343905
+134 0.020958118
+134.5 0.020534264
+135 0.02008356
+135.5 0.019604628
+136 0.019123227
+136.5 0.01865114
+137 0.018198884
+137.5 0.017775081
+138 0.017389915
+138.5 0.017052125
+139 0.016771379
+139.5 0.01655292
+140 0.016400754
+140.5 0.016317778
+141 0.01630361
+141.5 0.016356408
+142 0.016470676
+142.5 0.016639935
+143 0.016855997
+143.5 0.017110063
+144 0.017392698
+144.5 0.017694057
+145 0.018004133
+145.5 0.018313124
+146 0.018611442
+146.5 0.018889679
+147 0.019139885
+147.5 0.019356034
+148 0.019532317
+148.5 0.019664108
+149 0.019747865
+149.5 0.019782709
+150 0.019771046
+150.5 0.019722796
+151 0.019652475
+151.5 0.019450402
+152 0.019210638
+152.5 0.018942735
+153 0.018647823
+153.5 0.018333436
+154 0.018007036
+154.5 0.017676022
+155 0.017348204
+155.5 0.017031669
+156 0.016733361
+156.5 0.016458892
+157 0.016214178
+157.5 0.016006347
+158 0.015838233
+158.5 0.015714983
+159 0.015638258
+159.5 0.015607476
+160 0.01562449
+160.5 0.015686091
+161 0.015788804
+161.5 0.015926725
+162 0.016094318
+162.5 0.016285067
+163 0.016489952
+163.5 0.016701074
+164 0.016911282
+164.5 0.017113763
+165 0.017301362
+165.5 0.017465628
+166 0.017603867
+166.5 0.017715927
+167 0.017798286
+167.5 0.01784958
+168 0.017868155
+168.5 0.01785497
+169 0.017811879
+169.5 0.017742695
+170 0.017642795
+170.5 0.017514314
+171 0.017360794
+171.5 0.017187918
+172 0.016943825
+172.5 0.016689931
+173 0.016432617
+173.5 0.016177795
+174 0.015930449
+174.5 0.015696862
+175 0.015482721
+175.5 0.015291959
+176 0.015128029
+176.5 0.014993819
+177 0.014891605
+177.5 0.014824592
+178 0.014795383
+178.5 0.014804023
+179 0.01484805
+179.5 0.014924093
+180 0.015027966
+180.5 0.015154908
+181 0.015300256
+181.5 0.015458872
+182 0.015625034
+182.5 0.015793841
+183 0.015959119
+183.5 0.016113689
+184 0.016250949
+184.5 0.016365354
+185 0.016452978
+185.5 0.016511249
+186 0.016538335
+186.5 0.016532357
+187 0.016499451
+187.5 0.016445495
+188 0.016370629
+188.5 0.016275381
+189 0.016161485
+189.5 0.016030828
+190 0.015885842
+190.5 0.015729175
+191 0.015563742
+191.5 0.015394286
+192 0.015224004
+192.5 0.015056837
+193 0.014896622
+193.5 0.014747245
+194 0.014612063
+194.5 0.014493716
+195 0.014394827
+195.5 0.014317582
+196 0.014262791
+196.5 0.014230976
+197 0.01422141
+197.5 0.01423366
+198 0.014266279
+198.5 0.014317734
+199 0.014385549
+199.5 0.014467275
+200 0.014560182
+200.5 0.014661152
+201 0.014766906
+201.5 0.014873712
+202 0.014977579
+202.5 0.015074992
+203 0.015162451
+203.5 0.01523615
+204 0.015292925
+204.5 0.015331001
+205 0.015348907
+205.5 0.015345916
+206 0.015321668
+206.5 0.015276956
+207 0.015213425
+207.5 0.015132545
+208 0.015036208
+208.5 0.014926878
+209 0.014807182
+209.5 0.014679777
+210 0.014547449
+210.5 0.01441303
+211 0.01427999
+211.5 0.014151768
+212 0.014031538
+212.5 0.013921891
+213 0.013825752
+213.5 0.013745171
+214 0.013681677
+214.5 0.013635922
+215 0.013608866
+215.5 0.013599639
+216 0.013607507
+216.5 0.013631473
+217 0.013669743
+217.5 0.013720326
+218 0.01378099
+218.5 0.013849366
+219 0.013923252
+219.5 0.013999724
+220 0.014076413
+220.5 0.014151145
+221 0.01422151
+221.5 0.01428444
+222 0.014337447
+222.5 0.014379002
+223 0.014407829
+223.5 0.014422961
+224 0.014423455
+224.5 0.014409526
+225 0.014381092
+225.5 0.014338836
+226 0.014283627
+226.5 0.014216683
+227 0.014139675
+227.5 0.014054466
+228 0.013962815
+228.5 0.01386666
+229 0.013767961
+229.5 0.013668789
+230 0.013571575
+230.5 0.013478693
+231 0.0133922
+231.5 0.013314079
+232 0.013246224
+232.5 0.013189651
+233 0.013145353
+233.5 0.013114382
+234 0.013096205
+234.5 0.013090487
+235 0.013096799
+235.5 0.013114048
+236 0.013140993
+236.5 0.013176564
+237 0.013219505
+237.5 0.013268241
+238 0.013320467
+238.5 0.013374118
+239 0.013427501
+239.5 0.013478886
+240 0.013525712
+240.5 0.013565624
+241 0.013597371
+241.5 0.013619937
+242 0.013632466
+242.5 0.013634356
+243 0.013624837
+243.5 0.013604445
+244 0.013573577
+244.5 0.013532802
+245 0.013482962
+245.5 0.01342514
+246 0.013360621
+246.5 0.013290923
+247 0.013217623
+247.5 0.013142331
+248 0.013066574
+248.5 0.012992092
+249 0.012920689
+249.5 0.012853893
+250 0.012793184
+250.5 0.012739832
+251 0.012694947
+251.5 0.012659036
+252 0.012633175
+252.5 0.012616738
+253 0.012609499
+253.5 0.012611231
+254 0.012621228
+254.5 0.012638632
+255 0.012662439
+255.5 0.012691806
+256 0.012725601
+256.5 0.012762957
+257 0.012802297
+257.5 0.012842184
+258 0.012880677
+258.5 0.012915935
+259 0.012946828
+259.5 0.012972275
+260 0.012991358
+260.5 0.013003341
+261 0.013007163
+261.5 0.013002982
+262 0.012990646
+262.5 0.012970227
+263 0.012942088
+263.5 0.012906686
+264 0.012864696
+264.5 0.012816911
+265 0.012764462
+265.5 0.012708487
+266 0.012650169
+266.5 0.012590705
+267 0.012531405
+267.5 0.012473803
+268 0.012418922
+268.5 0.012367968
+269 0.012322003
+269.5 0.012282015
+270 0.012248474
+270.5 0.012221748
+271 0.012202596
+271.5 0.012190331
+272 0.012184912
+272.5 0.012185921
+273 0.012192802
+273.5 0.012204887
+274 0.012221666
+274.5 0.012241977
+275 0.012265303
+275.5 0.012291024
+276 0.012317589
+276.5 0.012343469
+277 0.01236762
+277.5 0.012389143
+278 0.012407148
+278.5 0.01242082
+279 0.012429083
+279.5 0.012431493
+280 0.012427376
+280.5 0.012416776
+281 0.012399875
+281.5 0.012377064
+282 0.012348749
+282.5 0.012315619
+283 0.012278525
+283.5 0.012238097
+284 0.012195073
+284.5 0.012150263
+285 0.012104494
+285.5 0.01205867
+286 0.012013788
+286.5 0.011970992
+287 0.011930975
+287.5 0.011894547
+288 0.011862382
+288.5 0.011835119
+289 0.01181295
+289.5 0.011795993
+290 0.011784921
+290.5 0.011779037
+291 0.011778134
+291.5 0.011781882
+292 0.011789819
+292.5 0.011801658
+293 0.011816521
+293.5 0.011834154
+294 0.011853824
+294.5 0.011874255
+295 0.011894666
+295.5 0.011914194
+296 0.011932102
+296.5 0.011947628
+297 0.011960072
+297.5 0.0119679
+298 0.011970854
+298.5 0.011968785
+299 0.011961645
+299.5 0.011949493
+&
