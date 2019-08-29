@@ -1,4 +1,5 @@
-LIBRARY_DIR=/home/acar546/itensor/
+# LIBRARY_DIR=/home/acar546/itensor/
+LIBRARY_DIR=/home/alex/itensor/
 
 ifdef app
 APP=$(app)

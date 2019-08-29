@@ -104,7 +104,7 @@ Complex bath_coherence(ITensor A, int Nbin)
 // #####################################################
 void SETUP_MPO(ITensor& U_evo,
                std::vector<Index>& bin,
-               int Nfb, int tls,int cav, int Ncav,
+               int Nfb, int tls,int cav, int Ncav, int Nbin,
                Complex coup_Ecav,Complex coup_gcav,Complex coup_bath,Complex coup_fb,Complex coup_tls)
 {
 double sqrt_phot;
@@ -133,7 +133,7 @@ auto H_dis = ITensor(bin[cav],prime(bin[cav]),bin[Nfb+1],prime(bin[Nfb+1]));
 // ATTENTION .. bin[Nfb+1] is in vacuum (1), so 2 cavity photons can maximally create two bath photons
 for(int phot=1;phot<Ncav;phot++)
 {    
- for(int bphot=1;bphot<Ncav;bphot++)
+ for(int bphot=1;bphot<Nbin;bphot++)
  {    
   sqrt_phot=sqrt(1.*phot*bphot);      
   H_dis.set(bin[cav](phot+1),prime(bin[cav](phot  )),bin[Nfb+1](bphot  ),prime(bin[Nfb+1](bphot+1)), coup_bath*sqrt_phot);
@@ -146,7 +146,7 @@ auto H_fb = ITensor(bin[cav],prime(bin[cav]),bin[1],prime(bin[1]));
 // possible this is for sure correct, if no feedback is assumed
 for(int phot=1;phot<Ncav;phot++)
 {    
- for(int bphot=1;bphot<Ncav;bphot++)
+ for(int bphot=1;bphot<Nbin;bphot++)
  {    
   sqrt_phot=sqrt(1.*phot*bphot);      
   H_fb.set(bin[cav](phot+1),prime(bin[cav](phot  )),bin[1](bphot  ),prime(bin[1](bphot+1)),-1.*coup_fb*sqrt_phot);
@@ -209,7 +209,7 @@ void SWAP_FORWARD(MPS& psi,const std::vector<Index>& bin, int from, int to, doub
 {
     ITensor SWAP,U,S,V;
     Index iFB;
-    for(int k=from;k<to;k++) // swap feedback bin next to tls bin
+    for(int k=from;k<to;k++) // swap feedba0519708ck bin next to tls bin
     {
             SWAP = psi.A(k)*psi.A(k+1); 
             iFB = findIndex(psi.A(k+1),"bath");
@@ -266,7 +266,9 @@ Real fb_phase = input.getReal("fb_phase");
 Real E_cav = input.getReal("E_cav"); 
 Real E_tls = input.getReal("E_tls"); 
 //TLS decay rate
-Real Gamma = input.getReal("Gamma");
+Real Gamma = input.getReal("sqrt_Gamma");
+Real Gamma_fb = input.getReal("sqrt_Gamma_fb");
+printf("Kappa*tau=%.10f !! \n",Gamma*Gamma*Nfb*dt);
 Real gcav  = input.getReal("gcav");
 //dimension of local Hilbert space of each bin
 int Ndim = input.getInt("Ndim");
@@ -291,22 +293,29 @@ int SHOW_EVERY_BATH_STEP = input.getInt("SHOW_EVERY_BATH_STEP");
 int IFSPECTRUM = input.getInt("IFSPECTRUM");
 int SpectrumSteps = input.getInt("SpectrumSteps");
 Real SpectrumIntervall = input.getReal("SpectrumIntervall");
-// --------------- setup output file -------------------
+// --------------- setup output file -------------------0519708
 time_t curtime; struct tm *loctime; curtime = time(NULL); loctime = localtime (&curtime); 
 int hour = loctime -> tm_hour;int minute = loctime -> tm_min;int second = loctime -> tm_sec;
 int year = 1900+loctime -> tm_year;int month = loctime -> tm_mon;int day  = loctime -> tm_mday;
 printf("Date: %d.%d.%.d -- Time: %d:%d:%d  \n",day,month+1,year,hour,minute,second);  
 
 char FILE_NAME[2048+1024];
-snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_System_Dynamics_w_Feedback_at_%i_Steps%i_Ncav_%i_dt_%.4f_gcav_%.4f_gamma_%.4f_phase_%.4f_Ecav_%.4f.dat",year,month+1,day,hour,minute,second,Nfb,t_end,Ncav,dt,gcav,Gamma,fb_phase,E_cav);    
+snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_System_Dynamics_w_Feedback_at_%i_Steps%i_Ncav_%i_Nbin_%i_dt_%.4f_gcav_%.4f_gamma_%.4f_phase_%.4f_Ecav_%.4f.dat",year,month+1,day,hour,minute,second,Nfb,t_end,Ncav,Nbin,dt,gcav,Gamma,fb_phase,E_cav);    
 
 FILE *f_dat;
 f_dat = fopen(FILE_NAME,"w");
-fprintf(f_dat,"# dt %.10f -- t_end %i -- Nfb %i -- fb_phase %.10f\n",dt,t_end,Nfb,fb_phase);
-fprintf(f_dat,"# E_cav %.10f -- Gamma %.10f -- G_cav %.10f\n",E_cav,Gamma,gcav);
-fprintf(f_dat,"# Ndim %i -- Nbin %i -- Ncav %i -- cutoff %.10f\n",Ndim,Nbin,Ncav,cutoff);
-fprintf(f_dat,"# Init_EE %.2f -- pn1 %.2f -- pn2 %.2f -- pn3 %.2f -- pn4 %.2f\n",init_EE,init_pn[1],init_pn[2],init_pn[3],init_pn[4]);
-fprintf(f_dat,"#SpecSteps %i --- SpecIntervall %.2f \n",SpectrumSteps,SpectrumIntervall);
+
+FILE *f_input;
+f_input = fopen("parameters.cfg","r");
+char line_length [256];
+char line_in [256];
+while ( fgets(line_length, sizeof line_length, f_input) != NULL )
+{ 
+  fputs (line_length, stdout); strcpy (line_in, line_length); // getline 
+  fprintf(f_dat,"##"); fprintf(f_dat,line_in); // write so that grace cannot read it
+}  
+fclose(f_input);
+
 // ###################################################################################    
 // ###################################################################################    
 // ###################################################################################
@@ -332,11 +341,11 @@ SETUP_MPS(psi,bin,binlink,ttotal,Nfb,tls,cav,Ncav,init_EE,init_GG,init_pn);
 Complex coup_Ecav = -Cplx_i*dt*E_cav;
 Complex coup_gcav = -Cplx_i*dt*gcav;
 Complex coup_bath =  sqrt(dt)*Gamma;
-Complex coup_fb   =  sqrt(dt)*Gamma*exp(Cplx_i*3.14159265359*fb_phase);
+Complex coup_fb   =  sqrt(dt)*Gamma_fb*exp(Cplx_i*3.14159265359*fb_phase);
 Complex coup_tls  = -Cplx_i*dt*E_tls;
 
 ITensor U_evo; 
-SETUP_MPO(U_evo,bin,Nfb,tls,cav,Ncav,coup_Ecav,coup_gcav,coup_bath,coup_fb,coup_tls);    
+SETUP_MPO(U_evo,bin,Nfb,tls,cav,Ncav,Nbin,coup_Ecav,coup_gcav,coup_bath,coup_fb,coup_tls);    
 //Print(U_evo);
 // ###################################################################################
 // ###################################################################################
@@ -350,6 +359,7 @@ double emitter_pop = init_EE;
 double bath_pop    = 0.;
 Complex bath_coh = 0.;
 double sum_bath    = 0.;
+double pop_diff    = 0.;
 double mps_norm = norm(psi(1)); 
 
 Index iFB,iCB,iLink;
@@ -360,7 +370,7 @@ for(j = Nfb+1; j<=ttotal;j++)
    { 
     printf("Step: %i of  %i -- ",j-Nfb,t_end);
     printf("cav=%.10f -- em=%.10f -- bath=%.10f -- ",cavity_pop,emitter_pop,bath_pop);  
-    printf("sum_bath=%.10f -- bath_coh=%.10f norm=%.10f",sum_bath,bath_coh,mps_norm );
+    printf("sum_bath=%.10f -- pop_diff=%.10f norm=%.10f",sum_bath,abs(pop_diff),mps_norm );
     printf("\n");
    } 
  fprintf(f_dat,"%.10f \t",(j-Nfb)*dt); 
@@ -382,7 +392,9 @@ for(j = Nfb+1; j<=ttotal;j++)
 
  psi.setA(j+1,Vp); 
  emitter_pop = emitter_population(Vp*S,Ndim);
+ pop_diff = cavity_pop; // save previous step
  cavity_pop  = cavity_population(Vp*S,Ncav);
+ pop_diff -=cavity_pop; // take the difference to investigate steady_state progress
  mps_norm = eltC( dag(Vp*S)*Vp*S).real();
  
  temp=U*S;
@@ -458,7 +470,7 @@ fclose(f_dat);
 if (IFSPECTRUM == 1)
 {    
     
-snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_Bath_Dynamics_w_Feedback_at_%i_Steps%i_Ncav_%i_dt_%.4f.dat",year,month+1,day,hour,minute,second,Nfb,t_end,Ncav,dt);
+snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_Bathg2_Dynamics_w_Feedback_at_%i_Steps%i_Ncav_%i_Nbin_%i_dt_%.4f_gcav_%.4f_gamma_%.4f_phase_%.4f_Ecav_%.4f.dat",year,month+1,day,hour,minute,second,Nfb,t_end,Ncav,Nbin,dt,gcav,Gamma,fb_phase,E_cav);    
 f_dat = fopen(FILE_NAME,"w");
 // now we have a steady state and can calculate the spectrum <b^\dg(t)b(t-\tau)>
 // setup the bath correlation array
@@ -543,11 +555,11 @@ fclose(f_dat);
 // #######################################################################################################
 // #######################################################################################################
 // #######################################################################################################
-
-snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_Spectrum_g2_w_Feedback_at_%i_Steps%i_Ncav_%i_dt_%.4f.dat",year,month+1,day,hour,minute,second,Nfb,t_end,Ncav,dt);
+snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_Spectrum________w_Feedback_at_%i_Steps%i_Ncav_%i_Nbin_%i_dt_%.4f_gcav_%.4f_gamma_%.4f_phase_%.4f_Ecav_%.4f.dat",year,month+1,day,hour,minute,second,Nfb,t_end,Ncav,Nbin,dt,gcav,Gamma,fb_phase,E_cav);    
 f_dat = fopen(FILE_NAME,"w");
 
-auto spectrum = std::vector<Complex>(SpectrumSteps+1);
+auto spectrum        = std::vector<Complex>(SpectrumSteps+1);
+auto spectrum_smooth = std::vector<Complex>(SpectrumSteps+1);
 double dw = SpectrumIntervall/(SpectrumSteps); 
 double om;
    
@@ -555,8 +567,14 @@ for(int i=0;i<=SpectrumSteps-1;i++)
    {
      om = -0.5*(SpectrumIntervall)+i*dw;
      spectrum[i] = 0.;
-     for(int b=0;b<=SpectrumSteps-1;b++)  spectrum[i] += exp(-Cplx_i*om*b*dt)*bath_g1[b];   
-     fprintf(f_dat,"%.10f \t %.10f \t %.10f \n",om,spectrum[i].real(),spectrum[i].imag());
+     spectrum_smooth[i] = 0.;
+     for(int b=0;b<=SpectrumSteps-1;b++) 
+        { 
+                spectrum[i] += exp(-Cplx_i*om*b*dt)* bath_g1[b];
+         spectrum_smooth[i] += exp(-Cplx_i*om*b*dt)*(bath_g1[b]-bath_g1[SpectrumSteps-1]);
+        }
+        fprintf(f_dat,"%.10f \t %.10f \t %.10f \t",om,spectrum_smooth[i].real(),spectrum_smooth[i].imag());
+        fprintf(f_dat,"%.10f \t %.10f \n",spectrum[i].real(),spectrum[i].imag());
    }
 fclose(f_dat);
 // ifspectrum end */
