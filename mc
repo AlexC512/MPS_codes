@@ -1,0 +1,13 @@
+Would remove .bash_history
+Would remove .bash_logout
+Would remove .bashrc
+Would remove .cache/
+Would remove .config/
+Would remove .git-credentials
+Would remove .gitconfig
+Would remove .local/
+Would remove .profile
+Would remove .selected_editor
+Would remove .sudo_as_admin_successful
+Would remove .viminfo
+Would remove mc
