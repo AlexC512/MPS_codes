@@ -1,0 +1,45 @@
+
+ #include <math.h>
+ #include <stdlib.h>
+ #include <complex.h>
+ #include <stdio.h>
+ 
+// ####################### Stoppuhr  #########################################
+ #define   ESC             27
+ #define   cls()           printf("%c[2J",ESC)
+ #define   cursor(a,b)     printf("%c[%d;%dH",ESC,a,b)		 
+		 
+ struct timeval ts;		 
+		 
+ double stoppuhr ()
+  { gettimeofday(&ts, NULL); 
+    return (ts.tv_sec*1000)+(ts.tv_usec/1000); 
+	  }
+
+
+void restzeit_anzeigen(int k, double zeit_start)
+{  double min,sek;
+   double zeit_ende, v,zwischen_zeit,rest_zeit;
+   int N = Nt;
+
+   cls();
+   cursor(14,13);
+   zwischen_zeit = stoppuhr();
+   v = k / (zwischen_zeit - zeit_start);
+   rest_zeit = (N - k)/ v ;
+   min = floor(rest_zeit*0.001/60.);
+   sek = 0.001 * rest_zeit - 60. * floor(min);
+   printf("%.2f % - Restzeit: %.0f min %.0f sek.\n ",k*100./N,min,sek);
+ 
+ return;
+}
+
+// #################################################################################
+// ############## netcdf ###########################################################
+// #################################################################################
+#include <netcdf.h>
+#define ERRCODE 2
+#define ERR(e) {printf("Error: %s\n", nc_strerror(e)); exit(ERRCODE);}
+#define NDIMS 1
+
+

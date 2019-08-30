@@ -1,0 +1,9 @@
+LIBS = -lm -llapack -lnetcdf
+
+all: absorption
+
+absorption.o: absorption.c 
+	cc -c absorption.c
+
+absorption: absorption.o
+	cc -oabsorption $^ $(LIBS)
