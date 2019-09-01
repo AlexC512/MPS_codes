@@ -21,16 +21,16 @@ void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
     // define: |abc> == Atom left in a, Atom middle b, Atom right c, Atom 3, Atom 2, Atom 1, 
     Complex   gam_l    =  -Cplx_i*Gamma_l*sqrt(dt);
     Complex c_gam_l    =  -Cplx_i*Gamma_l*sqrt(dt);
-    Complex   gam_l_fb =  -Cplx_i*Gamma_l*sqrt(dt)*exp(-Cplx_i*phi_l);
-    Complex c_gam_l_fb =  -Cplx_i*Gamma_l*sqrt(dt)*exp( Cplx_i*phi_l);
+    Complex   gam_l_fb =  -Cplx_i*Gamma_l*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_l);
+    Complex c_gam_l_fb =  -Cplx_i*Gamma_l*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_l);
 
-    Complex   gam_m_fb =  -Cplx_i*Gamma_m*sqrt(dt)*exp(-Cplx_i*phi_m); // ATTENTION change phase definition
-    Complex c_gam_m_fb =  -Cplx_i*Gamma_m*sqrt(dt)*exp( Cplx_i*phi_m); // if left and right feedback is not the same!!!
+    Complex   gam_m_fb =  -Cplx_i*Gamma_m*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_m); // ATTENTION change phase definition
+    Complex c_gam_m_fb =  -Cplx_i*Gamma_m*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_m); // if left and right feedback is not the same!!!
 
     Complex   gam_r    =  -Cplx_i*Gamma_r*sqrt(dt);
     Complex c_gam_r    =  -Cplx_i*Gamma_r*sqrt(dt);
-    Complex   gam_r_fb =  -Cplx_i*Gamma_r*sqrt(dt)*exp(-Cplx_i*phi_r);
-    Complex c_gam_r_fb =  -Cplx_i*Gamma_r*sqrt(dt)*exp( Cplx_i*phi_r);
+    Complex   gam_r_fb =  -Cplx_i*Gamma_r*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_r);
+    Complex c_gam_r_fb =  -Cplx_i*Gamma_r*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_r);
    
     auto H_dis_l  = ITensor(bin[tls],prime(bin[tls]),bin[l_now],prime(bin[l_now]));
     auto H_dis_ml = ITensor(bin[tls],prime(bin[tls]),bin[l_middle],prime(bin[l_middle]));
@@ -352,24 +352,26 @@ pop3 = Init[5]*Init[5]+Init[7]*Init[7]+Init[6]*Init[6]+Init[8]*Init[8]; // ATTEN
 
 FILE *file;
 FILE *f_prob;
-char FILE_NAME[2048+1024];
-snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_3Emitter_at_Step=%i_of%i_init_l_%.2f_init_m_%.2f_init_r_%.2f_dt_%.4f_CutOff_%.4f.dat",year,month+1,day,hour,minute,second,fb,t_end,pop3,pop2,pop1,dt,cutoff*1000000.);
-file = fopen(FILE_NAME,"w");
-fprintf(file,"## Date: %d.%d.%.d -- Time: %d:%d:%d  \n",day,month+1,year,hour,minute,second); 
-fprintf(file,"## Gamma_l=%.10f - Gamma_m=%.10f - Gamma_r=%.10f \n",Gamma_l,Gamma_m,Gamma_r);    
-fprintf(file,"## phi_l=%.10f - phi_m=%.10f - phi_r=%.10f \n",phi_l,phi_m,phi_r);    
-fprintf(file,"## init_000=%.2f - init_001=%.2f - init_010=%.2f - init_011=%.2f \n",Init[1],Init[2],Init[3],Init[4]);    
-fprintf(file,"## init_100=%.2f - init_101=%.2f - init_110=%.2f - init_111=%.2f \n",Init[5],Init[6],Init[7],Init[8]);    
-fprintf(file,"## dt=%.6f - t_end=%i - fb=%i - cutoff=%.12f -- Nbin=%i \n",dt,t_end,fb,cutoff,Nbin);    
 
-snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_3Emitter_Prob_at_Step=%i_of%i_init_l_%.2f_init_m_%.2f_init_r_%.2f_dt_%.4f_CutOff_%.4f.dat",year,month+1,day,hour,minute,second,fb,t_end,pop3,pop2,pop1,dt,cutoff*1000000.);
+char FILE_NAME[2048+1024];
+snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_N3_OCCUPATIONS_FB_at_Step=%i_of%i_sum_pop_%.2f_phase_l_%.2f_phase_m_%.2f_phase_r_%.2f_dt_%.4f_CutOff_%.4f.dat",year,month+1,day,hour,minute,second,fb,t_end,pop3+pop2+pop1,phi_l,phi_m,phi_r,dt,cutoff*1000000.);
+file = fopen(FILE_NAME,"w");
+
+snprintf(FILE_NAME,2048+1024,"%02d_%02d_%02d_%02d_%02d_%02d_N3_PROBABILITY_FB_at_Step=%i_of%i_sum_pop_%.2f_phase_l_%.2f_phase_m_%.2f_phase_r_%.2f_dt_%.4f_CutOff_%.4f.dat",year,month+1,day,hour,minute,second,fb,t_end,pop3+pop2+pop1,phi_l,phi_m,phi_r,dt,cutoff*1000000.);
 f_prob = fopen(FILE_NAME,"w");
-fprintf(f_prob,"## Date: %d.%d.%.d -- Time: %d:%d:%d  \n",day,month+1,year,hour,minute,second); 
-fprintf(f_prob,"## Gamma_l=%.10f - Gamma_m=%.10f - Gamma_r=%.10f \n",Gamma_l,Gamma_m,Gamma_r);    
-fprintf(f_prob,"## phi_l=%.10f - phi_m=%.10f - phi_r=%.10f \n",phi_l,phi_m,phi_r);    
-fprintf(f_prob,"## init_000=%.2f - init_001=%.2f - init_010=%.2f - init_011=%.2f \n",Init[1],Init[2],Init[3],Init[4]);    
-fprintf(f_prob,"## init_100=%.2f - init_101=%.2f - init_110=%.2f - init_111=%.2f \n",Init[5],Init[6],Init[7],Init[8]);    
-fprintf(f_prob,"## dt=%.6f - t_end=%i - fb=%i - cutoff=%.12f -- Nbin=%i \n",dt,t_end,fb,cutoff,Nbin);    
+
+// this will write the complete config file as a comment in front of the output file
+FILE *f_input;
+f_input = fopen("parameters.cfg","r");
+char line_length [256];
+char line_in [256];
+while ( fgets(line_length, sizeof line_length, f_input) != NULL )
+{ 
+  fputs (line_length, stdout); strcpy (line_in, line_length); // getline 
+  fprintf(file,"##"); fputs(line_in,file); // write so that grace cannot read it
+  fprintf(f_prob,"##"); fputs(line_in,f_prob); // write so that grace cannot read it    
+}  
+fclose(f_input);
 // ----------------------------------------------------------------------------------
 // --------------------- SETUP THE MPS ----------------------------------------------
 // ----------------------------------------------------------------------------------
@@ -428,7 +430,7 @@ for(int p=1;p<=8;p++) {Prob[p]=state_prop(psi(sys_at),p); Prob[9] += Prob[p];}
 ITensor U,S,V,W,SWAP;
 Index iFBl,iFBr,iMl,iMr,iCBl,iCBr; // index fuer feedback, system, und current bin 
 Index iLinkp; 
-int order_mpo=-1; // index fuer feedback bin und past bin
+
 for(int m=0;m<t_end;m++)
 {   
     l_past= sys_at-Nfb    ;
@@ -438,7 +440,7 @@ for(int m=0;m<t_end;m++)
     l_middle = sys_at-Nfb/2    ;
     r_middle = sys_at-Nfb/2 +1 ;
     // --- Status and File output ----------------------------------------------------------------------------------------
-    printf("Step %i of %i: norm=%.10f -- rank(mpo)=%i -- ",m,t_end,mps_norm,order_mpo);
+    printf("Step %i of %i: norm=%.10f  -- Gamma_l*tau=%.3f -- ",m,t_end,mps_norm,Gamma_l*Gamma_l*dt*fb);
     printf("pop_l=%.10f -- pop_m=%.10f -- pop_r=%.10f -- Sum_Prob=%.2f ",pop3,pop2,pop1,Prob[9]); printf("\n");
     fprintf(file,"%.10f \t %.10f \t %.10f \t %.10f \t %.10f \n",m*dt,pop3,pop2,pop1,mps_norm);
     fflush(file); 
@@ -463,7 +465,6 @@ for(int m=0;m<t_end;m++)
     iLinkp = commonIndex(psi.A(sys_at-4),psi.A(sys_at-5));
     
     temp = noPrime(psi(sys_at-4)*psi(sys_at-3)*psi(sys_at-2)*psi(sys_at-1)*U_evo*psi(sys_at)*psi(sys_at+1)*psi(sys_at+2));  
-    order_mpo=order(temp);
 
     U=ITensor(iLinkp,iMl,iMr,iFBl,iFBr,iCBl,iCBr); 
     svd(temp,U,S,V,{"Cutoff=",cutoff});
