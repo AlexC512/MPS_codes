@@ -3,7 +3,7 @@ LIBRARY_DIR=/home/alex/itensor/
 ifdef app
 APP=$(app)
 else
-APP=ThreeEmittersDelay
+APP=vThreeEmittersDelay
 endif
 
 CCFILES=$(APP).cc

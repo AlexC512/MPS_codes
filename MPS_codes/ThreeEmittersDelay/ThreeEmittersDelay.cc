@@ -423,6 +423,11 @@ MPO_SETUP(U_evo,bin,tls,l_past,l_middle,l_now,Nbin,Gamma_l,Gamma_m,Gamma_r,phi_l
 // --------------------- START EVOLUTION  -------------------------------------------
 // ----------------------------------------------------------------------------------
 double mps_norm=1.; mps_norm = TLS_norm(psi(sys_at));
+double l_out = 0.;
+double r_out= 0.;
+double sum_l=0.;
+double sum_r=0.;
+
 Real Prob[10]; 
 Prob[9]=0.;
 for(int p=1;p<=8;p++) {Prob[p]=state_prop(psi(sys_at),p); Prob[9] += Prob[p];}
@@ -430,6 +435,8 @@ for(int p=1;p<=8;p++) {Prob[p]=state_prop(psi(sys_at),p); Prob[9] += Prob[p];}
 ITensor U,S,V,W,SWAP;
 Index iFBl,iFBr,iMl,iMr,iCBl,iCBr; // index fuer feedback, system, und current bin 
 Index iLinkp; 
+Index b; 
+ITensor BdgB;
 
 for(int m=0;m<t_end;m++)
 {   
@@ -440,11 +447,20 @@ for(int m=0;m<t_end;m++)
     l_middle = sys_at-Nfb/2    ;
     r_middle = sys_at-Nfb/2 +1 ;
     // --- Status and File output ----------------------------------------------------------------------------------------
-    printf("Step %i of %i: norm=%.10f  -- Gamma_l*tau=%.3f -- ",m,t_end,mps_norm,Gamma_l*Gamma_l*dt*fb);
-    printf("pop_l=%.10f -- pop_m=%.10f -- pop_r=%.10f -- Sum_Prob=%.2f ",pop3,pop2,pop1,Prob[9]); printf("\n");
+    sum_l +=l_out; sum_r += r_out;
+    printf("Step %i of %i: norm=%.10f  -- ",m,t_end,mps_norm);
+    printf("pop_l=%.10f -- pop_m=%.10f -- pop_r=%.10f --",pop3,pop2,pop1); 
+    printf("l_out=%.10f -- r_out=%.10f -- Sum_Out=%.2f ",l_out,r_out,sum_l+sum_r); 
+    printf("\n");
     fprintf(file,"%.10f \t %.10f \t %.10f \t %.10f \t %.10f \n",m*dt,pop3,pop2,pop1,mps_norm);
     fflush(file); 
-    fprintf(f_prob,"%.10f \t",m*dt); for(int p=1;p<=9;p++) fprintf(f_prob,"%.10f \t",Prob[p]); fprintf(f_prob,"\n");
+    fprintf(f_prob,"%.10f \t",m*dt); 
+    fprintf(f_prob,"%.10f \t",Prob[1]);
+    fprintf(f_prob,"%.10f \t",Prob[2]);fprintf(f_prob,"%.10f \t",Prob[3]);fprintf(f_prob,"%.10f \t",Prob[5]); 
+    fprintf(f_prob,"%.10f \t",Prob[4]);fprintf(f_prob,"%.10f \t",Prob[6]);fprintf(f_prob,"%.10f \t",Prob[7]); 
+    fprintf(f_prob,"%.10f \t",Prob[8]);
+    fprintf(f_prob,"%.10f \t %.10f \t",l_out,r_out);
+    fprintf(f_prob,"\n");
     fflush(f_prob);
     // --- End - Status and File output -----------------------------------------------------------------------------------
     // ..
@@ -479,9 +495,22 @@ for(int m=0;m<t_end;m++)
     // now factorize step by step the reservoir tensor moving orthoCenter
     temp=U*S; U=ITensor(iLinkp,iMl,iMr,iFBl,iFBr,iCBl); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at+1,V); // iCBr 
     temp=U*S; U=ITensor(iLinkp,iMl,iMr,iFBl,iFBr); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at,V); // iCBl 
-    temp=U*S; U=ITensor(iLinkp,iMl,iMr,iFBl); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at-1,V); // iFBr 
+    temp=U*S; U=ITensor(iLinkp,iMl,iMr,iFBl); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at-1,V); // iFBr
+    // ---------------------------------------
+    b=findIndex(V,"right");
+    BdgB = ITensor(b,prime(b)); 
+    BdgB.set(b(2),prime(b(2)),1.); // ATTENTION bath bin maximal 1 photon!!! Nbin 2!!! 
+    r_out = eltC( dag(V*S)*noPrime(BdgB*V*S) ).real();
+    // ---------------------------------------
     temp=U*S; U=ITensor(iLinkp,iMl,iMr); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at-2,V); // iFBl 
-    temp=U*S; U=ITensor(iLinkp,iMl); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at-3,V); psi.setA(sys_at-4,U*S); // iMr//iMl    
+    // ---------------------------------------
+    b=findIndex(V,"left");
+    BdgB = ITensor(b,prime(b)); 
+    BdgB.set(b(2),prime(b(2)),1.); // ATTENTION bath bin maximal 1 photon!!! Nbin 2!!! 
+    l_out = eltC( dag(V*S) * noPrime(BdgB*V*S) ).real();
+    // ---------------------------------------
+    temp=U*S; U=ITensor(iLinkp,iMl); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at-3,V); // iMr 
+    psi.setA(sys_at-4,U*S); //iMl    
     // ----------- SWAP BACK START -----------------------------
     SWAP_LEFT_BACKWARD(psi,bin,sys_at-4,l_middle-2,cutoff); 
     SWAP_LEFT_BACKWARD(psi,bin,sys_at-2,l_past,cutoff); 
