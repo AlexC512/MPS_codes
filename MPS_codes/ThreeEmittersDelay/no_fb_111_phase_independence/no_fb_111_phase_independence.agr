@@ -83,7 +83,7 @@
 @timestamp rot 0
 @timestamp font 0
 @timestamp char size 1.000000
-@timestamp def "Wed Sep  4 18:35:47 2019"
+@timestamp def "Thu Sep  5 10:15:21 2019"
 @r0 off
 @link r0 to g0
 @r0 type above
@@ -130,7 +130,7 @@
 @g0 fixedpoint format general general
 @g0 fixedpoint prec 6, 6
 @with g0
-@    world 0, -0.1, 10, 1
+@    world 0, -0.1, 6, 1
 @    stack world 0, 0, 0, 0
 @    znorm 1
 @    view 0.150000, 0.150000, 1.150000, 0.850000
@@ -204,7 +204,7 @@
 @    yaxis  bar color 1
 @    yaxis  bar linestyle 1
 @    yaxis  bar linewidth 1.0
-@    yaxis  label "Probabilities"
+@    yaxis  label "Expectation values"
 @    yaxis  label layout para
 @    yaxis  label place auto
 @    yaxis  label char size 1.500000
@@ -252,7 +252,7 @@
 @    altyaxis  off
 @    legend on
 @    legend loctype view
-@    legend 0.7, 0.8
+@    legend 0.5, 0.8
 @    legend box color 1
 @    legend box pattern 1
 @    legend box linewidth 1.0
@@ -260,7 +260,7 @@
 @    legend box fill color 0
 @    legend box fill pattern 1
 @    legend font 0
-@    legend char size 1.000000
+@    legend char size 1.500000
 @    legend color 1
 @    legend length 4
 @    legend vgap 1
@@ -288,7 +288,7 @@
 @    s0 symbol skip 0
 @    s0 line type 1
 @    s0 line linestyle 1
-@    s0 line linewidth 2.0
+@    s0 line linewidth 3.0
 @    s0 line color 1
 @    s0 line pattern 1
 @    s0 baseline type 0
@@ -337,7 +337,7 @@
 @    s1 symbol skip 0
 @    s1 line type 1
 @    s1 line linestyle 1
-@    s1 line linewidth 2.0
+@    s1 line linewidth 3.0
 @    s1 line color 2
 @    s1 line pattern 1
 @    s1 baseline type 0
@@ -386,7 +386,7 @@
 @    s2 symbol skip 0
 @    s2 line type 1
 @    s2 line linestyle 1
-@    s2 line linewidth 2.0
+@    s2 line linewidth 3.0
 @    s2 line color 3
 @    s2 line pattern 1
 @    s2 baseline type 0
@@ -435,7 +435,7 @@
 @    s3 symbol skip 0
 @    s3 line type 1
 @    s3 line linestyle 1
-@    s3 line linewidth 2.0
+@    s3 line linewidth 3.0
 @    s3 line color 4
 @    s3 line pattern 1
 @    s3 baseline type 0
@@ -484,7 +484,7 @@
 @    s4 symbol skip 0
 @    s4 line type 1
 @    s4 line linestyle 1
-@    s4 line linewidth 2.0
+@    s4 line linewidth 3.0
 @    s4 line color 11
 @    s4 line pattern 1
 @    s4 baseline type 0

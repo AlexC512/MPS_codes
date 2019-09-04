@@ -592,7 +592,6 @@ int r_middle = sys_at-Nfb/2 +1;
 
 ITensor U_evo, temp; 
 if (fb>0 ) MPO_SETUP(U_evo,bin,tls,l_past,l_middle,l_now,Nbin,Gamma_l,Gamma_m,Gamma_r,phi_l,phi_m,phi_r,dt);
-if (fb==0) MPO_NO_FB_SETUP(U_evo,bin,tls,l_now,Nbin,Gamma_l,Gamma_m,Gamma_r,dt,phi_l,phi_m,phi_r);
 //PrintData(U_evo);
 
 // ----------------------------------------------------------------------------------
@@ -821,6 +820,9 @@ for(int m=0;m<t_end;m++)
 // #################################################################################################
 if (fb==0)
 {
+    
+// setup MPO    
+MPO_NO_FB_SETUP(U_evo,bin,tls,l_now,Nbin,Gamma_l,Gamma_m,Gamma_r,dt,phi_l,phi_m,phi_r);
  
 for(int m=0;m<t_end;m++)
 {   
