@@ -2,7 +2,152 @@
 
 using namespace itensor;
 
+// ###########################################################################################################
+// ############################### NO FB MPO #################################################################
+// ###########################################################################################################
+void MPO_NO_FB_SETUP
+              (
+               ITensor& U_evo, const std::vector<Index>& bin,
+               int tls, int l_now, int Nbin,
+               Real Gamma_l, Real Gamma_m, Real Gamma_r, Real dt,
+               Real phi_l, Real phi_m, Real phi_r
+              )
+{
+    
+    int r_now = l_now+1;
+    
+    // left atom interaction hamiltonian ... time local field (now)
+    // define: |abc> == Atom left in a, Atom middle b, Atom right c, Atom 3, Atom 2, Atom 1, 
+    Complex   gam_l =  -Cplx_i*Gamma_l*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_l);
+    Complex c_gam_l =  -Cplx_i*Gamma_l*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_l);
 
+    Complex   gam_m =  -Cplx_i*Gamma_m*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_m); 
+    Complex c_gam_m =  -Cplx_i*Gamma_m*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_m); 
+
+    Complex   gam_r =  -Cplx_i*Gamma_r*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_r);
+    Complex c_gam_r =  -Cplx_i*Gamma_r*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_r);
+   
+    auto H_dis_l  = ITensor(bin[tls],prime(bin[tls]),bin[l_now],prime(bin[l_now]));
+    auto H_dis_r  = ITensor(bin[tls],prime(bin[tls]),bin[r_now],prime(bin[r_now]));
+
+    double sqrt_phot=1.;
+    for( int phot=1;phot<Nbin;phot++)
+    {    
+    sqrt_phot=sqrt(1.*phot);    
+    // -------------------------------- left atom -----------------------------------------------------------------
+    // for the left atom deexcitation means -4 we go from unprimed to primed    
+    H_dis_l.set(bin[tls](8),prime(bin[tls](4)),bin[l_now](phot),prime(bin[l_now](phot+1)),gam_l*sqrt_phot);
+    H_dis_l.set(bin[tls](7),prime(bin[tls](3)),bin[l_now](phot),prime(bin[l_now](phot+1)),gam_l*sqrt_phot);        
+    H_dis_l.set(bin[tls](6),prime(bin[tls](2)),bin[l_now](phot),prime(bin[l_now](phot+1)),gam_l*sqrt_phot);        
+    H_dis_l.set(bin[tls](5),prime(bin[tls](1)),bin[l_now](phot),prime(bin[l_now](phot+1)),gam_l*sqrt_phot);        
+    // for the left atom excitation means +4
+    H_dis_l.set(bin[tls](4),prime(bin[tls](8)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_l*sqrt_phot);
+    H_dis_l.set(bin[tls](3),prime(bin[tls](7)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_l*sqrt_phot);        
+    H_dis_l.set(bin[tls](2),prime(bin[tls](6)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_l*sqrt_phot);        
+    H_dis_l.set(bin[tls](1),prime(bin[tls](5)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_l*sqrt_phot);        
+    // -------------------------------- middle atom -----------------------------------------------------------------
+    // middle atom interation hamiltonian ... photons in time bins are created ... middle atom has no separate feedback int
+    H_dis_l.set(bin[tls](8),prime(bin[tls](6)),bin[l_now](phot),prime(bin[l_now](phot+1)), gam_m*sqrt_phot);
+    H_dis_l.set(bin[tls](7),prime(bin[tls](5)),bin[l_now](phot),prime(bin[l_now](phot+1)), gam_m*sqrt_phot);        
+    H_dis_l.set(bin[tls](4),prime(bin[tls](2)),bin[l_now](phot),prime(bin[l_now](phot+1)), gam_m*sqrt_phot);        
+    H_dis_l.set(bin[tls](3),prime(bin[tls](1)),bin[l_now](phot),prime(bin[l_now](phot+1)), gam_m*sqrt_phot);        
+    // interaction with left moving field
+    H_dis_l.set(bin[tls](6),prime(bin[tls](8)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_m*sqrt_phot);
+    H_dis_l.set(bin[tls](5),prime(bin[tls](7)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_m*sqrt_phot);        
+    H_dis_l.set(bin[tls](2),prime(bin[tls](4)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_m*sqrt_phot);        
+    H_dis_l.set(bin[tls](1),prime(bin[tls](3)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_m*sqrt_phot); 
+    // -------------------------------- right atom -----------------------------------------------------------------
+    // for the left atom deexcitation means -4 we go from unprimed to primed    
+    H_dis_l.set(bin[tls](8),prime(bin[tls](7)),bin[l_now](phot),prime(bin[l_now](phot+1)), gam_r*sqrt_phot);
+    H_dis_l.set(bin[tls](6),prime(bin[tls](5)),bin[l_now](phot),prime(bin[l_now](phot+1)), gam_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](4),prime(bin[tls](3)),bin[l_now](phot),prime(bin[l_now](phot+1)), gam_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](2),prime(bin[tls](1)),bin[l_now](phot),prime(bin[l_now](phot+1)), gam_r*sqrt_phot);        
+    // for the left atom excitation means +4
+    H_dis_l.set(bin[tls](7),prime(bin[tls](8)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_r*sqrt_phot);
+    H_dis_l.set(bin[tls](5),prime(bin[tls](6)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](3),prime(bin[tls](4)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](1),prime(bin[tls](2)),bin[l_now](phot+1),prime(bin[l_now](phot)), c_gam_r*sqrt_phot);        
+     
+    // right field 
+    // -------------------------------- left atom -----------------------------------------------------------------
+    // for the left atom deexcitation means -4 we go from unprimed to primed    
+    H_dis_r.set(bin[tls](8),prime(bin[tls](4)),bin[r_now](phot),prime(bin[r_now](phot+1)),1.*gam_l*sqrt_phot);
+    H_dis_r.set(bin[tls](7),prime(bin[tls](3)),bin[r_now](phot),prime(bin[r_now](phot+1)),1.*gam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](6),prime(bin[tls](2)),bin[r_now](phot),prime(bin[r_now](phot+1)),1.*gam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](5),prime(bin[tls](1)),bin[r_now](phot),prime(bin[r_now](phot+1)),1.*gam_l*sqrt_phot);        
+    // for the left atom excitation means +4
+    H_dis_r.set(bin[tls](4),prime(bin[tls](8)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_l*sqrt_phot);
+    H_dis_r.set(bin[tls](3),prime(bin[tls](7)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](2),prime(bin[tls](6)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](1),prime(bin[tls](5)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_l*sqrt_phot);        
+    // -------------------------------- middle atom -----------------------------------------------------------------
+    // middle atom interation hamiltonian ... photons in time bins are created ... middle atom has no separate feedback int
+    H_dis_r.set(bin[tls](8),prime(bin[tls](6)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_m*sqrt_phot);
+    H_dis_r.set(bin[tls](7),prime(bin[tls](5)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_m*sqrt_phot);        
+    H_dis_r.set(bin[tls](4),prime(bin[tls](2)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_m*sqrt_phot);        
+    H_dis_r.set(bin[tls](3),prime(bin[tls](1)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_m*sqrt_phot);        
+    // interaction with left moving field
+    H_dis_r.set(bin[tls](6),prime(bin[tls](8)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_m*sqrt_phot);
+    H_dis_r.set(bin[tls](5),prime(bin[tls](7)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_m*sqrt_phot);        
+    H_dis_r.set(bin[tls](2),prime(bin[tls](4)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_m*sqrt_phot);        
+    H_dis_r.set(bin[tls](1),prime(bin[tls](3)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_m*sqrt_phot); 
+    // -------------------------------- right atom -----------------------------------------------------------------
+    // for the left atom deexcitation means -4 we go from unprimed to primed    
+    H_dis_r.set(bin[tls](8),prime(bin[tls](7)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_r*sqrt_phot);
+    H_dis_r.set(bin[tls](6),prime(bin[tls](5)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](4),prime(bin[tls](3)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](2),prime(bin[tls](1)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_r*sqrt_phot);        
+    // for the left atom excitation means +4
+    H_dis_r.set(bin[tls](7),prime(bin[tls](8)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_r*sqrt_phot);
+    H_dis_r.set(bin[tls](5),prime(bin[tls](6)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](3),prime(bin[tls](4)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](1),prime(bin[tls](2)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_r*sqrt_phot);            
+    }
+    
+    H_dis_r = delta(bin[l_now],prime(bin[l_now])) * H_dis_r;
+    H_dis_l = delta(bin[r_now],prime(bin[r_now])) * H_dis_l;
+    
+    
+    auto H_int = H_dis_r + H_dis_l ;  //PrintData(H_int);           
+    auto H_int_1  =  H_int; 
+    
+    auto temp_H_int_1 = prime(H_int_1);
+    auto H_int_2  = (1./2.)  * mapPrime(temp_H_int_1*H_int_1,2,1); printf("2nd-order prepared: order of H=%i.\n",order(H_int_2));  
+    auto H_int_3  = (1./3.)  * mapPrime(temp_H_int_1*H_int_2,2,1); printf("3rd-order prepared: order of H=%i.\n",order(H_int_3));
+    auto H_int_4  = (1./4.)  * mapPrime(temp_H_int_1*H_int_3,2,1); printf("4th-order prepared: order of H=%i.\n",order(H_int_4));
+    auto H_int_5  = (1./5.)  * mapPrime(temp_H_int_1*H_int_4,2,1); printf("5th-order prepared: order of H=%i.\n",order(H_int_5));
+    auto H_int_6  = (1./6.)  * mapPrime(temp_H_int_1*H_int_5,2,1); printf("6th-order prepared: order of H=%i.\n",order(H_int_6));
+    auto H_int_7  = (1./7.)  * mapPrime(temp_H_int_1*H_int_6,2,1); printf("7th-order prepared: order of H=%i.\n",order(H_int_7));
+    auto H_int_8  = (1./8.)  * mapPrime(temp_H_int_1*H_int_7,2,1); printf("8th-order prepared: order of H=%i.\n",order(H_int_8));
+    auto H_int_9  = (1./9.)  * mapPrime(temp_H_int_1*H_int_8,2,1); printf("9th-order prepared: order of H=%i.\n",order(H_int_9));
+    auto H_int_10 = (1./10.) * mapPrime(temp_H_int_1*H_int_9,2,1); printf("10th-order prepared: order of H=%i.\n",order(H_int_10));
+
+    auto temp= ITensor(bin[tls],prime(bin[tls]));
+    temp.set(bin[tls](1),prime(bin[tls](1)),1.);
+    temp.set(bin[tls](2),prime(bin[tls](2)),1.);
+    temp.set(bin[tls](3),prime(bin[tls](3)),1.);
+    temp.set(bin[tls](4),prime(bin[tls](4)),1.);
+    temp.set(bin[tls](5),prime(bin[tls](5)),1.);
+    temp.set(bin[tls](6),prime(bin[tls](6)),1.);
+    temp.set(bin[tls](7),prime(bin[tls](7)),1.);
+    temp.set(bin[tls](8),prime(bin[tls](8)),1.);
+
+    //ITensor temp;
+    temp = delta(bin[l_now],prime(bin[l_now]))*temp*delta(bin[r_now],prime(bin[r_now]));
+    // now the taylor expansion of the U_evo
+
+    U_evo =   temp + H_int_1 + H_int_2 + H_int_3 
+                   + H_int_4 + H_int_5 + H_int_6 + H_int_7  + H_int_8 + H_int_9 + H_int_10 ;
+                   
+    return;               
+}
+// ###########################################################################################################
+// ###########################################################################################################
+// ###########################################################################################################
+
+// ###########################################################################################################
+// ############################### FB MPO ####################################################################
+// ###########################################################################################################
 void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
                int tls, int l_past, int l_middle, int l_now, int Nbin,
                Real Gamma_l, Real Gamma_m, Real Gamma_r,
@@ -175,8 +320,13 @@ void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
                    
     return;               
 }
+// ###########################################################################################################
+// ###########################################################################################################
+// ###########################################################################################################
 
-
+// ###########################################################################################################
+// ###########################################################################################################
+// ###########################################################################################################
 void MPS_SETUP(MPS& psi, const std::vector<Index>& bin, const std::vector<Index>& binlink, int ttotal, int Nfb, int tls, Real Init[])
 {    
     // set up the mps 
@@ -220,6 +370,9 @@ void MPS_SETUP(MPS& psi, const std::vector<Index>& bin, const std::vector<Index>
     
 //    for(int l=1;l<=ttotal+1;l++) {printf("%i:\n",l); PrintData(psi(l));}
 }  
+// ###########################################################################################################
+// ###########################################################################################################
+// ###########################################################################################################
 
 // -----------------------------------------------------------------------------------
 // ------------------ INITIALIZATION PROCEDURES --------------------------------------
@@ -250,11 +403,12 @@ double TLS_norm(ITensor A)
     return eltC( dag(A)*A).real(); 
 }
 
- 
+// ###########################################################################################################
+// ###########################################################################################################
+// ########################################################################################################### 
 // moves right bin at "from" to "to" keeping OrthoCenter at to-1 in the left bin
 void SWAP_RIGHT_FORWARD(MPS& psi, const std::vector<Index>& bin, int from, int to, double cutoff)
 {
-  
     ITensor SWAP,U,S,V;
     Index iLeft=findIndex(psi(from-1),"left");
     Index iRight=findIndex(psi(from),"right");
@@ -275,11 +429,16 @@ void SWAP_RIGHT_FORWARD(MPS& psi, const std::vector<Index>& bin, int from, int t
     }
 
 }    
+// ###########################################################################################################
+// ###########################################################################################################
+// ###########################################################################################################
 
+// ###########################################################################################################
+// ###########################################################################################################
+// ###########################################################################################################
 // moves left bin at "from" to "to" keeping OrthoCenter at to-2 in the left bin
 void SWAP_LEFT_BACKWARD(MPS& psi, const std::vector<Index>& bin, int from, int to, double cutoff)
 {
-  
     ITensor SWAP,U,S,V;
     Index iLeft=findIndex(psi(from),"left");
     Index iRight=findIndex(psi(from+1),"right");
@@ -302,6 +461,26 @@ void SWAP_LEFT_BACKWARD(MPS& psi, const std::vector<Index>& bin, int from, int t
     }
 
 }    
+// ###########################################################################################################
+// ###########################################################################################################
+// ###########################################################################################################
+
+// ###########################################################################################################
+// ###########################################################################################################
+// ###########################################################################################################
+void PrintMPS(MPS psi,int from, int to)
+{
+    printf(" -------------------------------------- \n");
+    for(int l=from;l<=to;l++) 
+    {
+        printf("%i:",l);
+        Print(psi(l));
+    }
+    printf(" -------------------------------------- \n");
+}    
+// ###########################################################################################################
+// ###########################################################################################################
+// ###########################################################################################################
 
 int main(int argc, char* argv[])
 { 
@@ -412,7 +591,8 @@ int l_middle = sys_at-Nfb/2   ;
 int r_middle = sys_at-Nfb/2 +1;    
 
 ITensor U_evo, temp; 
-MPO_SETUP(U_evo,bin,tls,l_past,l_middle,l_now,Nbin,Gamma_l,Gamma_m,Gamma_r,phi_l,phi_m,phi_r,dt);
+if (fb>0 ) MPO_SETUP(U_evo,bin,tls,l_past,l_middle,l_now,Nbin,Gamma_l,Gamma_m,Gamma_r,phi_l,phi_m,phi_r,dt);
+if (fb==0) MPO_NO_FB_SETUP(U_evo,bin,tls,l_now,Nbin,Gamma_l,Gamma_m,Gamma_r,dt,phi_l,phi_m,phi_r);
 //PrintData(U_evo);
 
 // ----------------------------------------------------------------------------------
@@ -437,6 +617,9 @@ Index iFBl,iFBr,iMl,iMr,iCBl,iCBr; // index fuer feedback, system, und current b
 Index iLinkp; 
 Index b; 
 ITensor BdgB;
+
+if (fb>2)
+{
 
 for(int m=0;m<t_end;m++)
 {   
@@ -463,13 +646,11 @@ for(int m=0;m<t_end;m++)
     fprintf(f_prob,"\n");
     fflush(f_prob);
     // --- End - Status and File output -----------------------------------------------------------------------------------
-    // ..
-    
+    //PrintMPS(psi,1,ttotal+1);
     // -------------- PREPARE MPS TO APPLY MPO ------------------------------------------
     SWAP_RIGHT_FORWARD(psi,bin,r_middle,sys_at-1,cutoff); // move middle bins next to system bin
     SWAP_RIGHT_FORWARD(psi,bin,r_past,sys_at-1,cutoff);   // move beyond middle bins to absorb orthoCenter
     // --------------------------------------------------------
-
     // --------------------------------------------------------
     // ----------- APPLY MPO START ----------------------------
     iMl = findIndex(psi.A(sys_at-4),"left"); 
@@ -481,7 +662,8 @@ for(int m=0;m<t_end;m++)
     iLinkp = commonIndex(psi.A(sys_at-4),psi.A(sys_at-5));
     
     temp = noPrime(psi(sys_at-4)*psi(sys_at-3)*psi(sys_at-2)*psi(sys_at-1)*U_evo*psi(sys_at)*psi(sys_at+1)*psi(sys_at+2));  
-
+    //Print(temp);
+    
     U=ITensor(iLinkp,iMl,iMr,iFBl,iFBr,iCBl,iCBr); 
     svd(temp,U,S,V,{"Cutoff=",cutoff});
     // tls in the next mps slot 
@@ -519,16 +701,199 @@ for(int m=0;m<t_end;m++)
     // Update MPO, only if a further loop is possible
     if (m<t_end-1)
     {       
-    U_evo = delta(bin[l_past],bin[l_past+2])*U_evo*delta(prime(bin[l_past]),prime(bin[l_past+2])) ;
-    U_evo = delta(bin[r_past],bin[r_past+2])*U_evo*delta(prime(bin[r_past]),prime(bin[r_past+2])) ;
+    U_evo = delta(bin[l_now],bin[l_now+2])*U_evo*delta(prime(bin[l_now]),prime(bin[l_now+2])) ;
+    U_evo = delta(bin[r_now],bin[r_now+2])*U_evo*delta(prime(bin[r_now]),prime(bin[r_now+2])) ;
     U_evo = delta(bin[l_middle],bin[l_middle+2])*U_evo*delta(prime(bin[l_middle]),prime(bin[l_middle+2])) ;
     U_evo = delta(bin[r_middle],bin[r_middle+2])*U_evo*delta(prime(bin[r_middle]),prime(bin[r_middle+2])) ;
+    U_evo = delta(bin[l_past],bin[l_past+2])*U_evo*delta(prime(bin[l_past]),prime(bin[l_past+2])) ;
+    U_evo = delta(bin[r_past],bin[r_past+2])*U_evo*delta(prime(bin[r_past]),prime(bin[r_past+2])) ;
+    }
+    // increase the position of the system by 2!!
+    sys_at++;sys_at++;
+}   
+}
+
+// #################################################################################################
+// ################################### END fb > 2 ##################################################
+// #################################################################################################
+
+// #################################################################################################
+// ################################### fb == 2 #####################################################
+// #################################################################################################
+// ------ if fb==2 no swapping, due to the orthocenter not to be combined with fb>2 ----------------
+
+if (fb==2)
+{
+ 
+for(int m=0;m<t_end;m++)
+{   
+    l_past= sys_at-Nfb    ;
+    r_past= sys_at-Nfb+1  ;
+    l_now = sys_at        ; 
+    r_now = sys_at+1;
+    l_middle = sys_at-Nfb/2    ;
+    r_middle = sys_at-Nfb/2 +1 ;
+    // --- Status and File output ----------------------------------------------------------------------------------------
+    sum_l +=l_out; sum_r += r_out;
+    printf("Step %i of %i: norm=%.10f  -- ",m,t_end,mps_norm);
+    printf("pop_l=%.10f -- pop_m=%.10f -- pop_r=%.10f --",pop3,pop2,pop1); 
+    printf("l_out=%.10f -- r_out=%.10f -- Sum_Out=%.2f ",l_out,r_out,sum_l+sum_r); 
+    printf("\n");
+    fprintf(file,"%.10f \t %.10f \t %.10f \t %.10f \t %.10f \n",m*dt,pop3,pop2,pop1,mps_norm);
+    fflush(file); 
+    fprintf(f_prob,"%.10f \t",m*dt); 
+    fprintf(f_prob,"%.10f \t",Prob[1]);
+    fprintf(f_prob,"%.10f \t",Prob[2]);fprintf(f_prob,"%.10f \t",Prob[3]);fprintf(f_prob,"%.10f \t",Prob[5]); 
+    fprintf(f_prob,"%.10f \t",Prob[4]);fprintf(f_prob,"%.10f \t",Prob[6]);fprintf(f_prob,"%.10f \t",Prob[7]); 
+    fprintf(f_prob,"%.10f \t",Prob[8]);
+    fprintf(f_prob,"%.10f \t %.10f \t",l_out,r_out);
+    fprintf(f_prob,"\n");
+    fflush(f_prob);
+    // --- End - Status and File output -----------------------------------------------------------------------------------
+    // -------------- PREPARE MPS TO APPLY MPO ------------------------------------------
+    iFBl = findIndex(psi.A(sys_at-4),"left"); 
+    iFBr = findIndex(psi.A(sys_at-3),"right");      
+    iMl  = findIndex(psi.A(sys_at-2),"left"); 
+    iMr  = findIndex(psi.A(sys_at-1),"right");      
+    iCBl = findIndex(psi.A(sys_at+1),"left");
+    iCBr = findIndex(psi.A(sys_at+2),"right");    
+    iLinkp = commonIndex(psi.A(sys_at-4),psi.A(sys_at-5));
+    
+    temp = noPrime(psi(sys_at-4)*psi(sys_at-3)*psi(sys_at-2)*psi(sys_at-1)*U_evo*psi(sys_at)*psi(sys_at+1)*psi(sys_at+2));  
+    
+    U=ITensor(iLinkp,iMl,iMr,iFBl,iFBr,iCBl,iCBr);     
+    svd(temp,U,S,V,{"Cutoff=",cutoff});
+    // tls in the next mps slot 
+    psi.setA(sys_at+2,V); 
+    Prob[9]=0;
+    for(int p=1;p<=8;p++) {Prob[p]=state_prop(V*S,p); Prob[9] += Prob[p]; }
+    pop1 =  Prob[2]+Prob[4]+Prob[6]+Prob[8];
+    pop2 =  Prob[3]+Prob[4]+Prob[7]+Prob[8];
+    pop3 =  Prob[5]+Prob[6]+Prob[7]+Prob[8];  
+    mps_norm = eltC( dag(V*S)*V*S).real(); 
+    // now factorize step by step the reservoir tensor moving orthoCenter
+    temp=U*S; U=ITensor(iLinkp,iFBl,iFBr,iMl,iMr,iCBl); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at+1,V); // iCBr 
+    temp=U*S; U=ITensor(iLinkp,iFBl,iFBr,iMl,iMr); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at,V); // iCBl 
+    temp=U*S; U=ITensor(iLinkp,iFBl,iFBr,iMl); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at-1,V); // iMr
+    temp=U*S; U=ITensor(iLinkp,iFBl,iFBr); svd(temp,U,S,V,{"Cutoff=",cutoff}); psi.setA(sys_at-2,V); // iMl 
+    temp=U*S; U=ITensor(iLinkp,iFBl); svd(temp,U,S,V,{"Cutoff=",cutoff}); 
+    // ---------------------------------------
+    b=findIndex(V,"right");
+    BdgB = ITensor(b,prime(b)); 
+    BdgB.set(b(2),prime(b(2)),1.); // ATTENTION bath bin maximal 1 photon!!! Nbin 2!!! 
+    r_out = eltC( dag(V*S)*noPrime(BdgB*V*S) ).real();
+    // ---------------------------------------
+    psi.setA(sys_at-3,V*S); // iFBr 
+    // ---------------------------------------
+    b=findIndex(U,"left");
+    BdgB = ITensor(b,prime(b)); 
+    BdgB.set(b(2),prime(b(2)),1.); // ATTENTION bath bin maximal 1 photon!!! Nbin 2!!! 
+    l_out = eltC( dag(U*S) * noPrime(BdgB*U*S) ).real();
+    // ---------------------------------------
+    psi.setA(sys_at-4,U); //iFBl      
+    
+    temp = psi(sys_at-3)*psi(sys_at-2);
+    iLinkp=commonIndex(psi(sys_at-3),psi(sys_at-4));  
+    U = ITensor(iFBr,iLinkp);
+    svd(temp,U,S,V,{"Cutoff=",cutoff});
+    psi.setA(sys_at-3,U);       
+    psi.setA(sys_at-2,V*S);      
+    // Update MPO, only if a further loop is possible
+    if (m<t_end-1)
+    {       
+    U_evo = delta(bin[l_now],bin[l_now+2])*U_evo*delta(prime(bin[l_now]),prime(bin[l_now+2])) ;
+    U_evo = delta(bin[r_now],bin[r_now+2])*U_evo*delta(prime(bin[r_now]),prime(bin[r_now+2])) ;
+    U_evo = delta(bin[l_middle],bin[l_middle+2])*U_evo*delta(prime(bin[l_middle]),prime(bin[l_middle+2])) ;
+    U_evo = delta(bin[r_middle],bin[r_middle+2])*U_evo*delta(prime(bin[r_middle]),prime(bin[r_middle+2])) ;
+    U_evo = delta(bin[l_past],bin[l_past+2])*U_evo*delta(prime(bin[l_past]),prime(bin[l_past+2])) ;
+    U_evo = delta(bin[r_past],bin[r_past+2])*U_evo*delta(prime(bin[r_past]),prime(bin[r_past+2])) ;
+    }
+    // increase the position of the system by 2!!
+    sys_at++;sys_at++;
+} // end time loop  
+}
+// #################################################################################################
+// ################################### END fb == 2 ##################################################
+// #################################################################################################
+
+// #################################################################################################
+// ################################### fb == 2 #####################################################
+// #################################################################################################
+if (fb==0)
+{
+ 
+for(int m=0;m<t_end;m++)
+{   
+    l_now = sys_at        ; 
+    r_now = sys_at+1;
+    // --- Status and File output ----------------------------------------------------------------------------------------
+    sum_l +=l_out; sum_r += r_out;
+    printf("Step %i of %i: norm=%.10f  -- ",m,t_end,mps_norm);
+    printf("pop_l=%.10f -- pop_m=%.10f -- pop_r=%.10f --",pop3,pop2,pop1); 
+    printf("l_out=%.10f -- r_out=%.10f -- Sum_Out=%.2f ",l_out,r_out,sum_l+sum_r); 
+    printf("\n");
+    fprintf(file,"%.10f \t %.10f \t %.10f \t %.10f \t %.10f \n",m*dt,pop3,pop2,pop1,mps_norm);
+    fflush(file); 
+    fprintf(f_prob,"%.10f \t",m*dt); 
+    fprintf(f_prob,"%.10f \t",Prob[1]);
+    fprintf(f_prob,"%.10f \t",Prob[2]);fprintf(f_prob,"%.10f \t",Prob[3]);fprintf(f_prob,"%.10f \t",Prob[5]); 
+    fprintf(f_prob,"%.10f \t",Prob[4]);fprintf(f_prob,"%.10f \t",Prob[6]);fprintf(f_prob,"%.10f \t",Prob[7]); 
+    fprintf(f_prob,"%.10f \t",Prob[8]);
+    fprintf(f_prob,"%.10f \t %.10f \t",l_out,r_out);
+    fprintf(f_prob,"\n");
+    fflush(f_prob);
+    // --- End - Status and File output -----------------------------------------------------------------------------------
+    // -------------- PREPARE MPS TO APPLY MPO ------------------------------------------
+    iCBl = findIndex(psi.A(sys_at+1),"left"); //PrintData(psi(sys_at+1));
+    iCBr = findIndex(psi.A(sys_at+2),"right"); //PrintData(psi(sys_at+2));    
+    iLinkp = commonIndex(psi.A(sys_at),psi.A(sys_at-1));
+    //PrintData(U_evo);
+    temp = noPrime(U_evo*psi(sys_at)*psi(sys_at+1)*psi(sys_at+2));  
+    
+    U=ITensor(iLinkp,iCBl,iCBr);     
+    svd(temp,U,S,V,{"Cutoff=",cutoff});
+    // tls in the next mps slot 
+    psi.setA(sys_at+2,V); 
+    Prob[9]=0;
+    for(int p=1;p<=8;p++) {Prob[p]=state_prop(V*S,p); Prob[9] += Prob[p]; }
+    pop1 =  Prob[2]+Prob[4]+Prob[6]+Prob[8];
+    pop2 =  Prob[3]+Prob[4]+Prob[7]+Prob[8];
+    pop3 =  Prob[5]+Prob[6]+Prob[7]+Prob[8];  
+    mps_norm = eltC( dag(V*S)*V*S).real(); 
+    // now factorize step by step the reservoir tensor moving orthoCenter
+    temp=U*S; U=ITensor(iLinkp,iCBl); svd(temp,U,S,V,{"Cutoff=",cutoff}); 
+    psi.setA(sys_at+1,V*S); // iCBr 
+    psi.setA(sys_at,U); // iCBl 
+    // ---------------------------------------
+    b=findIndex(V,"right");
+    BdgB = ITensor(b,prime(b)); 
+    BdgB.set(b(2),prime(b(2)),1.); // ATTENTION bath bin maximal 1 photon!!! Nbin 2!!! 
+    r_out = eltC( dag(V*S)*noPrime(BdgB*V*S) ).real();
+    // ---------------------------------------
+    b=findIndex(U,"left");
+    BdgB = ITensor(b,prime(b)); 
+    BdgB.set(b(2),prime(b(2)),1.); // ATTENTION bath bin maximal 1 photon!!! Nbin 2!!! 
+    l_out = eltC( dag(U*S) * noPrime(BdgB*U*S) ).real();
+    
+    temp = psi(sys_at+1)*psi(sys_at+2);
+    iLinkp=commonIndex(psi(sys_at+1),psi(sys_at));  
+    U = ITensor(iCBr,iLinkp);
+    svd(temp,U,S,V,{"Cutoff=",cutoff});
+    psi.setA(sys_at+1,U);       
+    psi.setA(sys_at+2,V*S);      
+    // Update MPO, only if a further loop is possible
+    if (m<t_end-1)
+    {       
     U_evo = delta(bin[l_now],bin[l_now+2])*U_evo*delta(prime(bin[l_now]),prime(bin[l_now+2])) ;
     U_evo = delta(bin[r_now],bin[r_now+2])*U_evo*delta(prime(bin[r_now]),prime(bin[r_now+2])) ;
     }
     // increase the position of the system by 2!!
     sys_at++;sys_at++;
-}   
+} // end time loop  
+}
+// #################################################################################################
+// ################################### END fb == 0 #################################################
+// #################################################################################################
 
 // ------------------- INFORMATION ABOUT CALCULATION LENGTH -------------------------------------------------
 int ehour = loctime -> tm_hour; int eminute = loctime -> tm_min; int esecond = loctime -> tm_sec;
