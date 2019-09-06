@@ -175,8 +175,8 @@ void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
     Complex c_gam_m_fb =  -Cplx_i*Gamma_m*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_m); // if left and right feedback is not the same!!!
 
     Complex   gam_r    =  -Cplx_i*Gamma_r*sqrt(dt);
-    Complex c_gam_r    =  -Cplx_i*Gamma_r*sqrt(dt);
-    Complex   gam_r_fb =  -Cplx_i*Gamma_r*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_r);
+    Complex c_gam_r    =  -Cplx_i*Gamma_r*sqrt(dt);  
+    Complex   gam_r_fb =  -Cplx_i*Gamma_r*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_r); 
     Complex c_gam_r_fb =  -Cplx_i*Gamma_r*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_r);
    
     auto H_dis_l  = ITensor(bin[tls],prime(bin[tls]),bin[l_now],prime(bin[l_now]));
