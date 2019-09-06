@@ -1,0 +1,24 @@
+
+install lapack and blas
+
+sudo apt-get install libblas-dev checkinstall
+sudo apt-get install liblapacke-dev checkinstall
+
+get git or:
+
+git clone https://github.com/ITensor/ITensor itensor
+
+install compiler gcc, g++
+
+sudo cp options.mk.sample options.mk
+chmod u+w ~/options.mk
+
+sudo mcedit options.mk
+
+comment macos system
+uncomment llapack for linux system
+
+in makefile, give path for itensor\ where the this.dir file lies
+
+
+
