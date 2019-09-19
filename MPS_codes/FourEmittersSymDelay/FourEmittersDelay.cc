@@ -10,8 +10,8 @@ void MPO_NO_FB_SETUP
               (
                ITensor& U_evo, const std::vector<Index>& bin,
                int tls, int four_l, int Nbin,
-               Real Gamma_l, Real Gamma_ml, Real Gamma_mr, Real Gamma_r, Real dt,
-               Real phi_l, Real phi_ml,Real phi_mr, Real phi_r
+               Real GAM1_L,Real GAM2_L,Real GAM3_L,Real GAM4_L,Real GAM1_R,Real GAM2_R,Real GAM3_R,Real GAM4_R,
+               Real phi_l, Real phi_ml,Real phi_mr, Real phi_r,Real dt, int U_EVO_ORDER
               )
               
 {
@@ -19,18 +19,30 @@ void MPO_NO_FB_SETUP
     int one_r = four_l+1;
     // left atom interaction hamiltonian ... time local field (now)
     // define: |abc> == Atom left in a, Atom middle b, Atom right c, Atom 3, Atom 2, Atom 1, 
-    Complex   gam_l  =  -Cplx_i*Gamma_l*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_l);
-    Complex c_gam_l  =  -Cplx_i*Gamma_l*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_l);
+    Complex   gam_l  =  -Cplx_i*GAM1_L*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_l);
+    Complex c_gam_l  =  -Cplx_i*GAM1_L*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_l);
 
-    Complex   gam_ml =  -Cplx_i*Gamma_ml*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_ml); 
-    Complex c_gam_ml =  -Cplx_i*Gamma_ml*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_ml); 
+    Complex   gam_ml =  -Cplx_i*GAM2_L*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_ml); 
+    Complex c_gam_ml =  -Cplx_i*GAM2_L*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_ml); 
 
-    Complex   gam_mr =  -Cplx_i*Gamma_mr*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_mr); 
-    Complex c_gam_mr =  -Cplx_i*Gamma_mr*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_mr); 
+    Complex   gam_mr =  -Cplx_i*GAM3_L*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_mr); 
+    Complex c_gam_mr =  -Cplx_i*GAM3_L*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_mr); 
 
-    Complex   gam_r  =  -Cplx_i*Gamma_r*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_r);
-    Complex c_gam_r  =  -Cplx_i*Gamma_r*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_r);
-   
+    Complex   gam_r  =  -Cplx_i*GAM4_L*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_r);
+    Complex c_gam_r  =  -Cplx_i*GAM4_L*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_r);
+
+    Complex   ggam_l  =  -Cplx_i*GAM1_R*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_l);
+    Complex c_ggam_l  =  -Cplx_i*GAM1_R*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_l);
+
+    Complex   ggam_ml =  -Cplx_i*GAM2_R*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_ml); 
+    Complex c_ggam_ml =  -Cplx_i*GAM2_R*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_ml); 
+
+    Complex   ggam_mr =  -Cplx_i*GAM3_R*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_mr); 
+    Complex c_ggam_mr =  -Cplx_i*GAM3_R*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_mr); 
+
+    Complex   ggam_r  =  -Cplx_i*GAM4_R*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_r);
+    Complex c_ggam_r  =  -Cplx_i*GAM4_R*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_r);
+
     printf("INITIALIZE HAMILTONIAN: GAM_L=%.3f - GAM_ML=%.3f - GAM_MR=%.3f - GAM_R=%.3f\n",gam_l,gam_ml,gam_mr,gam_r);
     
     auto H_dis_l  = ITensor(bin[tls],prime(bin[tls]),bin[four_l],prime(bin[four_l]));
@@ -123,102 +135,89 @@ void MPO_NO_FB_SETUP
     // -------------------------------- left atom ---------------------------------------------------------------
     // for the left atom deexcitation means -4 we go from unprimed to primed  
     //  |1><9|  + |2><10| + |3><11| + |5><13| + |7><15| + |6><14| + |4><12| + |8><16|       
-    H_dis_r.set(bin[tls](9 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);
-    H_dis_r.set(bin[tls](10),prime(bin[tls](2 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](11),prime(bin[tls](3 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](12),prime(bin[tls](4 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](13),prime(bin[tls](5 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](14),prime(bin[tls](6 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](15),prime(bin[tls](7 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);
-    H_dis_r.set(bin[tls](16),prime(bin[tls](8 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](9 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)),ggam_l*sqrt_phot);
+    H_dis_r.set(bin[tls](10),prime(bin[tls](2 )),bin[one_r](phot),prime(bin[one_r](phot+1)),ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](11),prime(bin[tls](3 )),bin[one_r](phot),prime(bin[one_r](phot+1)),ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](12),prime(bin[tls](4 )),bin[one_r](phot),prime(bin[one_r](phot+1)),ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](13),prime(bin[tls](5 )),bin[one_r](phot),prime(bin[one_r](phot+1)),ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](14),prime(bin[tls](6 )),bin[one_r](phot),prime(bin[one_r](phot+1)),ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](15),prime(bin[tls](7 )),bin[one_r](phot),prime(bin[one_r](phot+1)),ggam_l*sqrt_phot);
+    H_dis_r.set(bin[tls](16),prime(bin[tls](8 )),bin[one_r](phot),prime(bin[one_r](phot+1)),ggam_l*sqrt_phot);        
     // --------------------------------------------------------------------------------------------------------
-    H_dis_r.set(bin[tls](1 ),prime(bin[tls](9 )),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);
-    H_dis_r.set(bin[tls](2 ),prime(bin[tls](10)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](3 ),prime(bin[tls](11)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](4 ),prime(bin[tls](12)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](5 ),prime(bin[tls](13)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](6 ),prime(bin[tls](14)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_r.set(bin[tls](7 ),prime(bin[tls](15)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);
-    H_dis_r.set(bin[tls](8 ),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](1 ),prime(bin[tls](9 )),bin[one_r](phot+1),prime(bin[one_r](phot)),c_ggam_l*sqrt_phot);
+    H_dis_r.set(bin[tls](2 ),prime(bin[tls](10)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](3 ),prime(bin[tls](11)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](4 ),prime(bin[tls](12)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](5 ),prime(bin[tls](13)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](6 ),prime(bin[tls](14)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_ggam_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](7 ),prime(bin[tls](15)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_ggam_l*sqrt_phot);
+    H_dis_r.set(bin[tls](8 ),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_ggam_l*sqrt_phot);        
     // -------------------------------- middle left atom ------------------------------------------------------
     // |1><5|   + |2><6|   + |3><7| + |4><8| + |9><13| + |10><14| + |11><15|  + |12><16|
-    H_dis_r.set(bin[tls](5 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_ml*sqrt_phot);
-    H_dis_r.set(bin[tls](6 ),prime(bin[tls](2 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](7 ),prime(bin[tls](3 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](8 ),prime(bin[tls](4 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](13),prime(bin[tls](9 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_ml*sqrt_phot);
-    H_dis_r.set(bin[tls](14),prime(bin[tls](10)),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](15),prime(bin[tls](11)),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](16),prime(bin[tls](12)),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](5 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_ml*sqrt_phot);
+    H_dis_r.set(bin[tls](6 ),prime(bin[tls](2 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](7 ),prime(bin[tls](3 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](8 ),prime(bin[tls](4 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](13),prime(bin[tls](9 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_ml*sqrt_phot);
+    H_dis_r.set(bin[tls](14),prime(bin[tls](10)),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](15),prime(bin[tls](11)),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](16),prime(bin[tls](12)),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_ml*sqrt_phot);        
     // ----------------------------------------------------------------------------------------------------------
-    H_dis_r.set(bin[tls](1 ),prime(bin[tls](5 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_ml*sqrt_phot);
-    H_dis_r.set(bin[tls](2 ),prime(bin[tls](6 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](3 ),prime(bin[tls](7 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](4 ),prime(bin[tls](8 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](9 ),prime(bin[tls](13)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_ml*sqrt_phot);
-    H_dis_r.set(bin[tls](10),prime(bin[tls](14)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](11),prime(bin[tls](15)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_ml*sqrt_phot);        
-    H_dis_r.set(bin[tls](12),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_ml*sqrt_phot);            
+    H_dis_r.set(bin[tls](1 ),prime(bin[tls](5 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_ml*sqrt_phot);
+    H_dis_r.set(bin[tls](2 ),prime(bin[tls](6 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](3 ),prime(bin[tls](7 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](4 ),prime(bin[tls](8 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](9 ),prime(bin[tls](13)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_ml*sqrt_phot);
+    H_dis_r.set(bin[tls](10),prime(bin[tls](14)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](11),prime(bin[tls](15)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_ml*sqrt_phot);        
+    H_dis_r.set(bin[tls](12),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_ml*sqrt_phot);            
     // -------------------------------- middle right atom -------------------------------------------------------
     // |1><3| + |2><4| + |5><7| + |6><8| + |9><11| + |10><12| + |13><15|  + |14><16|  
-    H_dis_r.set(bin[tls](3 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_mr*sqrt_phot);
-    H_dis_r.set(bin[tls](4 ),prime(bin[tls](2 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](7 ),prime(bin[tls](5 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](8 ),prime(bin[tls](6 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](11),prime(bin[tls](9 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_mr*sqrt_phot);
-    H_dis_r.set(bin[tls](12),prime(bin[tls](10)),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](15),prime(bin[tls](13)),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](16),prime(bin[tls](14)),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](3 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_mr*sqrt_phot);
+    H_dis_r.set(bin[tls](4 ),prime(bin[tls](2 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](7 ),prime(bin[tls](5 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](8 ),prime(bin[tls](6 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](11),prime(bin[tls](9 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_mr*sqrt_phot);
+    H_dis_r.set(bin[tls](12),prime(bin[tls](10)),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](15),prime(bin[tls](13)),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](16),prime(bin[tls](14)),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_mr*sqrt_phot);        
     // ----------------------------------------------------------------------------------------------------------
-    H_dis_r.set(bin[tls](1 ),prime(bin[tls](3 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_mr*sqrt_phot);
-    H_dis_r.set(bin[tls](2 ),prime(bin[tls](4 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](5 ),prime(bin[tls](7 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](6 ),prime(bin[tls](8 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](9 ),prime(bin[tls](11)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_mr*sqrt_phot);
-    H_dis_r.set(bin[tls](10),prime(bin[tls](12)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](13),prime(bin[tls](15)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_mr*sqrt_phot);        
-    H_dis_r.set(bin[tls](14),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_mr*sqrt_phot);            
+    H_dis_r.set(bin[tls](1 ),prime(bin[tls](3 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_mr*sqrt_phot);
+    H_dis_r.set(bin[tls](2 ),prime(bin[tls](4 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](5 ),prime(bin[tls](7 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](6 ),prime(bin[tls](8 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](9 ),prime(bin[tls](11)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_mr*sqrt_phot);
+    H_dis_r.set(bin[tls](10),prime(bin[tls](12)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](13),prime(bin[tls](15)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_mr*sqrt_phot);        
+    H_dis_r.set(bin[tls](14),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_mr*sqrt_phot);            
     // -------------------------------- right atom -------------------------------------------------------
     // |1><2|   + |3><4|   + |5><6| + |7><8| + |9><10|+ |11><12| + |13><14| + |15><16|       
-    H_dis_r.set(bin[tls](2 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](4 ),prime(bin[tls](3 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](6 ),prime(bin[tls](5 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](8 ),prime(bin[tls](7 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](10),prime(bin[tls](9 )),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](12),prime(bin[tls](11)),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](14),prime(bin[tls](13)),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](16),prime(bin[tls](15)),bin[one_r](phot),prime(bin[one_r](phot+1)), gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](2 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_r*sqrt_phot);
+    H_dis_r.set(bin[tls](4 ),prime(bin[tls](3 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](6 ),prime(bin[tls](5 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](8 ),prime(bin[tls](7 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](10),prime(bin[tls](9 )),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_r*sqrt_phot);
+    H_dis_r.set(bin[tls](12),prime(bin[tls](11)),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](14),prime(bin[tls](13)),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](16),prime(bin[tls](15)),bin[one_r](phot),prime(bin[one_r](phot+1)), ggam_r*sqrt_phot);        
     // ----------------------------------------------------------------------------------------------------------
-    H_dis_r.set(bin[tls](1 ),prime(bin[tls](2 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](3 ),prime(bin[tls](4 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](5 ),prime(bin[tls](6 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](7 ),prime(bin[tls](8 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](9 ),prime(bin[tls](10)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](11),prime(bin[tls](12)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](13),prime(bin[tls](14)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](15),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_gam_r*sqrt_phot);            
+    H_dis_r.set(bin[tls](1 ),prime(bin[tls](2 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_r*sqrt_phot);
+    H_dis_r.set(bin[tls](3 ),prime(bin[tls](4 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](5 ),prime(bin[tls](6 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](7 ),prime(bin[tls](8 )),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](9 ),prime(bin[tls](10)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_r*sqrt_phot);
+    H_dis_r.set(bin[tls](11),prime(bin[tls](12)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](13),prime(bin[tls](14)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](15),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)), c_ggam_r*sqrt_phot);            
     }
     
     H_dis_r = delta(bin[four_l],prime(bin[four_l])) * H_dis_r;
     H_dis_l = delta(bin[one_r],prime(bin[one_r])) * H_dis_l;
     
-    
     auto H_int = H_dis_r + H_dis_l ;  //PrintData(H_int);           
     auto H_int_1  =  H_int; 
     
     auto temp_H_int_1 = prime(H_int_1);
-    auto H_int_2  = (1./2.)  * mapPrime(temp_H_int_1*H_int_1,2,1); printf("2nd-order prepared: order of H=%i.\n",order(H_int_2));  
-    auto H_int_3  = (1./3.)  * mapPrime(temp_H_int_1*H_int_2,2,1); printf("3rd-order prepared: order of H=%i.\n",order(H_int_3));
-    auto H_int_4  = (1./4.)  * mapPrime(temp_H_int_1*H_int_3,2,1); printf("4th-order prepared: order of H=%i.\n",order(H_int_4));
-    auto H_int_5  = (1./5.)  * mapPrime(temp_H_int_1*H_int_4,2,1); printf("5th-order prepared: order of H=%i.\n",order(H_int_5));
-    auto H_int_6  = (1./6.)  * mapPrime(temp_H_int_1*H_int_5,2,1); printf("6th-order prepared: order of H=%i.\n",order(H_int_6));
-    auto H_int_7  = (1./7.)  * mapPrime(temp_H_int_1*H_int_6,2,1); printf("7th-order prepared: order of H=%i.\n",order(H_int_7));
-    auto H_int_8  = (1./8.)  * mapPrime(temp_H_int_1*H_int_7,2,1); printf("8th-order prepared: order of H=%i.\n",order(H_int_8));
-    auto H_int_9  = (1./9.)  * mapPrime(temp_H_int_1*H_int_8,2,1); printf("9th-order prepared: order of H=%i.\n",order(H_int_9));
-    auto H_int_10 = (1./10.) * mapPrime(temp_H_int_1*H_int_9,2,1); printf("10th-order prepared: order of H=%i.\n",order(H_int_10));
-
-    Print(H_int);
-    
     auto temp= ITensor(bin[tls],prime(bin[tls]));
     temp.set(bin[tls](1 ),prime(bin[tls](1 )),1.);
     temp.set(bin[tls](2 ),prime(bin[tls](2 )),1.);
@@ -241,10 +240,37 @@ void MPO_NO_FB_SETUP
     temp = delta(bin[four_l],prime(bin[four_l]))*temp*delta(bin[one_r],prime(bin[one_r])); //Print(temp);  
     // now the taylor expansion of the U_evo
 
-    U_evo =   temp + H_int_1 + H_int_2 + H_int_3 
-                   + H_int_4 + H_int_5 + H_int_6 + H_int_7  + H_int_8 + H_int_9 + H_int_10 ;
-                   
-            
+        // now the taylor expansion of the U_evo
+    U_evo =   temp + H_int_1; 
+    ITensor H_int_2,H_int_3,H_int_4,H_int_5,H_int_6,H_int_7,H_int_8,H_int_9,H_int_10;
+    
+    if (U_EVO_ORDER>1){  H_int_2  = (1./2.)  * mapPrime(temp_H_int_1*H_int_1,2,1); 
+                         printf("2nd-order prepared: order of H=%i.\n",order(H_int_2));  
+                         U_evo += H_int_2;}                         
+    if (U_EVO_ORDER>2){  H_int_3  = (1./3.)  * mapPrime(temp_H_int_1*H_int_2,2,1); 
+                        printf("3rd-order prepared: order of H=%i.\n",order(H_int_3));
+                        U_evo += H_int_3;}                        
+    if (U_EVO_ORDER>3){ H_int_4  = (1./4.)  * mapPrime(temp_H_int_1*H_int_3,2,1); 
+                        printf("4th-order prepared: order of H=%i.\n",order(H_int_4));
+                        U_evo += H_int_4;}                        
+    if (U_EVO_ORDER>4){ H_int_5  = (1./5.)  * mapPrime(temp_H_int_1*H_int_4,2,1); 
+                        printf("5th-order prepared: order of H=%i.\n",order(H_int_5));
+                        U_evo += H_int_5;}                        
+    if (U_EVO_ORDER>5){ H_int_6  = (1./6.)  * mapPrime(temp_H_int_1*H_int_5,2,1); 
+                        printf("6th-order prepared: order of H=%i.\n",order(H_int_6));
+                        U_evo += H_int_6;}                        
+    if (U_EVO_ORDER>6){ H_int_7  = (1./7.)  * mapPrime(temp_H_int_1*H_int_6,2,1); 
+                        printf("7th-order prepared: order of H=%i.\n",order(H_int_7));
+                        U_evo += H_int_7;}
+    if (U_EVO_ORDER>7){ H_int_8  = (1./8.)  * mapPrime(temp_H_int_1*H_int_7,2,1); 
+                        printf("8th-order prepared: order of H=%i.\n",order(H_int_8));
+                        U_evo += H_int_8;}
+    if (U_EVO_ORDER>8){ H_int_9  = (1./9.)  * mapPrime(temp_H_int_1*H_int_8,2,1); 
+                        printf("9th-order prepared: order of H=%i.\n",order(H_int_9));
+                        U_evo += H_int_9;}
+    if (U_EVO_ORDER>9){ H_int_10 = (1./10.) * mapPrime(temp_H_int_1*H_int_9,2,1); 
+                        printf("10th-order prepared: order of H=%i.\n",order(H_int_10)); 
+                        U_evo += H_int_10;}        
                    
     return;               
 }
@@ -257,34 +283,35 @@ void MPO_NO_FB_SETUP
 // ###########################################################################################################
 void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
                int tls, int one_l, int two_l,int three_l, int four_l, int one_r, int two_r,int three_r, int four_r, int Nbin,
-               Real Gamma_l, Real Gamma_ml, Real Gamma_mr, Real Gamma_r,Real phi_l, Real phi_ml, Real phi_mr, Real phi_r, Real dt
+               Real GAM1_L,Real GAM2_L,Real GAM3_L,Real GAM4_L,Real GAM1_R,Real GAM2_R,Real GAM3_R,Real GAM4_R,
+               Real phi_l, Real phi_ml, Real phi_mr, Real phi_r, Real dt, int U_EVO_ORDER 
               )
 {
     
-    Complex   gam_l    =  -Cplx_i*Gamma_l*sqrt(dt);
-    Complex c_gam_l    =  -Cplx_i*Gamma_l*sqrt(dt);
-    Complex   gam_l_fb =  -Cplx_i*Gamma_l*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_l);
-    Complex c_gam_l_fb =  -Cplx_i*Gamma_l*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_l);
+    Complex   gam1_l =  -Cplx_i*GAM1_L*sqrt(dt);
+    Complex c_gam1_l =  -Cplx_i*GAM1_L*sqrt(dt);
+    Complex   gam1_r =  -Cplx_i*GAM1_R*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_l);
+    Complex c_gam1_r =  -Cplx_i*GAM1_R*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_l);
 
-    Complex   gam_mll_fb =  -Cplx_i*Gamma_ml*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_ml); 
-    Complex c_gam_mll_fb =  -Cplx_i*Gamma_ml*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_ml);  
-    Complex   gam_mlr_fb =  -Cplx_i*Gamma_ml*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_mr); 
-    Complex c_gam_mlr_fb =  -Cplx_i*Gamma_ml*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_mr);  
+    Complex   gam2_l =  -Cplx_i*GAM2_L*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_ml); 
+    Complex c_gam2_l =  -Cplx_i*GAM2_L*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_ml);  
+    Complex   gam2_r =  -Cplx_i*GAM2_R*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_mr); 
+    Complex c_gam2_r =  -Cplx_i*GAM2_R*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_mr);  
 
     // third atom, middle-left picks up phi*1./3. with left moving field
-    Complex   gam_mrl_fb =  -Cplx_i*Gamma_mr*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_mr); 
-    Complex c_gam_mrl_fb =  -Cplx_i*Gamma_mr*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_mr); 
+    Complex   gam3_l =  -Cplx_i*GAM3_L*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_mr); 
+    Complex c_gam3_l =  -Cplx_i*GAM3_L*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_mr); 
     // third atom, middle-right, picks up phi*2./3. with right moving field
-    Complex   gam_mrr_fb =  -Cplx_i*Gamma_mr*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_ml); 
-    Complex c_gam_mrr_fb =  -Cplx_i*Gamma_mr*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_ml);   
+    Complex   gam3_r =  -Cplx_i*GAM3_R*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_ml); 
+    Complex c_gam3_r =  -Cplx_i*GAM3_R*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_ml);   
 
-    Complex   gam_r    =  -Cplx_i*Gamma_r*sqrt(dt);
-    Complex c_gam_r    =  -Cplx_i*Gamma_r*sqrt(dt);  
-    Complex   gam_r_fb =  -Cplx_i*Gamma_r*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_r); 
-    Complex c_gam_r_fb =  -Cplx_i*Gamma_r*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_r);
+    Complex   gam4_l =  -Cplx_i*GAM4_L*sqrt(dt);
+    Complex c_gam4_l =  -Cplx_i*GAM4_L*sqrt(dt);  
+    Complex   gam4_r =  -Cplx_i*GAM4_R*sqrt(dt)*exp(-Cplx_i*3.14159265359*phi_r); 
+    Complex c_gam4_r =  -Cplx_i*GAM4_R*sqrt(dt)*exp( Cplx_i*3.14159265359*phi_r);
    
-    printf("INITIALIZE HAMILTONIAN: GAM_L  =%.3f - GAM_L_FB=%.3f - GAM_R  =%.3f - GAM_R_FB=%.3f\n",gam_l,gam_l_fb,gam_r,gam_r_fb);
-    printf("INITIALIZE HAMILTONIAN: GAM_MLL=%.3f - GAM_MLR =%.3f - GAM_MRL=%.3f - GAM_RR  =%.3f\n",gam_mll_fb,gam_mlr_fb,gam_mrl_fb,gam_mrr_fb);
+    printf("INITIALIZE HAMILTONIAN: GAM1_R=%.3f - GAM2_R=%.3f - GAM3_R=%.3f - GAM4_R=%.3f\n",gam1_r,gam2_r,gam3_r,gam4_r);
+    printf("INITIALIZE HAMILTONIAN: GAM1_L=%.3f - GAM2_L=%.3f - GAM3_L=%.3f - GAM3_L=%.3f\n",gam2_l,gam2_l,gam3_l,gam3_l);
  
     
     // two-time local interaction hamiltonians for emitter at left and right border
@@ -298,43 +325,43 @@ void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
     // -------------------------------- left atom -----------------------------------------------------------------
     // for the left atom deexcitation means -4 we go from unprimed to primed  
     //  |1><9|  + |2><10| + |3><11| + |5><13| + |7><15| + |6><14| + |4><12| + |8><16|       
-    H_dis_l.set(bin[tls](9 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);
-    H_dis_l.set(bin[tls](10),prime(bin[tls](2 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](11),prime(bin[tls](3 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](12),prime(bin[tls](4 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](13),prime(bin[tls](5 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](14),prime(bin[tls](6 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](15),prime(bin[tls](7 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);
-    H_dis_l.set(bin[tls](16),prime(bin[tls](8 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam_l*sqrt_phot);        
+    H_dis_l.set(bin[tls](9 ),prime(bin[tls](1 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam1_r*sqrt_phot);
+    H_dis_l.set(bin[tls](10),prime(bin[tls](2 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](11),prime(bin[tls](3 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](12),prime(bin[tls](4 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](13),prime(bin[tls](5 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](14),prime(bin[tls](6 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](15),prime(bin[tls](7 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam1_r*sqrt_phot);
+    H_dis_l.set(bin[tls](16),prime(bin[tls](8 )),bin[one_r](phot),prime(bin[one_r](phot+1)),gam1_r*sqrt_phot);        
     // --------------------------------------------------------------------------------------------------------
-    H_dis_l.set(bin[tls](1 ),prime(bin[tls](9 )),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);
-    H_dis_l.set(bin[tls](2 ),prime(bin[tls](10)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](3 ),prime(bin[tls](11)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](4 ),prime(bin[tls](12)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](5 ),prime(bin[tls](13)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](6 ),prime(bin[tls](14)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
-    H_dis_l.set(bin[tls](7 ),prime(bin[tls](15)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);
-    H_dis_l.set(bin[tls](8 ),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam_l*sqrt_phot);        
+    H_dis_l.set(bin[tls](1 ),prime(bin[tls](9 )),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam1_r*sqrt_phot);
+    H_dis_l.set(bin[tls](2 ),prime(bin[tls](10)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](3 ),prime(bin[tls](11)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](4 ),prime(bin[tls](12)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](5 ),prime(bin[tls](13)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](6 ),prime(bin[tls](14)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam1_r*sqrt_phot);        
+    H_dis_l.set(bin[tls](7 ),prime(bin[tls](15)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam1_r*sqrt_phot);
+    H_dis_l.set(bin[tls](8 ),prime(bin[tls](16)),bin[one_r](phot+1),prime(bin[one_r](phot)),c_gam1_r*sqrt_phot);        
     // -------------------------------- right atom ------------------------------------------------------------
     // ----------- |1><2|   + |3><4|   + |5><6| + |7><8| + |9><10|+ |11><12| + |13><14| + |15><16|   ----------    
     // -------------------------------- right atom ------------------------------------------------------------
-    H_dis_r.set(bin[tls](2 ),prime(bin[tls](1 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](4 ),prime(bin[tls](3 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](6 ),prime(bin[tls](5 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](8 ),prime(bin[tls](7 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](10),prime(bin[tls](9 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](12),prime(bin[tls](11)),bin[four_l](phot),prime(bin[four_l](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](14),prime(bin[tls](13)),bin[four_l](phot),prime(bin[four_l](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](16),prime(bin[tls](15)),bin[four_l](phot),prime(bin[four_l](phot+1)), gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](2 ),prime(bin[tls](1 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam4_l*sqrt_phot);
+    H_dis_r.set(bin[tls](4 ),prime(bin[tls](3 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](6 ),prime(bin[tls](5 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](8 ),prime(bin[tls](7 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](10),prime(bin[tls](9 )),bin[four_l](phot),prime(bin[four_l](phot+1)), gam4_l*sqrt_phot);
+    H_dis_r.set(bin[tls](12),prime(bin[tls](11)),bin[four_l](phot),prime(bin[four_l](phot+1)), gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](14),prime(bin[tls](13)),bin[four_l](phot),prime(bin[four_l](phot+1)), gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](16),prime(bin[tls](15)),bin[four_l](phot),prime(bin[four_l](phot+1)), gam4_l*sqrt_phot);        
     // ----------------------------------------------------------------------------------------------------------
-    H_dis_r.set(bin[tls](1 ),prime(bin[tls](2 )),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](3 ),prime(bin[tls](4 )),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](5 ),prime(bin[tls](6 )),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](7 ),prime(bin[tls](8 )),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](9 ),prime(bin[tls](10)),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](11),prime(bin[tls](12)),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](13),prime(bin[tls](14)),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](15),prime(bin[tls](16)),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam_r*sqrt_phot); 
+    H_dis_r.set(bin[tls](1 ),prime(bin[tls](2 )),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam4_l*sqrt_phot);
+    H_dis_r.set(bin[tls](3 ),prime(bin[tls](4 )),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](5 ),prime(bin[tls](6 )),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](7 ),prime(bin[tls](8 )),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](9 ),prime(bin[tls](10)),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam4_l*sqrt_phot);
+    H_dis_r.set(bin[tls](11),prime(bin[tls](12)),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](13),prime(bin[tls](14)),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam4_l*sqrt_phot);        
+    H_dis_r.set(bin[tls](15),prime(bin[tls](16)),bin[four_l](phot+1),prime(bin[four_l](phot)), c_gam4_l*sqrt_phot); 
     }
     
     // now bring dissipation hamiltonians into one product Hilbert space
@@ -371,119 +398,119 @@ void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
     sqrt_phot=sqrt(1.*phot);        
     // for the left atom deexcitation means -4 we go from unprimed to primed  
     //  |1><9|  + |2><10| + |3><11| + |5><13| + |7><15| + |6><14| + |4><12| + |8><16|       
-    H_fb_l.set(bin[tls](9 ),prime(bin[tls](1 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam_l_fb*sqrt_phot);
-    H_fb_l.set(bin[tls](10),prime(bin[tls](2 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](11),prime(bin[tls](3 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](12),prime(bin[tls](4 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](13),prime(bin[tls](5 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](14),prime(bin[tls](6 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](15),prime(bin[tls](7 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam_l_fb*sqrt_phot);
-    H_fb_l.set(bin[tls](16),prime(bin[tls](8 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam_l_fb*sqrt_phot);        
+    H_fb_l.set(bin[tls](9 ),prime(bin[tls](1 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam1_l*sqrt_phot);
+    H_fb_l.set(bin[tls](10),prime(bin[tls](2 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](11),prime(bin[tls](3 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](12),prime(bin[tls](4 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](13),prime(bin[tls](5 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](14),prime(bin[tls](6 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](15),prime(bin[tls](7 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam1_l*sqrt_phot);
+    H_fb_l.set(bin[tls](16),prime(bin[tls](8 )),bin[one_l](phot),prime(bin[one_l](phot+1)),gam1_l*sqrt_phot);        
     // --------------------------------------------------------------------------------------------------------
-    H_fb_l.set(bin[tls](1 ),prime(bin[tls](9 )),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam_l_fb*sqrt_phot);
-    H_fb_l.set(bin[tls](2 ),prime(bin[tls](10)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](3 ),prime(bin[tls](11)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](4 ),prime(bin[tls](12)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](5 ),prime(bin[tls](13)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](6 ),prime(bin[tls](14)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](7 ),prime(bin[tls](15)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam_l_fb*sqrt_phot);
-    H_fb_l.set(bin[tls](8 ),prime(bin[tls](16)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam_l_fb*sqrt_phot);  
+    H_fb_l.set(bin[tls](1 ),prime(bin[tls](9 )),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam1_l*sqrt_phot);
+    H_fb_l.set(bin[tls](2 ),prime(bin[tls](10)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](3 ),prime(bin[tls](11)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](4 ),prime(bin[tls](12)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](5 ),prime(bin[tls](13)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](6 ),prime(bin[tls](14)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam1_l*sqrt_phot);        
+    H_fb_l.set(bin[tls](7 ),prime(bin[tls](15)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam1_l*sqrt_phot);
+    H_fb_l.set(bin[tls](8 ),prime(bin[tls](16)),bin[one_l](phot+1),prime(bin[one_l](phot)),c_gam1_l*sqrt_phot);  
     // -------------------------------- middle left atom ------------------------------------------------------
     // ---- |1><5|   + |2><6|   + |3><7| + |4><8| + |9><13| + |10><14| + |11><15|  + |12><16| -----------------
     // ------------------- left moving field ------------------------------------------------------------------
-    H_ml_l.set(bin[tls](5 ),prime(bin[tls](1 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam_mll_fb*sqrt_phot);
-    H_ml_l.set(bin[tls](6 ),prime(bin[tls](2 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](7 ),prime(bin[tls](3 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](8 ),prime(bin[tls](4 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](13),prime(bin[tls](9 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam_mll_fb*sqrt_phot);
-    H_ml_l.set(bin[tls](14),prime(bin[tls](10)),bin[two_l](phot),prime(bin[two_l](phot+1)), gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](15),prime(bin[tls](11)),bin[two_l](phot),prime(bin[two_l](phot+1)), gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](16),prime(bin[tls](12)),bin[two_l](phot),prime(bin[two_l](phot+1)), gam_mll_fb*sqrt_phot);        
+    H_ml_l.set(bin[tls](5 ),prime(bin[tls](1 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam2_l*sqrt_phot);
+    H_ml_l.set(bin[tls](6 ),prime(bin[tls](2 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](7 ),prime(bin[tls](3 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](8 ),prime(bin[tls](4 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](13),prime(bin[tls](9 )),bin[two_l](phot),prime(bin[two_l](phot+1)), gam2_l*sqrt_phot);
+    H_ml_l.set(bin[tls](14),prime(bin[tls](10)),bin[two_l](phot),prime(bin[two_l](phot+1)), gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](15),prime(bin[tls](11)),bin[two_l](phot),prime(bin[two_l](phot+1)), gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](16),prime(bin[tls](12)),bin[two_l](phot),prime(bin[two_l](phot+1)), gam2_l*sqrt_phot);        
     // ----------------------------------------------------------------------------------------------------------
-    H_ml_l.set(bin[tls](1 ),prime(bin[tls](5 )),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam_mll_fb*sqrt_phot);
-    H_ml_l.set(bin[tls](2 ),prime(bin[tls](6 )),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](3 ),prime(bin[tls](7 )),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](4 ),prime(bin[tls](8 )),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](9 ),prime(bin[tls](13)),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam_mll_fb*sqrt_phot);
-    H_ml_l.set(bin[tls](10),prime(bin[tls](14)),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](11),prime(bin[tls](15)),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam_mll_fb*sqrt_phot);        
-    H_ml_l.set(bin[tls](12),prime(bin[tls](16)),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam_mll_fb*sqrt_phot);            
+    H_ml_l.set(bin[tls](1 ),prime(bin[tls](5 )),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam2_l*sqrt_phot);
+    H_ml_l.set(bin[tls](2 ),prime(bin[tls](6 )),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](3 ),prime(bin[tls](7 )),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](4 ),prime(bin[tls](8 )),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](9 ),prime(bin[tls](13)),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam2_l*sqrt_phot);
+    H_ml_l.set(bin[tls](10),prime(bin[tls](14)),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](11),prime(bin[tls](15)),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam2_l*sqrt_phot);        
+    H_ml_l.set(bin[tls](12),prime(bin[tls](16)),bin[two_l](phot+1),prime(bin[two_l](phot)), c_gam2_l*sqrt_phot);            
     // ------------------- right moving field ------------------------------------------------------------------
-    H_ml_r.set(bin[tls](5 ),prime(bin[tls](1 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam_mlr_fb*sqrt_phot);
-    H_ml_r.set(bin[tls](6 ),prime(bin[tls](2 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](7 ),prime(bin[tls](3 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](8 ),prime(bin[tls](4 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](13),prime(bin[tls](9 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam_mlr_fb*sqrt_phot);
-    H_ml_r.set(bin[tls](14),prime(bin[tls](10)),bin[two_r](phot),prime(bin[two_r](phot+1)), gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](15),prime(bin[tls](11)),bin[two_r](phot),prime(bin[two_r](phot+1)), gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](16),prime(bin[tls](12)),bin[two_r](phot),prime(bin[two_r](phot+1)), gam_mlr_fb*sqrt_phot);        
+    H_ml_r.set(bin[tls](5 ),prime(bin[tls](1 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam2_r*sqrt_phot);
+    H_ml_r.set(bin[tls](6 ),prime(bin[tls](2 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](7 ),prime(bin[tls](3 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](8 ),prime(bin[tls](4 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](13),prime(bin[tls](9 )),bin[two_r](phot),prime(bin[two_r](phot+1)), gam2_r*sqrt_phot);
+    H_ml_r.set(bin[tls](14),prime(bin[tls](10)),bin[two_r](phot),prime(bin[two_r](phot+1)), gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](15),prime(bin[tls](11)),bin[two_r](phot),prime(bin[two_r](phot+1)), gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](16),prime(bin[tls](12)),bin[two_r](phot),prime(bin[two_r](phot+1)), gam2_r*sqrt_phot);        
     // ----------------------------------------------------------------------------------------------------------
-    H_ml_r.set(bin[tls](1 ),prime(bin[tls](5 )),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam_mlr_fb*sqrt_phot);
-    H_ml_r.set(bin[tls](2 ),prime(bin[tls](6 )),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](3 ),prime(bin[tls](7 )),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](4 ),prime(bin[tls](8 )),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](9 ),prime(bin[tls](13)),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam_mlr_fb*sqrt_phot);
-    H_ml_r.set(bin[tls](10),prime(bin[tls](14)),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](11),prime(bin[tls](15)),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam_mlr_fb*sqrt_phot);        
-    H_ml_r.set(bin[tls](12),prime(bin[tls](16)),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam_mlr_fb*sqrt_phot);            
+    H_ml_r.set(bin[tls](1 ),prime(bin[tls](5 )),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam2_r*sqrt_phot);
+    H_ml_r.set(bin[tls](2 ),prime(bin[tls](6 )),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](3 ),prime(bin[tls](7 )),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](4 ),prime(bin[tls](8 )),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](9 ),prime(bin[tls](13)),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam2_r*sqrt_phot);
+    H_ml_r.set(bin[tls](10),prime(bin[tls](14)),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](11),prime(bin[tls](15)),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam2_r*sqrt_phot);        
+    H_ml_r.set(bin[tls](12),prime(bin[tls](16)),bin[two_r](phot+1),prime(bin[two_r](phot)), c_gam2_r*sqrt_phot);            
     // -------------------------------- middle right atom ------------------------------------------------------
     // ---- |1><5|   + |2><6|   + |3><7| + |4><8| + |9><13| + |10><14| + |11><15|  + |12><16| -----------------
     // ------------------- left moving field ------------------------------------------------------------------
-    H_mr_l.set(bin[tls](3 ),prime(bin[tls](1 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam_mrl_fb*sqrt_phot);
-    H_mr_l.set(bin[tls](4 ),prime(bin[tls](2 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](7 ),prime(bin[tls](5 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](8 ),prime(bin[tls](6 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](11),prime(bin[tls](9 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam_mrl_fb*sqrt_phot);
-    H_mr_l.set(bin[tls](12),prime(bin[tls](10)),bin[three_l](phot),prime(bin[three_l](phot+1)), gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](15),prime(bin[tls](13)),bin[three_l](phot),prime(bin[three_l](phot+1)), gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](16),prime(bin[tls](14)),bin[three_l](phot),prime(bin[three_l](phot+1)), gam_mrl_fb*sqrt_phot);        
+    H_mr_l.set(bin[tls](3 ),prime(bin[tls](1 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam3_l*sqrt_phot);
+    H_mr_l.set(bin[tls](4 ),prime(bin[tls](2 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](7 ),prime(bin[tls](5 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](8 ),prime(bin[tls](6 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](11),prime(bin[tls](9 )),bin[three_l](phot),prime(bin[three_l](phot+1)), gam3_l*sqrt_phot);
+    H_mr_l.set(bin[tls](12),prime(bin[tls](10)),bin[three_l](phot),prime(bin[three_l](phot+1)), gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](15),prime(bin[tls](13)),bin[three_l](phot),prime(bin[three_l](phot+1)), gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](16),prime(bin[tls](14)),bin[three_l](phot),prime(bin[three_l](phot+1)), gam3_l*sqrt_phot);        
     // ----------------------------------------------------------------------------------------------------------
-    H_mr_l.set(bin[tls](1 ),prime(bin[tls](3 )),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam_mrl_fb*sqrt_phot);
-    H_mr_l.set(bin[tls](2 ),prime(bin[tls](4 )),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](5 ),prime(bin[tls](7 )),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](6 ),prime(bin[tls](8 )),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](9 ),prime(bin[tls](11)),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam_mrl_fb*sqrt_phot);
-    H_mr_l.set(bin[tls](10),prime(bin[tls](12)),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](13),prime(bin[tls](15)),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam_mrl_fb*sqrt_phot);        
-    H_mr_l.set(bin[tls](14),prime(bin[tls](16)),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam_mrl_fb*sqrt_phot);            
+    H_mr_l.set(bin[tls](1 ),prime(bin[tls](3 )),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam3_l*sqrt_phot);
+    H_mr_l.set(bin[tls](2 ),prime(bin[tls](4 )),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](5 ),prime(bin[tls](7 )),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](6 ),prime(bin[tls](8 )),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](9 ),prime(bin[tls](11)),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam3_l*sqrt_phot);
+    H_mr_l.set(bin[tls](10),prime(bin[tls](12)),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](13),prime(bin[tls](15)),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam3_l*sqrt_phot);        
+    H_mr_l.set(bin[tls](14),prime(bin[tls](16)),bin[three_l](phot+1),prime(bin[three_l](phot)), c_gam3_l*sqrt_phot);            
     // -------------------------------- right moving field ------------------------------------------------------------------
-    H_mr_r.set(bin[tls](3 ),prime(bin[tls](1 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam_mrr_fb*sqrt_phot);
-    H_mr_r.set(bin[tls](4 ),prime(bin[tls](2 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](7 ),prime(bin[tls](5 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](8 ),prime(bin[tls](6 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](11),prime(bin[tls](9 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam_mrr_fb*sqrt_phot);
-    H_mr_r.set(bin[tls](12),prime(bin[tls](10)),bin[three_r](phot),prime(bin[three_r](phot+1)), gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](15),prime(bin[tls](13)),bin[three_r](phot),prime(bin[three_r](phot+1)), gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](16),prime(bin[tls](14)),bin[three_r](phot),prime(bin[three_r](phot+1)), gam_mrr_fb*sqrt_phot);        
+    H_mr_r.set(bin[tls](3 ),prime(bin[tls](1 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam3_r*sqrt_phot);
+    H_mr_r.set(bin[tls](4 ),prime(bin[tls](2 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](7 ),prime(bin[tls](5 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](8 ),prime(bin[tls](6 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](11),prime(bin[tls](9 )),bin[three_r](phot),prime(bin[three_r](phot+1)), gam3_r*sqrt_phot);
+    H_mr_r.set(bin[tls](12),prime(bin[tls](10)),bin[three_r](phot),prime(bin[three_r](phot+1)), gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](15),prime(bin[tls](13)),bin[three_r](phot),prime(bin[three_r](phot+1)), gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](16),prime(bin[tls](14)),bin[three_r](phot),prime(bin[three_r](phot+1)), gam3_r*sqrt_phot);        
     // ----------------------------------------------------------------------------------------------------------
-    H_mr_r.set(bin[tls](1 ),prime(bin[tls](3 )),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam_mrr_fb*sqrt_phot);
-    H_mr_r.set(bin[tls](2 ),prime(bin[tls](4 )),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](5 ),prime(bin[tls](7 )),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](6 ),prime(bin[tls](8 )),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](9 ),prime(bin[tls](11)),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam_mrr_fb*sqrt_phot);
-    H_mr_r.set(bin[tls](10),prime(bin[tls](12)),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](13),prime(bin[tls](15)),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam_mrr_fb*sqrt_phot);        
-    H_mr_r.set(bin[tls](14),prime(bin[tls](16)),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam_mrr_fb*sqrt_phot);
+    H_mr_r.set(bin[tls](1 ),prime(bin[tls](3 )),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam3_r*sqrt_phot);
+    H_mr_r.set(bin[tls](2 ),prime(bin[tls](4 )),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](5 ),prime(bin[tls](7 )),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](6 ),prime(bin[tls](8 )),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](9 ),prime(bin[tls](11)),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam3_r*sqrt_phot);
+    H_mr_r.set(bin[tls](10),prime(bin[tls](12)),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](13),prime(bin[tls](15)),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam3_r*sqrt_phot);        
+    H_mr_r.set(bin[tls](14),prime(bin[tls](16)),bin[three_r](phot+1),prime(bin[three_r](phot)), c_gam3_r*sqrt_phot);
     // -------------------------------- right atom ------------------------------------------------------------
     // ----------- |1><2|   + |3><4|   + |5><6| + |7><8| + |9><10|+ |11><12| + |13><14| + |15><16|   ----------    
     // -------------------------------- right atom ------------------------------------------------------------
-    H_fb_r.set(bin[tls](2 ),prime(bin[tls](1 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam_r_fb*sqrt_phot);
-    H_fb_r.set(bin[tls](4 ),prime(bin[tls](3 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](6 ),prime(bin[tls](5 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](8 ),prime(bin[tls](7 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](10),prime(bin[tls](9 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam_r_fb*sqrt_phot);
-    H_fb_r.set(bin[tls](12),prime(bin[tls](11)),bin[four_r](phot),prime(bin[four_r](phot+1)), gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](14),prime(bin[tls](13)),bin[four_r](phot),prime(bin[four_r](phot+1)), gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](16),prime(bin[tls](15)),bin[four_r](phot),prime(bin[four_r](phot+1)), gam_r_fb*sqrt_phot);        
+    H_fb_r.set(bin[tls](2 ),prime(bin[tls](1 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam4_r*sqrt_phot);
+    H_fb_r.set(bin[tls](4 ),prime(bin[tls](3 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](6 ),prime(bin[tls](5 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](8 ),prime(bin[tls](7 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](10),prime(bin[tls](9 )),bin[four_r](phot),prime(bin[four_r](phot+1)), gam4_r*sqrt_phot);
+    H_fb_r.set(bin[tls](12),prime(bin[tls](11)),bin[four_r](phot),prime(bin[four_r](phot+1)), gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](14),prime(bin[tls](13)),bin[four_r](phot),prime(bin[four_r](phot+1)), gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](16),prime(bin[tls](15)),bin[four_r](phot),prime(bin[four_r](phot+1)), gam4_r*sqrt_phot);        
     // ----------------------------------------------------------------------------------------------------------
-    H_fb_r.set(bin[tls](1 ),prime(bin[tls](2 )),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam_r_fb*sqrt_phot);
-    H_fb_r.set(bin[tls](3 ),prime(bin[tls](4 )),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](5 ),prime(bin[tls](6 )),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](7 ),prime(bin[tls](8 )),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](9 ),prime(bin[tls](10)),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam_r_fb*sqrt_phot);
-    H_fb_r.set(bin[tls](11),prime(bin[tls](12)),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](13),prime(bin[tls](14)),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam_r_fb*sqrt_phot);        
-    H_fb_r.set(bin[tls](15),prime(bin[tls](16)),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam_r_fb*sqrt_phot); 
+    H_fb_r.set(bin[tls](1 ),prime(bin[tls](2 )),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam4_r*sqrt_phot);
+    H_fb_r.set(bin[tls](3 ),prime(bin[tls](4 )),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](5 ),prime(bin[tls](6 )),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](7 ),prime(bin[tls](8 )),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](9 ),prime(bin[tls](10)),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam4_r*sqrt_phot);
+    H_fb_r.set(bin[tls](11),prime(bin[tls](12)),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](13),prime(bin[tls](14)),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam4_r*sqrt_phot);        
+    H_fb_r.set(bin[tls](15),prime(bin[tls](16)),bin[four_r](phot+1),prime(bin[four_r](phot)), c_gam4_r*sqrt_phot); 
     }
     
     H_ml_l = delta(bin[two_r],prime(bin[two_r])) * H_ml_l                                                ;
@@ -522,16 +549,7 @@ void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
     auto H_int_1  =  H_int; 
     
     auto temp_H_int_1 = prime(H_int_1);
-    auto H_int_2  = (1./2.)  * mapPrime(temp_H_int_1*H_int_1,2,1); printf("2nd-order prepared: order of H=%i.\n",order(H_int_2));  
-    auto H_int_3  = (1./3.)  * mapPrime(temp_H_int_1*H_int_2,2,1); printf("3rd-order prepared: order of H=%i.\n",order(H_int_3));
-    auto H_int_4  = (1./4.)  * mapPrime(temp_H_int_1*H_int_3,2,1); printf("4th-order prepared: order of H=%i.\n",order(H_int_4));
-    auto H_int_5  = (1./5.)  * mapPrime(temp_H_int_1*H_int_4,2,1); printf("5th-order prepared: order of H=%i.\n",order(H_int_5));
-    auto H_int_6  = (1./6.)  * mapPrime(temp_H_int_1*H_int_5,2,1); printf("6th-order prepared: order of H=%i.\n",order(H_int_6));
-    auto H_int_7  = (1./7.)  * mapPrime(temp_H_int_1*H_int_6,2,1); printf("7th-order prepared: order of H=%i.\n",order(H_int_7));
-    auto H_int_8  = (1./8.)  * mapPrime(temp_H_int_1*H_int_7,2,1); printf("8th-order prepared: order of H=%i.\n",order(H_int_8));
-    auto H_int_9  = (1./9.)  * mapPrime(temp_H_int_1*H_int_8,2,1); printf("9th-order prepared: order of H=%i.\n",order(H_int_9));
-    auto H_int_10 = (1./10.) * mapPrime(temp_H_int_1*H_int_9,2,1); printf("10th-order prepared: order of H=%i.\n",order(H_int_10)); //*/
-
+    
     auto temp= ITensor(bin[tls],prime(bin[tls]));
     temp.set(bin[tls](1 ),prime(bin[tls](1 )),1.);
     temp.set(bin[tls](2 ),prime(bin[tls](2 )),1.);
@@ -557,9 +575,37 @@ void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
     temp = delta(bin[three_l],prime(bin[three_l]))*temp*delta(bin[three_r],prime(bin[three_r]));
 
     // now the taylor expansion of the U_evo
-    U_evo =   temp + H_int_1 + H_int_2 + H_int_3 + H_int_4 + H_int_5 + H_int_6
-                   + H_int_7  + H_int_8 + H_int_9 + H_int_10 
-                   ;
+    U_evo =   temp + H_int_1;// + H_int_2 + H_int_3 + H_int_4 + H_int_5 + H_int_6 + H_int_7  + H_int_8 + H_int_9 + H_int_10; 
+    ITensor H_int_2,H_int_3,H_int_4,H_int_5,H_int_6,H_int_7,H_int_8,H_int_9,H_int_10;
+    
+    if (U_EVO_ORDER>1){  H_int_2  = (1./2.)  * mapPrime(temp_H_int_1*H_int_1,2,1); 
+                         printf("2nd-order prepared: order of H=%i.\n",order(H_int_2));  
+                         U_evo += H_int_2;}                         
+    if (U_EVO_ORDER>2){  H_int_3  = (1./3.)  * mapPrime(temp_H_int_1*H_int_2,2,1); 
+                        printf("3rd-order prepared: order of H=%i.\n",order(H_int_3));
+                        U_evo += H_int_3;}                        
+    if (U_EVO_ORDER>3){ H_int_4  = (1./4.)  * mapPrime(temp_H_int_1*H_int_3,2,1); 
+                        printf("4th-order prepared: order of H=%i.\n",order(H_int_4));
+                        U_evo += H_int_4;}                        
+    if (U_EVO_ORDER>4){ H_int_5  = (1./5.)  * mapPrime(temp_H_int_1*H_int_4,2,1); 
+                        printf("5th-order prepared: order of H=%i.\n",order(H_int_5));
+                        U_evo += H_int_5;}                        
+    if (U_EVO_ORDER>5){ H_int_6  = (1./6.)  * mapPrime(temp_H_int_1*H_int_5,2,1); 
+                        printf("6th-order prepared: order of H=%i.\n",order(H_int_6));
+                        U_evo += H_int_6;}                        
+    if (U_EVO_ORDER>6){ H_int_7  = (1./7.)  * mapPrime(temp_H_int_1*H_int_6,2,1); 
+                        printf("7th-order prepared: order of H=%i.\n",order(H_int_7));
+                        U_evo += H_int_7;}
+    if (U_EVO_ORDER>7){ H_int_8  = (1./8.)  * mapPrime(temp_H_int_1*H_int_7,2,1); 
+                        printf("8th-order prepared: order of H=%i.\n",order(H_int_8));
+                        U_evo += H_int_8;}
+    if (U_EVO_ORDER>8){ H_int_9  = (1./9.)  * mapPrime(temp_H_int_1*H_int_8,2,1); 
+                        printf("9th-order prepared: order of H=%i.\n",order(H_int_9));
+                        U_evo += H_int_9;}
+    if (U_EVO_ORDER>9){ H_int_10 = (1./10.) * mapPrime(temp_H_int_1*H_int_9,2,1); 
+                        printf("10th-order prepared: order of H=%i.\n",order(H_int_10)); 
+                        U_evo += H_int_10;}
+
                    
     return;               
 }
@@ -737,16 +783,21 @@ auto input = InputGroup(argv[1],"input");
 Real dt = input.getReal("time_step");
 // maximum number of time steps
 int t_end = input.getInt("time_end");
-Real Gamma_l  = input.getReal("Gamma_l"); //Gamma_l = Gamma_l*sqrt(dt);
-Real Gamma_ml = input.getReal("Gamma_ml"); //Gamma_m = Gamma_m*sqrt(dt);
-Real Gamma_mr = input.getReal("Gamma_mr"); //Gamma_m = Gamma_m*sqrt(dt);
-Real Gamma_r  = input.getReal("Gamma_r"); //Gamma_r = Gammm_r*sqrt(dt);
+Real GAM1_L  = input.getReal("Gamma_atom1_left");  
+Real GAM2_L  = input.getReal("Gamma_atom2_left");  
+Real GAM3_L  = input.getReal("Gamma_atom3_left");  
+Real GAM4_L  = input.getReal("Gamma_atom4_left");  
+Real GAM1_R  = input.getReal("Gamma_atom1_right");   
+Real GAM2_R  = input.getReal("Gamma_atom2_right"); 
+Real GAM3_R  = input.getReal("Gamma_atom3_right");  
+Real GAM4_R  = input.getReal("Gamma_atom4_right"); 
 //dimension of local Hilbert space of each bin
 int Nbin = input.getInt("Nbin",4); 
 //cutoff of schmidt values
 Real cutoff = input.getReal("svdcutoff");
 //maximal number of schmidtvalues 
-int maxm = input.getInt("maxnumberofSV");    
+int maxm = input.getInt("maxnumberofSV");
+int U_EVO_ORDER = input.getInt("U_EVO_ORDER");
 int fb  = input.getInt("fb");
 int Nfb = 2*(fb+fb+fb); // size of array is twice because of left and right moving photons and one feedback loop 
 int ttotal = 2*t_end+Nfb; printf("Total Number of time bins: %i\n",ttotal);
@@ -882,7 +933,7 @@ ITensor BdgB;
 if (Nfb>3) // fb>1 between the emitter
 {
 
-MPO_SETUP(U_evo,bin,tls,one_l,two_l,three_l,four_l,one_r,two_r,three_r,four_r,Nbin,Gamma_l,Gamma_ml,Gamma_mr,Gamma_r,phi_l,phi_ml,phi_mr,phi_r,dt);
+MPO_SETUP(U_evo,bin,tls,one_l,two_l,three_l,four_l,one_r,two_r,three_r,four_r,Nbin,GAM1_L,GAM2_L,GAM3_L,GAM4_L,GAM1_R,GAM2_R,GAM3_R,GAM4_R,phi_l,phi_ml,phi_mr,phi_r,dt,U_EVO_ORDER);
 
 for(int m=0;m<t_end;m++)
 {   
@@ -897,9 +948,10 @@ for(int m=0;m<t_end;m++)
 
     // --- Status and File output ----------------------------------------------------------------------------------------
     sum_l +=l_out; sum_r += r_out;
-    printf("Step %i of %i: norm=%.10f  -- ",m,t_end,mps_norm);
-    printf("pop_l=%.10f -- pop_ml=%.10f -- pop_mr=%.10f -- pop_r=%.10f -- PROB=%.5f",pop1,pop2,pop3,pop4,Prob[20]); 
-    //printf("l_out=%.10f -- r_out=%.10f -- Sum_Out=%.2f ",l_out,r_out,sum_l+sum_r); 
+    printf("Step %i of %i: norm=%.10f ",m,t_end,mps_norm);
+    printf("-- pop_l=%.5f -- pop_ml=%.5f -- pop_mr=%.5f -- pop_r=%.5f",pop1,pop2,pop3,pop4); 
+    printf("-- l_out=%.5f -- r_out=%.5f",l_out,r_out); 
+    printf("-- Sum_Out=%.2f ",sum_l+sum_r); 
     printf("\n");
     fprintf(file,"%.10f \t %.10f \t %.10f \t %.10f \t %.10f \n",m*dt,pop1,pop2,pop3,pop4);
     fflush(file); 
@@ -1017,7 +1069,7 @@ for(int m=0;m<t_end;m++)
 if (Nfb==0)
 {
     
-MPO_NO_FB_SETUP(U_evo,bin,tls,four_l,Nbin,Gamma_l,Gamma_ml,Gamma_mr,Gamma_r,dt,phi_l,phi_ml,phi_mr,phi_r);
+MPO_NO_FB_SETUP(U_evo,bin,tls,four_l,Nbin,GAM1_L,GAM2_L,GAM3_L,GAM4_L,GAM1_R,GAM2_R,GAM3_R,GAM4_R,phi_l,phi_ml,phi_mr,phi_r,dt,U_EVO_ORDER);
  
 for(int m=0;m<t_end;m++)
 {   
@@ -1026,8 +1078,8 @@ for(int m=0;m<t_end;m++)
     // --- Status and File output ----------------------------------------------------------------------------------------
     sum_l +=l_out; sum_r += r_out;
     printf("Step %i of %i: norm=%.10f  -- ",m,t_end,mps_norm);
-    printf("pop_l=%.6f -- pop_ml=%.6f -- pop_mr=%.6f -- pop_r=%.10f --",pop1,pop2,pop3,pop4); 
-    printf("l_out=%.10f -- r_out=%.10f -- Sum_Out=%.2f ",l_out,r_out,sum_l+sum_r); 
+    printf("pop_l=%.6f -- pop_ml=%.6f -- pop_mr=%.6f -- pop_r=%.6f --",pop1,pop2,pop3,pop4); 
+    printf("l_out=%.6f -- r_out=%.6f -- Sum_Out=%.6f ",l_out,r_out,sum_l+sum_r); 
     printf("\n");
     fprintf(file,"%.10f \t %.10f \t %.10f \t %.10f \t %.10f \t %.10f \n",m*dt,pop1,pop2,pop3,pop4,mps_norm);
     fflush(file); 
