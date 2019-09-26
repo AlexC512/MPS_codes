@@ -32,6 +32,8 @@ void MPO_NO_FB_SETUP
     auto H_dis_l  = ITensor(bin[tls],prime(bin[tls]),bin[l_now],prime(bin[l_now]));
     auto H_dis_r  = ITensor(bin[tls],prime(bin[tls]),bin[r_now],prime(bin[r_now]));
 
+    printf("INITIALIZE HAMILTONIAN: GAM_L=%.10f - GAM_M=%.10f - GAM_R=%.10f \n",gam_l,gam_m,gam_r);
+    
     double sqrt_phot=1.;
     for( int phot=1;phot<Nbin;phot++)
     {    
@@ -208,26 +210,26 @@ void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
     H_dis_ml.set(bin[tls](2),prime(bin[tls](4)),bin[l_middle](phot+1),prime(bin[l_middle](phot)), c_gam_ml_fb*sqrt_phot);        
     H_dis_ml.set(bin[tls](1),prime(bin[tls](3)),bin[l_middle](phot+1),prime(bin[l_middle](phot)), c_gam_ml_fb*sqrt_phot); 
     // middle atom interation hamiltonian ... photons in time bins are created ... setting the location x zero
-    H_dis_mr.set(bin[tls](8),prime(bin[tls](6)),bin[r_middle](phot),prime(bin[r_middle](phot+1)), gam_mr_fb*sqrt_phot);
-    H_dis_mr.set(bin[tls](7),prime(bin[tls](5)),bin[r_middle](phot),prime(bin[r_middle](phot+1)), gam_mr_fb*sqrt_phot);        
-    H_dis_mr.set(bin[tls](4),prime(bin[tls](2)),bin[r_middle](phot),prime(bin[r_middle](phot+1)), gam_mr_fb*sqrt_phot);        
-    H_dis_mr.set(bin[tls](3),prime(bin[tls](1)),bin[r_middle](phot),prime(bin[r_middle](phot+1)), gam_mr_fb*sqrt_phot);        
+    H_dis_mr.set(bin[tls](8),prime(bin[tls](6)),bin[r_middle](phot),prime(bin[r_middle](phot+1)), 1.*gam_mr_fb*sqrt_phot);
+    H_dis_mr.set(bin[tls](7),prime(bin[tls](5)),bin[r_middle](phot),prime(bin[r_middle](phot+1)), 1.*gam_mr_fb*sqrt_phot);        
+    H_dis_mr.set(bin[tls](4),prime(bin[tls](2)),bin[r_middle](phot),prime(bin[r_middle](phot+1)), 1.*gam_mr_fb*sqrt_phot);        
+    H_dis_mr.set(bin[tls](3),prime(bin[tls](1)),bin[r_middle](phot),prime(bin[r_middle](phot+1)), 1.*gam_mr_fb*sqrt_phot);        
     // interaction with right moving field
-    H_dis_mr.set(bin[tls](6),prime(bin[tls](8)),bin[r_middle](phot+1),prime(bin[r_middle](phot)), c_gam_mr_fb*sqrt_phot);
-    H_dis_mr.set(bin[tls](5),prime(bin[tls](7)),bin[r_middle](phot+1),prime(bin[r_middle](phot)), c_gam_mr_fb*sqrt_phot);        
-    H_dis_mr.set(bin[tls](2),prime(bin[tls](4)),bin[r_middle](phot+1),prime(bin[r_middle](phot)), c_gam_mr_fb*sqrt_phot);        
-    H_dis_mr.set(bin[tls](1),prime(bin[tls](3)),bin[r_middle](phot+1),prime(bin[r_middle](phot)), c_gam_mr_fb*sqrt_phot); 
+    H_dis_mr.set(bin[tls](6),prime(bin[tls](8)),bin[r_middle](phot+1),prime(bin[r_middle](phot)), 1.*c_gam_mr_fb*sqrt_phot);
+    H_dis_mr.set(bin[tls](5),prime(bin[tls](7)),bin[r_middle](phot+1),prime(bin[r_middle](phot)), 1.*c_gam_mr_fb*sqrt_phot);        
+    H_dis_mr.set(bin[tls](2),prime(bin[tls](4)),bin[r_middle](phot+1),prime(bin[r_middle](phot)), 1.*c_gam_mr_fb*sqrt_phot);        
+    H_dis_mr.set(bin[tls](1),prime(bin[tls](3)),bin[r_middle](phot+1),prime(bin[r_middle](phot)), 1.*c_gam_mr_fb*sqrt_phot); 
     // -------------------------------- right atom -----------------------------------------------------------------
     // for the left atom deexcitation means -4 we go from unprimed to primed    
-    H_dis_r.set(bin[tls](8),prime(bin[tls](7)),bin[r_now](phot),prime(bin[r_now](phot+1)), gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](6),prime(bin[tls](5)),bin[r_now](phot),prime(bin[r_now](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](4),prime(bin[tls](3)),bin[r_now](phot),prime(bin[r_now](phot+1)), gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](2),prime(bin[tls](1)),bin[r_now](phot),prime(bin[r_now](phot+1)), gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](8),prime(bin[tls](7)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_r*sqrt_phot);
+    H_dis_r.set(bin[tls](6),prime(bin[tls](5)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](4),prime(bin[tls](3)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](2),prime(bin[tls](1)),bin[r_now](phot),prime(bin[r_now](phot+1)), 1.*gam_r*sqrt_phot);        
     // for the left atom excitation means +4
-    H_dis_r.set(bin[tls](7),prime(bin[tls](8)),bin[r_now](phot+1),prime(bin[r_now](phot)), c_gam_r*sqrt_phot);
-    H_dis_r.set(bin[tls](5),prime(bin[tls](6)),bin[r_now](phot+1),prime(bin[r_now](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](3),prime(bin[tls](4)),bin[r_now](phot+1),prime(bin[r_now](phot)), c_gam_r*sqrt_phot);        
-    H_dis_r.set(bin[tls](1),prime(bin[tls](2)),bin[r_now](phot+1),prime(bin[r_now](phot)), c_gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](7),prime(bin[tls](8)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_r*sqrt_phot);
+    H_dis_r.set(bin[tls](5),prime(bin[tls](6)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](3),prime(bin[tls](4)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_r*sqrt_phot);        
+    H_dis_r.set(bin[tls](1),prime(bin[tls](2)),bin[r_now](phot+1),prime(bin[r_now](phot)), 1.*c_gam_r*sqrt_phot);        
     }
     
     // now bring dissipation hamiltonians into one product Hilbert space
@@ -256,15 +258,15 @@ void MPO_SETUP(ITensor& U_evo, const std::vector<Index>& bin,
     for( int phot=1;phot<Nbin;phot++)
     {   
     sqrt_phot=sqrt(1.*phot);        
-    H_fb_l.set(bin[tls](8),prime(bin[tls](4)),bin[r_past](phot),prime(bin[r_past](phot+1)), gam_l_fb*sqrt_phot);
-    H_fb_l.set(bin[tls](7),prime(bin[tls](3)),bin[r_past](phot),prime(bin[r_past](phot+1)), gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](6),prime(bin[tls](2)),bin[r_past](phot),prime(bin[r_past](phot+1)), gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](5),prime(bin[tls](1)),bin[r_past](phot),prime(bin[r_past](phot+1)), gam_l_fb*sqrt_phot);        
+    H_fb_l.set(bin[tls](8),prime(bin[tls](4)),bin[r_past](phot),prime(bin[r_past](phot+1)), 1.*gam_l_fb*sqrt_phot);
+    H_fb_l.set(bin[tls](7),prime(bin[tls](3)),bin[r_past](phot),prime(bin[r_past](phot+1)), 1.*gam_l_fb*sqrt_phot);        
+    H_fb_l.set(bin[tls](6),prime(bin[tls](2)),bin[r_past](phot),prime(bin[r_past](phot+1)), 1.*gam_l_fb*sqrt_phot);        
+    H_fb_l.set(bin[tls](5),prime(bin[tls](1)),bin[r_past](phot),prime(bin[r_past](phot+1)), 1.*gam_l_fb*sqrt_phot);        
     // the adjoint left atom interaction hamiltonian
-    H_fb_l.set(bin[tls](4),prime(bin[tls](8)),bin[r_past](phot+1),prime(bin[r_past](phot)), c_gam_l_fb*sqrt_phot);
-    H_fb_l.set(bin[tls](3),prime(bin[tls](7)),bin[r_past](phot+1),prime(bin[r_past](phot)), c_gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](2),prime(bin[tls](6)),bin[r_past](phot+1),prime(bin[r_past](phot)), c_gam_l_fb*sqrt_phot);        
-    H_fb_l.set(bin[tls](1),prime(bin[tls](5)),bin[r_past](phot+1),prime(bin[r_past](phot)), c_gam_l_fb*sqrt_phot);                
+    H_fb_l.set(bin[tls](4),prime(bin[tls](8)),bin[r_past](phot+1),prime(bin[r_past](phot)), 1.*c_gam_l_fb*sqrt_phot);
+    H_fb_l.set(bin[tls](3),prime(bin[tls](7)),bin[r_past](phot+1),prime(bin[r_past](phot)), 1.*c_gam_l_fb*sqrt_phot);        
+    H_fb_l.set(bin[tls](2),prime(bin[tls](6)),bin[r_past](phot+1),prime(bin[r_past](phot)), 1.*c_gam_l_fb*sqrt_phot);        
+    H_fb_l.set(bin[tls](1),prime(bin[tls](5)),bin[r_past](phot+1),prime(bin[r_past](phot)), 1.*c_gam_l_fb*sqrt_phot);                
     // time non-local field ... 
     H_fb_r.set(bin[tls](8),prime(bin[tls](7)),bin[l_past](phot),prime(bin[l_past](phot+1)), gam_r_fb*sqrt_phot);
     H_fb_r.set(bin[tls](6),prime(bin[tls](5)),bin[l_past](phot),prime(bin[l_past](phot+1)), gam_r_fb*sqrt_phot);        
@@ -559,7 +561,8 @@ Real phi_l  = input.getReal("phi_l");
 Real phi_ml = input.getReal("phi_ml");    
 Real phi_mr = input.getReal("phi_mr");    
 Real phi_r  = input.getReal("phi_r"); 
-if (INDIVIDUAL_PHASE_CHOICE == 0) { phi_l=phi; phi_r=phi; phi_ml = l_fb*phi/(l_fb+r_fb); phi_mr = r_fb*phi/(l_fb+r_fb); }
+if ( (Nfb>0) && (INDIVIDUAL_PHASE_CHOICE == 0) ) 
+{ phi_l=phi; phi_r=phi; phi_ml = l_fb*phi/(l_fb+r_fb); phi_mr = r_fb*phi/(l_fb+r_fb); }
 // ----------------------------------------------------------------------------------
 // --------------------- PREPARE OUTPUT FILE ----------------------------------------
 // ----------------------------------------------------------------------------------
@@ -891,6 +894,8 @@ for(int m=0;m<t_end;m++)
     fprintf(f_prob,"%.10f \t",Prob[2]);fprintf(f_prob,"%.10f \t",Prob[3]);fprintf(f_prob,"%.10f \t",Prob[5]); 
     fprintf(f_prob,"%.10f \t",Prob[4]);fprintf(f_prob,"%.10f \t",Prob[6]);fprintf(f_prob,"%.10f \t",Prob[7]); 
     fprintf(f_prob,"%.10f \t",Prob[8]);
+    fprintf(f_prob,"%.10f \t",sum_l+sum_r);
+    fprintf(f_prob,"%.10f \t %.10f \t",sum_l,sum_r);
     fprintf(f_prob,"%.10f \t %.10f \t",l_out,r_out);
     fprintf(f_prob,"\n");
     fflush(f_prob);

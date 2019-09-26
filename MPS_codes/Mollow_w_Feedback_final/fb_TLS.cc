@@ -88,7 +88,7 @@ printf("Date: %d.%d.%.d -- Time: %d:%d:%d  \n",day,month+1,year,hour,minute,seco
     int ttotal = t_end + Nfb;
     int SHOW_PROGRESS =1;
     int SAVE_EVERY_STEP = 1; 
-    if (ttotal>1000) { SHOW_PROGRESS=100; SAVE_EVERY_STEP=ttotal/10; }
+    if (ttotal>1000) { SHOW_PROGRESS=100; SAVE_EVERY_STEP=ttotal/100; }
     
     Real init_22 = input.getReal("init_excited_state"); 
     Real init_11 = input.getReal("init_ground_state"); 
@@ -374,6 +374,9 @@ for(int i=0;i<=SpectrumSteps;i++)
      fprintf(file,"%.10f \t %.10f \t %.10f \t %.10f \n",om,spectrum[i].real(),spectrum[i].imag(),bath_g2[i].real()/g2_norm);
 }
 fclose(file);
+
+
+printf("tau=%.5f -- Steady State Pop = %.10f\n",dt*Nfb,(1./(1.+Gamma*Gamma*dt*Nfb))*(1./(1.+Gamma*Gamma*dt*Nfb)));
 
 return 0;
 }
